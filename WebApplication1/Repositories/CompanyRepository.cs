@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using WebApplication1.Domain;
+using WebApplication1.Repositories.DbContext;
 using ISession = NHibernate.ISession;
 
 namespace NHibernateTestBlog

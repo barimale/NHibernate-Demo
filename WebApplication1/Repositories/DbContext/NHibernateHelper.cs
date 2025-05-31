@@ -6,7 +6,7 @@ using WebApplication1.Conventions;
 using WebApplication1.Domain;
 using ISession = NHibernate.ISession;
 
-namespace NHibernateTestBlog
+namespace WebApplication1.Repositories.DbContext
 {
     public class NHibernateHelper : INHibernateHelper, IDisposable
     {

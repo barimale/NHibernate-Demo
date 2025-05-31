@@ -1,27 +1,29 @@
 ﻿using NHibernate;
+using NHibernate.Criterion;
 using WebApplication1.Domain;
+using WebApplication1.Repositories.DbContext;
 using ISession = NHibernate.ISession;
 
 namespace NHibernateTestBlog
 {
-    public interface IAddressRepository
+    public interface IProductRepository
     {
-        Task<int> Add(Address product);
-        Task Update(Address product);
-        Task Remove(Address product);
-        Task<Address> GetById(int addressId);
-        Task<Address> GetByName(string name);
+        Task<int> Add(Product product);
+        Task Update(Product product);
+        Task Remove(Product product);
+        Task<Product> GetById(int productId);
+        Task<Product> GetByName(string name);
     }
 
-    public class AddressRepository : IAddressRepository
+    public class ProductRepository : IProductRepository 
     {
         private readonly INHibernateHelper _nHibernateHelper;
-        public AddressRepository(INHibernateHelper nHibernateHelper)
+        public ProductRepository(INHibernateHelper nHibernateHelper)
         {
             _nHibernateHelper = nHibernateHelper;
         }
 
-        public async Task<int> Add(Address product)
+        public async Task<int> Add(Product product)
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
@@ -33,7 +35,7 @@ namespace NHibernateTestBlog
             }
         }
         
-        public async Task Update(Address product) 
+        public async Task Update(Product product) 
         {
             using (ISession session = _nHibernateHelper.OpenSession()) 
             using (ITransaction transaction = session.BeginTransaction()) 
@@ -43,7 +45,7 @@ namespace NHibernateTestBlog
             }
         }
 
-        public async Task Remove(Address product) 
+        public async Task Remove(Product product) 
         {
             using (ISession session = _nHibernateHelper.OpenSession()) 
             using (ITransaction transaction = session.BeginTransaction()) 
@@ -53,21 +55,21 @@ namespace NHibernateTestBlog
             }
         } 
         
-        public async Task<Address> GetById(int productId) 
+        public async Task<Product> GetById(int productId) 
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
-                return await session.GetAsync<Address>(productId);
+                return await session.GetAsync<Product>(productId);
             }
         }
 
-        public async Task<Address> GetByName(string name)
+        public async Task<Product> GetByName(string name)
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
                 // Corrected to use QueryOver for LINQ-like querying
-                Address product = await session.QueryOver<Address>()
-                    .Where(p => p.Country == name)
+                Product product = await session.QueryOver<Product>()
+                    .Where(p => p.Name == name)
                     .SingleOrDefaultAsync();
 
                 return product;

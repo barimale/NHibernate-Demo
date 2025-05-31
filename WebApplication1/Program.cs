@@ -1,4 +1,5 @@
 using NHibernateTestBlog;
+using WebApplication1.Repositories.DbContext;
 
 namespace WebApplication1
 {
