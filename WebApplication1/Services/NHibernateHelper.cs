@@ -2,6 +2,7 @@
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
+using WebApplication1.Conventions;
 using WebApplication1.Domain;
 using ISession = NHibernate.ISession;
 
@@ -36,8 +37,8 @@ namespace NHibernateTestBlog
                                 .Driver<NHibernate.Driver.OracleManagedDataClientDriver>())
                             .Mappings(m =>
                             {
-                                m.FluentMappings.Add<ProductTypeMap>();
-                                m.FluentMappings.Add<ProductMap>();
+                                m.FluentMappings.Add<ProductTypeMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                                m.FluentMappings.Add<ProductMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
                             })
 #if DEBUG
                             // Remove SchemaExport in production; use only for development/testing

@@ -15,7 +15,7 @@ namespace WebApplication1.Domain
     {
         public ProductMap()
         {
-            Table("Product");
+            //Table("Product")/*;*/
             Id(u => u.Id).GeneratedBy.Increment().Not.Nullable();
             Map(u => u.Name).Length(50).Nullable();
             Map(u => u.Category).Length(50).Nullable();
