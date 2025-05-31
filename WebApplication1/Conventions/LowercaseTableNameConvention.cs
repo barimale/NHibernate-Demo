@@ -5,9 +5,10 @@ namespace WebApplication1.Conventions
 {
     public class LowercaseTableNameConvention : IClassConvention
     {
+        public static string TablePrefix = "tbl_"; // Prefix for table names
         public void Apply(IClassInstance instance)
         {
-            instance.Table("tbl_" + instance.EntityType.Name);
+            instance.Table(TablePrefix + instance.EntityType.Name);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using WebApplication1.Conventions;
 
 namespace WebApplication1.Domain
 {
@@ -28,7 +29,7 @@ namespace WebApplication1.Domain
             Map(x => x.Country).Length(50).Nullable();
             // Define the relationship with AddressCompany
             HasMany(x => x.Companies)
-                .Table("AddressCompany")
+                .Table(LowercaseTableNameConvention.TablePrefix + "AddressCompany")
                 .KeyColumn("AddressId")
                 .Inverse()
                 .Cascade.All();

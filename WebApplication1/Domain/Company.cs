@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using WebApplication1.Conventions;
 
 namespace WebApplication1.Domain
 {
@@ -15,7 +16,7 @@ namespace WebApplication1.Domain
             //Table("Company")/*;*/
             Id(x => x.Id).GeneratedBy.Increment().Not.Nullable();
             HasMany(x => x.Addresses)
-                .Table("AddressCompany")
+                .Table(LowercaseTableNameConvention.TablePrefix + "AddressCompany")
                 .KeyColumn("CompanyId")
                 .Inverse()
                 .Cascade.All();
