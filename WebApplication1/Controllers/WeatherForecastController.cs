@@ -8,11 +8,6 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IProductRepository productRepository;
 
@@ -24,7 +19,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<WeatherForecast>> GetAsync()
+        public async Task<int> GetAsync()
         {
             var product = new Product
             {
@@ -33,18 +28,11 @@ namespace WebApplication1.Controllers
                 Discontinued = false
             };
 
-            await productRepository.Add(product);
+            var result = await productRepository.Add(product);
 
             _logger.LogInformation("Product added: {ProductName}", product.Name);
 
-
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return result;
         }
     }
 }

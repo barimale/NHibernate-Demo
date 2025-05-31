@@ -1,6 +1,4 @@
 ﻿using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Criterion;
 using WebApplication1.Domain;
 using ISession = NHibernate.ISession;
 
@@ -28,7 +26,7 @@ namespace NHibernateTestBlog
             using (ISession session = _nHibernateHelper.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
-                var result = await session.SaveAsync(product); 
+                var result = await session.SaveAsync(product);
                 await transaction.CommitAsync();
 
                 return (int)result;
