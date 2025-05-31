@@ -43,7 +43,12 @@ namespace NHibernateTestBlog
                                 })
 #if DEBUG
                                 // Remove SchemaExport in production; use only for development/testing
-                                .ExposeConfiguration(cfg => new SchemaExport(cfg).Execute(false, false, false))
+                                .ExposeConfiguration(cfg => new SchemaExport(cfg)
+                                    .Execute(false, false, false))
+#else
+                                .ExposeConfiguration(cfg => new SchemaExport(cfg)
+                                    .SetOutputFile("schema.sql")
+                                    .Execute(false, false, false))
 #endif
                                 .BuildSessionFactory();
                         }
