@@ -30,28 +30,26 @@ namespace NHibernateTestBlog
                 {
                     lock (_lock)
                     {
-                        if (_sessionFactory == null)
-                        {
-                            _sessionFactory = Fluently.Configure()
-                                .Database(OracleManagedDataClientConfiguration.Oracle10
-                                    .ConnectionString(_connectionString)
-                                    .Driver<NHibernate.Driver.OracleManagedDataClientDriver>())
-                                .Mappings(m =>
-                                {
-                                    m.FluentMappings.Add<ProductTypeMap>();
-                                    m.FluentMappings.Add<ProductMap>();
-                                })
+                        _sessionFactory = Fluently.Configure()
+                            .Database(OracleManagedDataClientConfiguration.Oracle10
+                                .ConnectionString(_connectionString)
+                                .Driver<NHibernate.Driver.OracleManagedDataClientDriver>())
+                            .Mappings(m =>
+                            {
+                                m.FluentMappings.Add<ProductTypeMap>();
+                                m.FluentMappings.Add<ProductMap>();
+                            })
 #if DEBUG
-                                // Remove SchemaExport in production; use only for development/testing
-                                .ExposeConfiguration(cfg => new SchemaExport(cfg)
-                                    .Execute(false, false, false))
+                            // Remove SchemaExport in production; use only for development/testing
+                            .ExposeConfiguration(cfg => new SchemaExport(cfg)
+                                .Execute(false, false, false))
 #else
-                                .ExposeConfiguration(cfg => new SchemaExport(cfg)
-                                    .SetOutputFile("schema.sql")
-                                    .Execute(false, false, false))
+                            .ExposeConfiguration(cfg => new SchemaExport(cfg)
+                                .SetOutputFile("schema.sql")
+                                .SetDelimiter(";")
+                                .Execute(false, false, false))
 #endif
-                                .BuildSessionFactory();
-                        }
+                            .BuildSessionFactory();
                     }
                 }
                 return _sessionFactory;
