@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> GetAsync()
         {
             var product = new Product
             {
@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
                 Discontinued = false
             };
 
-            productRepository.Add(product);
+            await productRepository.Add(product);
 
             _logger.LogInformation("Product added: {ProductName}", product.Name);
 

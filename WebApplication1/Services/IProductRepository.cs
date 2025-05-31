@@ -8,11 +8,11 @@ namespace NHibernateTestBlog
 {
     public interface IProductRepository
     {
-        void Add(Product product);
-        void Update(Product product);
-        void Remove(Product product);
-        Product GetById(int productId);
-        Product GetByName(string name);
+        Task<int> Add(Product product);
+        Task Update(Product product);
+        Task Remove(Product product);
+        Task<Product> GetById(int productId);
+        Task<Product> GetByName(string name);
     }
 
     public class ProductRepository : IProductRepository 
@@ -23,54 +23,55 @@ namespace NHibernateTestBlog
             _nHibernateHelper = nHibernateHelper;
         }
 
-        public void Add(Product product)
+        public async Task<int> Add(Product product)
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Save(product); 
-                transaction.Commit();
+                var result = await session.SaveAsync(product); 
+                await transaction.CommitAsync();
+
+                return (int)result;
             }
         }
         
-        public void Update(Product product) 
+        public async Task Update(Product product) 
         {
             using (ISession session = _nHibernateHelper.OpenSession()) 
             using (ITransaction transaction = session.BeginTransaction()) 
             { 
-                session.Update(product); 
-                transaction.Commit(); 
+                await session.UpdateAsync(product); 
+                await transaction.CommitAsync(); 
             }
         }
 
-        public void Remove(Product product) 
+        public async Task Remove(Product product) 
         {
             using (ISession session = _nHibernateHelper.OpenSession()) 
             using (ITransaction transaction = session.BeginTransaction()) 
             { 
-                session.Delete(product); 
-                transaction.Commit(); 
+                await session.DeleteAsync(product); 
+                await transaction.CommitAsync(); 
             }
         } 
         
-        public Product GetById(int productId) 
+        public async Task<Product> GetById(int productId) 
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
-                return session.Get<Product>(productId);
+                return await session.GetAsync<Product>(productId);
             }
         }
 
-        public Product GetByName(string name)
+        public async Task<Product> GetByName(string name)
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
-                // WIP modify to LINQ
-                Product product = session
-                    .CreateCriteria(typeof(Product))
-                    .Add(Restrictions.Eq("Name", name))
-                    .UniqueResult<Product>();
-                
+                // Corrected to use QueryOver for LINQ-like querying
+                Product product = await session.QueryOver<Product>()
+                    .Where(p => p.Name == name)
+                    .SingleOrDefaultAsync();
+
                 return product;
             }
         }
