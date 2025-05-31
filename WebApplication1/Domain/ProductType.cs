@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Data;
+using FluentNHibernate.Mapping;
 
 namespace WebApplication1.Domain
 {
