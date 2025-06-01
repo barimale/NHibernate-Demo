@@ -12,15 +12,11 @@ namespace WebApplication1.Repositories.DbContext
     {
         private static readonly object _lock = new();
         private ISessionFactory? _sessionFactory;
-        private readonly IConfiguration _configuration;
-        private readonly string _connectionString;
         private bool _disposed;
 
-        public InMemoryNHibernateHelper(IConfiguration configuration)
+        public InMemoryNHibernateHelper()
         {
-            _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("OracleDB")
-                ?? throw new InvalidOperationException("Connection string 'OracleDB' not found.");
+            //intentionally left blank
         }
 
         private ISessionFactory SessionFactory
@@ -55,9 +51,8 @@ namespace WebApplication1.Repositories.DbContext
                 });
             fluentConfig.ExposeConfiguration(cfg =>
                            new SchemaExport(cfg)
-                               .SetOutputFile("schema.sql")
-                               .SetDelimiter(";")
-                               .Execute(false, false, false));
+                               //.SetOutputFile("schema.sql")
+                               .Execute(true, true, true));
             return fluentConfig.BuildSessionFactory();
         }
 
