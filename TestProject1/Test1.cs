@@ -2,7 +2,6 @@
 using NHibernate;
 using WebApplication1.Domain;
 using WebApplication1.Repositories.DbContext;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace TestProject1
 {
