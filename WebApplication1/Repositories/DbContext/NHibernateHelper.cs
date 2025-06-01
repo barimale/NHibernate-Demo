@@ -19,7 +19,7 @@ namespace WebApplication1.Repositories.DbContext
         public NHibernateHelper(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("OracleDB") 
+            _connectionString = _configuration.GetConnectionString("OracleDB")
                 ?? throw new InvalidOperationException("Connection string 'OracleDB' not found.");
         }
 
@@ -31,33 +31,43 @@ namespace WebApplication1.Repositories.DbContext
                 {
                     lock (_lock)
                     {
-                        _sessionFactory = Fluently.Configure()
-                            .Database(OracleManagedDataClientConfiguration.Oracle10
-                                .ConnectionString(_connectionString)
-                                .Driver<NHibernate.Driver.OracleManagedDataClientDriver>())
-                            .Mappings(m =>
-                            {
-                                m.FluentMappings.Add<ProductTypeMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                                m.FluentMappings.Add<ProductMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                                m.FluentMappings.Add<AddressMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                                m.FluentMappings.Add<CompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                                m.FluentMappings.Add<AddressCompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                            })
-#if DEBUG
-                            // Remove SchemaExport in production; use only for development/testing
-                            .ExposeConfiguration(cfg => new SchemaExport(cfg)
-                                .Execute(false, false, false))
-#else
-                            .ExposeConfiguration(cfg => new SchemaExport(cfg)
-                                .SetOutputFile("schema.sql")
-                                .SetDelimiter(";")
-                                .Execute(false, false, false))
-#endif
-                            .BuildSessionFactory();
+                        if (_sessionFactory == null)
+                        {
+                            _sessionFactory = BuildSessionFactory();
+                        }
                     }
                 }
                 return _sessionFactory;
             }
+        }
+
+        private ISessionFactory BuildSessionFactory()
+        {
+            var fluentConfig = Fluently.Configure()
+                .Database(OracleManagedDataClientConfiguration.Oracle10
+                    .ConnectionString(_connectionString)
+                    .Driver<NHibernate.Driver.OracleManagedDataClientDriver>())
+                .Mappings(m =>
+                {
+                    m.FluentMappings.Add<ProductTypeMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<ProductMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<AddressMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<CompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<AddressCompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                });
+
+#if DEBUG
+            fluentConfig.ExposeConfiguration(cfg =>
+                new SchemaExport(cfg).Execute(false, false, false));
+#else
+            fluentConfig.ExposeConfiguration(cfg =>
+                new SchemaExport(cfg)
+                    .SetOutputFile("schema.sql")
+                    .SetDelimiter(";")
+                    .Execute(false, false, false));
+#endif
+
+            return fluentConfig.BuildSessionFactory();
         }
 
         public ISession OpenSession()
