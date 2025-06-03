@@ -40,7 +40,7 @@ namespace WebApplication1.Repositories.DbContext
         private ISessionFactory BuildSessionFactory()
         {
             var fluentConfig = Fluently.Configure()
-                .Database(SQLiteConfiguration.Standard.InMemory().ShowSql())
+                .Database(SQLiteConfiguration.Standard.InMemory())
                 .Mappings(m =>
                 {
                     m.FluentMappings.Add<ProductTypeMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
@@ -52,7 +52,7 @@ namespace WebApplication1.Repositories.DbContext
             fluentConfig.ExposeConfiguration(cfg =>
                            new SchemaExport(cfg)
                                //.SetOutputFile("schema.sql")
-                               .Execute(true, true, true));
+                               .Execute(true, true, false));
             return fluentConfig.BuildSessionFactory();
         }
 

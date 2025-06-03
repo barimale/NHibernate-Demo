@@ -1,0 +1,1 @@
+Add-FluentMigration InitialMigration

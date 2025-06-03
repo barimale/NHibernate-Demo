@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "foo.Migrator": {
+      "commandName": "Project",
+      "commandLineArgs": "-c \"Data Source = localhost:1521/XE; User ID = SYS; Password = Password_123#; DBA Privilege = SYSDBA\""
+    }
+  }
+}
