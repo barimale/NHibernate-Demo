@@ -8,9 +8,9 @@ namespace Migrations.Migrations
         public override void Up()
         {
             Create.Table("Categories")
-                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey()
+                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
                  .WithColumn("Name").AsString();
-            Execute.Sql("INSERT INTO Categories SELECT DISTINCT Category FROM Products");
+            //Execute.Sql("INSERT INTO Categories SELECT DISTINCT Category FROM Products");
             Alter.Table("Products")
             .AddColumn("CategoryId")
             .AsInt32()

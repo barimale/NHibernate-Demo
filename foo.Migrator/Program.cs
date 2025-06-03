@@ -41,7 +41,7 @@ namespace FluentMigratorExample.Migrator
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
-                    .AddOracleManaged()
+                    .AddOracle12CManaged()
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(InitialMigration).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole().AddNLog())
