@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using CommandLine;
-using FluentMigrator;
+﻿using CommandLine;
 using FluentMigrator.Runner;
-using FluentMigrator.Runner.Announcers;
-using FluentMigrator.Runner.Initialization;
-using FluentMigratorExample.Migrator;
 using Microsoft.Extensions.DependencyInjection;
 using Migrations.Migrations;
 using NLog.Extensions.Logging;
