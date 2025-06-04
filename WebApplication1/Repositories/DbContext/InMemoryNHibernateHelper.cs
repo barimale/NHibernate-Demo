@@ -12,7 +12,7 @@ namespace WebApplication1.Repositories.DbContext
 {
     public class InMemoryNHibernateHelper : INHibernateHelper, IDisposable
     {
-        private string connectionString = "Data Source=:memory:;Version=3;New=True;";
+        private string connectionString = "Data Source=:memory:;Mode=Memory;Cache=Shared;Database=CustomDatabaseName;";
         private static readonly object _lock = new();
         private ISessionFactory? _sessionFactory;
         private bool _disposed;
