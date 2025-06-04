@@ -14,7 +14,7 @@ namespace WebApplication1
             builder.Services.AddControllers();
 
             builder.Services.AddTransient<IProductRepository, ProductRepository>();
-            builder.Services.AddTransient<INHibernateHelper, InMemoryNHibernateHelper>();
+            builder.Services.AddTransient<INHibernateHelper, NHibernateHelper>();
 
             var app = builder.Build();
 

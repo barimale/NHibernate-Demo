@@ -1,7 +1,10 @@
-﻿using FluentNHibernate.Cfg;
+﻿using FluentMigrator.Runner;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Migrations.Migrations;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
+using NLog.Extensions.Logging;
 using WebApplication1.Conventions;
 using WebApplication1.Domain;
 using ISession = NHibernate.ISession;
@@ -58,7 +61,18 @@ namespace WebApplication1.Repositories.DbContext
 
 #if DEBUG
             fluentConfig.ExposeConfiguration(cfg =>
-                new SchemaExport(cfg).Execute(false, false, false));
+            {
+                var serviceProvider = CreateServices(_connectionString);
+
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    UpdateDatabase(scope.ServiceProvider, null);
+                }
+                //new SchemaExport(cfg)
+                //    //.SetOutputFile("schema.sql")
+                //    //UpdateDatabase
+                //    .Execute(true, true, false);
+            });
 #else
             fluentConfig.ExposeConfiguration(cfg =>
                 new SchemaExport(cfg)
@@ -83,5 +97,31 @@ namespace WebApplication1.Repositories.DbContext
                 _disposed = true;
             }
         }
+        private static IServiceProvider CreateServices(string connectionString)
+        {
+            return new ServiceCollection()
+                .AddFluentMigratorCore()
+                .ConfigureRunner(rb => rb
+                    .AddOracle12CManaged()
+                    .WithGlobalConnectionString(connectionString)
+                    .ScanIn(typeof(InitialMigration).Assembly).For.Migrations())
+                .AddLogging(lb => lb.AddFluentMigratorConsole().AddNLog())
+                .BuildServiceProvider(true);
+        }
+
+        private static void UpdateDatabase(IServiceProvider serviceProvider, long? version)
+        {
+            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+
+            if (version.HasValue)
+            {
+                runner.MigrateDown(version.Value);
+            }
+            else
+            {
+                runner.MigrateUp();
+            }
+        }
+
     }
 }
