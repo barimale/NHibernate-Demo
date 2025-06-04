@@ -1,7 +1,9 @@
-﻿using FluentNHibernate.Cfg;
+﻿using FluentMigrator.Runner;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Migrations.Migrations;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
+using NLog.Extensions.Logging;
 using WebApplication1.Conventions;
 using WebApplication1.Domain;
 using ISession = NHibernate.ISession;
@@ -10,6 +12,7 @@ namespace WebApplication1.Repositories.DbContext
 {
     public class InMemoryNHibernateHelper : INHibernateHelper, IDisposable
     {
+        private string connectionString = "Data Source=:memory:;Version=3;New=True;";
         private static readonly object _lock = new();
         private ISessionFactory? _sessionFactory;
         private bool _disposed;
@@ -40,7 +43,7 @@ namespace WebApplication1.Repositories.DbContext
         private ISessionFactory BuildSessionFactory()
         {
             var fluentConfig = Fluently.Configure()
-                .Database(SQLiteConfiguration.Standard.InMemory())
+                .Database(SQLiteConfiguration.Standard.InMemory().ConnectionString(connectionString))
                 .Mappings(m =>
                 {
                     m.FluentMappings.Add<ProductTypeMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
@@ -50,11 +53,19 @@ namespace WebApplication1.Repositories.DbContext
                     m.FluentMappings.Add<AddressCompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
                 });
             fluentConfig.ExposeConfiguration(cfg =>
-                           new SchemaExport(cfg)
-                               //.SetOutputFile("schema.sql")
-                               //UpdateDatabase
-                               .Execute(true, true, false));
-                        
+            {
+                var serviceProvider = CreateServices(connectionString);
+
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    UpdateDatabase(scope.ServiceProvider, null);
+                }
+                //new SchemaExport(cfg)
+                //    //.SetOutputFile("schema.sql")
+                //    //UpdateDatabase
+                //    .Execute(true, true, false);
+            });
+
             return fluentConfig.BuildSessionFactory();
         }
 
@@ -69,6 +80,32 @@ namespace WebApplication1.Repositories.DbContext
             {
                 _sessionFactory?.Dispose();
                 _disposed = true;
+            }
+        }
+
+        private static IServiceProvider CreateServices(string connectionString)
+        {
+            return new ServiceCollection()
+                .AddFluentMigratorCore()
+                .ConfigureRunner(rb => rb
+                    .AddSQLite()
+                    .WithGlobalConnectionString(connectionString)
+                    .ScanIn(typeof(InitialMigration).Assembly).For.Migrations())
+                .AddLogging(lb => lb.AddFluentMigratorConsole().AddNLog())
+                .BuildServiceProvider(true);
+        }
+
+        private static void UpdateDatabase(IServiceProvider serviceProvider, long? version)
+        {
+            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+
+            if (version.HasValue)
+            {
+                runner.MigrateDown(version.Value);
+            }
+            else
+            {
+                runner.MigrateUp();
             }
         }
     }
