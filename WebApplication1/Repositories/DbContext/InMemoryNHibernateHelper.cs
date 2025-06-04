@@ -52,7 +52,9 @@ namespace WebApplication1.Repositories.DbContext
             fluentConfig.ExposeConfiguration(cfg =>
                            new SchemaExport(cfg)
                                //.SetOutputFile("schema.sql")
+                               //UpdateDatabase
                                .Execute(true, true, false));
+                        
             return fluentConfig.BuildSessionFactory();
         }
 
