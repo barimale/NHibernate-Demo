@@ -36,14 +36,18 @@ namespace TestProject1
 
             // Act:
             object result;
+            Product retrievedProduct;
             using (ISession session = _nHibernateHelper.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
                 result = session.Save(product);
                 transaction.Commit();
+                retrievedProduct = session.Get<Product>(result);
             }
             // Assert: 
             Assert.IsNotNull(result);
+            Assert.IsNotNull(retrievedProduct);
+
         }
     }
 }
