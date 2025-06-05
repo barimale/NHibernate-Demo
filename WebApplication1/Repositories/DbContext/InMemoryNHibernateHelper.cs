@@ -6,6 +6,7 @@ using Migrations.Migrations;
 using NHibernate;
 using NLog.Extensions.Logging;
 using WebApplication1.Domain;
+using WebApplication1.Repositories.DbContext.Drivers;
 using ISession = NHibernate.ISession;
 
 namespace WebApplication1.Repositories.DbContext
@@ -47,6 +48,7 @@ namespace WebApplication1.Repositories.DbContext
                     .InMemory()
                     .ConnectionString(_connectionString)
                     .Driver<NHibernate.Driver.SQLite20Driver>()
+                    .Provider<SQLiteConnectionProviderWithForeignKeys>()
                     .Dialect<NHibernate.Dialect.SQLiteDialect>())
                 .Mappings(m =>
                 {
