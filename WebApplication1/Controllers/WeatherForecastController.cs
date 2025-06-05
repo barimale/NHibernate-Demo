@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
             {
                 Name = "Sample Product",
                 Category = "Sample Category",
-                Discontinued = false
+                Discontinued = true
             };
 
             var result = await productRepository.Add(product);

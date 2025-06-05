@@ -16,7 +16,6 @@ namespace WebApplication1.Domain
         public ProductMap()
         {
             //Table("Product")/*;*/
-            // WIP add if TEST here
 #if TEST
             Id(u => u.Id).GeneratedBy.Identity();
 #else
