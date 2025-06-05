@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
 
-namespace WebApplication1.Conventions
+namespace Migrations.Conventions
 {
     public class LowercaseTableNameConvention : IClassConvention
     {

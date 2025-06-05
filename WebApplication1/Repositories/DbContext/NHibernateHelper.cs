@@ -1,11 +1,11 @@
 ﻿using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Migrations.Conventions;
 using Migrations.Migrations;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using NLog.Extensions.Logging;
-using WebApplication1.Conventions;
 using WebApplication1.Domain;
 using ISession = NHibernate.ISession;
 

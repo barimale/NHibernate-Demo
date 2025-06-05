@@ -39,8 +39,8 @@ namespace TestProject1
             using (ISession session = _nHibernateHelper.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
-                result = await session.SaveAsync(product);
-                await transaction.CommitAsync();
+                result = session.Save(product);
+                transaction.Commit();
             }
             // Assert: 
             Assert.IsNotNull(result);

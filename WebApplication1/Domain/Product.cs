@@ -16,7 +16,7 @@ namespace WebApplication1.Domain
         public ProductMap()
         {
             //Table("Product")/*;*/
-            Id(u => u.Id).GeneratedBy.TriggerIdentity().Not.Nullable();
+            Id(u => u.Id).GeneratedBy.TriggerIdentity();
             Map(u => u.Name).Length(50).Nullable();
             Map(u => u.Category).Length(50).Nullable();
             Map(u => u.Discontinued).Nullable();

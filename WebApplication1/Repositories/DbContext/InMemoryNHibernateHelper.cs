@@ -1,10 +1,10 @@
 ﻿using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Migrations.Conventions;
 using Migrations.Migrations;
 using NHibernate;
 using NLog.Extensions.Logging;
-using WebApplication1.Conventions;
 using WebApplication1.Domain;
 using ISession = NHibernate.ISession;
 
@@ -12,7 +12,7 @@ namespace WebApplication1.Repositories.DbContext
 {
     public class InMemoryNHibernateHelper : INHibernateHelper, IDisposable
     {
-        private string connectionString = "Data Source=:memory:;Mode=Memory;Cache=Shared;Database=CustomDatabaseName;";
+        private string _connectionString = "Data Source=:memory:;Mode=Memory;Cache=Shared;Database=CustomDatabaseName;";
         private static readonly object _lock = new();
         private ISessionFactory? _sessionFactory;
         private bool _disposed;
@@ -43,7 +43,11 @@ namespace WebApplication1.Repositories.DbContext
         private ISessionFactory BuildSessionFactory()
         {
             var fluentConfig = Fluently.Configure()
-                .Database(SQLiteConfiguration.Standard.InMemory().ConnectionString(connectionString))
+                .Database(SQLiteConfiguration.Standard
+                    .InMemory()
+                    .ConnectionString(_connectionString)
+                    .Driver<NHibernate.Driver.SQLite20Driver>()
+                    .Dialect<NHibernate.Dialect.SQLiteDialect>())
                 .Mappings(m =>
                 {
                     m.FluentMappings.Add<ProductTypeMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
@@ -54,16 +58,12 @@ namespace WebApplication1.Repositories.DbContext
                 });
             fluentConfig.ExposeConfiguration(cfg =>
             {
-                var serviceProvider = CreateServices(connectionString);
+                var serviceProvider = CreateServices(_connectionString);
 
                 using (var scope = serviceProvider.CreateScope())
                 {
                     UpdateDatabase(scope.ServiceProvider, null);
                 }
-                //new SchemaExport(cfg)
-                //    //.SetOutputFile("schema.sql")
-                //    //UpdateDatabase
-                //    .Execute(true, true, false);
             });
 
             return fluentConfig.BuildSessionFactory();

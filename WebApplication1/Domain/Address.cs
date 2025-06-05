@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using WebApplication1.Conventions;
+using Migrations.Conventions;
 
 namespace WebApplication1.Domain
 {
