@@ -21,6 +21,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public async Task<int> GetAsync()
         {
+
             var product = new Product
             {
                 Name = "Sample Product",

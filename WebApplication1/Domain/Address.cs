@@ -12,7 +12,7 @@ namespace WebApplication1.Domain
         public virtual string ZipCode { get; set; }
         public virtual string Country { get; set; }
         public virtual string Phone { get; set; }
-        public virtual IList<AddressCompany> Companies { get; set; }
+        public virtual IList<Company> Companies { get; set; } = new List<Company>();
 
     }
 

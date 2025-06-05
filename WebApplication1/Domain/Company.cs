@@ -6,7 +6,7 @@ namespace WebApplication1.Domain
     public class Company
     {
         public virtual int Id { get; set; }
-        public virtual IList<AddressCompany> Addresses { get; set; }    
+        public virtual IList<Address> Addresses { get; set; } = new List<Address>();
     }
 
     public class CompanyMap : ClassMap<Company>

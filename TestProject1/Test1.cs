@@ -24,7 +24,7 @@ namespace TestProject1
         }
 
         [TestMethod]
-        public async Task TestMethod1()
+        public async Task AddProduct()
         {
             // Arrange:
             var product = new Product
@@ -47,6 +47,34 @@ namespace TestProject1
             // Assert: 
             Assert.IsNotNull(result);
             Assert.IsNotNull(retrievedProduct);
+
+        }
+
+        [TestMethod]
+        public async Task AddManyToMany()
+        {
+            // Arrange:
+            var address = new Address { Street = "John Doe" };
+            var company = new Company { };
+
+            // Act:
+            AddressCompany result;
+            using (ISession session = _nHibernateHelper.OpenSession())
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                address.Companies.Add(company);
+                company.Addresses.Add(address);
+
+                // Save entities
+                session.Save(address);
+                session.Save(company);
+
+                transaction.Commit();
+                result = session.Get<AddressCompany>(1);
+
+            }
+            // Assert: 
+            Assert.IsNotNull(result);
 
         }
     }
