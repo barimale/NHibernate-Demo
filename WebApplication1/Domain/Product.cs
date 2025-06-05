@@ -16,7 +16,12 @@ namespace WebApplication1.Domain
         public ProductMap()
         {
             //Table("Product")/*;*/
+            // WIP add if TEST here
+#if TEST
+            Id(u => u.Id).GeneratedBy.Identity();
+#else
             Id(u => u.Id).GeneratedBy.TriggerIdentity();
+#endif
             Map(u => u.Name).Length(50).Nullable();
             Map(u => u.Category).Length(50).Nullable();
             Map(u => u.Discontinued).Nullable();

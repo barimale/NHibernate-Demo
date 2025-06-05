@@ -102,7 +102,7 @@ namespace WebApplication1.Repositories.DbContext
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
-                    .AddOracle12CManaged()
+                    .AddOracleManaged()
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(InitialMigration).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole().AddNLog())
