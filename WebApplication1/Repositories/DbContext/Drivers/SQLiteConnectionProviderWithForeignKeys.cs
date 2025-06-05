@@ -1,4 +1,5 @@
 ﻿using NHibernate.Connection;
+using System.Data;
 using System.Data.Common;
 
 namespace WebApplication1.Repositories.DbContext.Drivers
@@ -14,6 +15,12 @@ namespace WebApplication1.Repositories.DbContext.Drivers
                 command.ExecuteNonQuery();
             }
             return connection;
+        }
+
+        public override void CloseConnection(DbConnection connection)
+
+        {
+            base.CloseConnection(connection);
         }
     }
 }

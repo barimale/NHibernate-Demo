@@ -6,6 +6,8 @@ namespace WebApplication1.Domain
     public class Company
     {
         public virtual int Id { get; set; }
+        public virtual string Foo { get; set; }
+
         public virtual IList<Address> Addresses { get; set; } = new List<Address>();
     }
 
@@ -14,9 +16,10 @@ namespace WebApplication1.Domain
         public CompanyMap()
         {
             //Table("Company")/*;*/
-            Id(x => x.Id).GeneratedBy.Increment().Not.Nullable();
+            Id(x => x.Id).GeneratedBy.TriggerIdentity();
+            Map(x => x.Foo).Length(50).Nullable();
             HasMany(x => x.Addresses)
-                .Table(LowercaseTableNameConvention.TablePrefix + "AddressCompany")
+                .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress")
                 .KeyColumn("CompanyId")
                 .Inverse()
                 .Cascade.All();

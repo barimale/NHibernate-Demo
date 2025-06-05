@@ -12,11 +12,12 @@ namespace Migrations.Migrations
         public override void Up()
         {
             Create.Table(LowercaseTableNameConvention.TablePrefix + NAME)
+                            //.WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
+
             .WithColumn("CompanyId").AsInt32().NotNullable()
             .WithColumn("AddressId").AsInt32().NotNullable()
             .WithColumn("Description").AsString().NotNullable()
             .WithColumn("CreationDate").AsDateTime2().NotNullable();
-
 
             Create.PrimaryKey("PK_CompanyAddress").OnTable(LowercaseTableNameConvention.TablePrefix + NAME)
             .Columns("CompanyId", "AddressId");

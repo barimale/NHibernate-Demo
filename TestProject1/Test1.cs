@@ -14,7 +14,7 @@ namespace TestProject1
         {
             var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.Development.json", optional: false);
             var _config = builder.Build();
-            _nHibernateHelper = new InMemoryNHibernateHelper();
+            _nHibernateHelper = new NHibernateHelper(_config);
         }
 
         [ClassInitialize]
@@ -51,14 +51,77 @@ namespace TestProject1
         }
 
         [TestMethod]
+        public async Task AddAddress()
+        {
+            // Arrange:
+            var product = new Address
+            {
+                City = "Sample Product",
+                Country = "Sample Category",
+                Street = "dsa",
+                State = "state",
+                ZipCode = "zipcode",
+                Phone = "phone"
+            };
+
+            // Act:
+            object result;
+            Address retrievedProduct;
+            using (ISession session = _nHibernateHelper.OpenSession())
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                result = session.Save(product);
+                transaction.Commit();
+                retrievedProduct = session.Get<Address>(result);
+            }
+            // Assert: 
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(retrievedProduct);
+
+        }
+
+        [TestMethod]
+        public async Task AddCompany()
+        {
+            // Arrange:
+            var product = new Company
+            {
+                Foo = "Sample Company"
+            };
+
+            // Act:
+            object result;
+            Company retrievedProduct;
+            using (ISession session = _nHibernateHelper.OpenSession())
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                result = session.Save(product);
+                transaction.Commit();
+                retrievedProduct = session.Get<Company>(result);
+            }
+            // Assert: 
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(retrievedProduct);
+
+        }
+
+        [TestMethod]
         public async Task AddManyToMany()
         {
             // Arrange:
-            var address = new Address { Street = "John Doe" };
-            var company = new Company { };
+                var address = new Address
+            {
+                City = "Sample Product",
+                Country = "Sample Category",
+                Street = "dsa",
+                State = "state",
+                ZipCode = "zipcode",
+                Phone = "phone"
+            };
+            var company = new Company { Foo = "city" };
 
             // Act:
-            AddressCompany result;
+            CompanyAddress result;
             using (ISession session = _nHibernateHelper.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
@@ -70,7 +133,7 @@ namespace TestProject1
                 session.Save(company);
 
                 transaction.Commit();
-                result = session.Get<AddressCompany>(1);
+                result = session.Get<CompanyAddress>(1);
 
             }
             // Assert: 

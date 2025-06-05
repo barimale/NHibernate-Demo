@@ -10,7 +10,8 @@ namespace Migrations.Migrations
         public override void Up()
         {
             Create.Table(LowercaseTableNameConvention.TablePrefix + NAME)
-            .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity();
+            .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
+            .WithColumn("Foo").AsString().Nullable();
         }
 
         public override void Down()

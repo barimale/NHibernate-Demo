@@ -66,7 +66,7 @@ namespace NHibernateTestBlog
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
-                var subquery = QueryOver.Of<AddressCompany>()
+                var subquery = QueryOver.Of<CompanyAddress>()
                     .Where(c => c.CreationDate > new DateTime(2000, 1, 1))
                     .Select(c => c.Company.Id);
 

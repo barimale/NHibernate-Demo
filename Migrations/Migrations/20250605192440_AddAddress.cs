@@ -10,12 +10,12 @@ namespace Migrations.Migrations
         {
             Create.Table(LowercaseTableNameConvention.TablePrefix + "Address")
              .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-             .WithColumn("Street").AsString()
-             .WithColumn("City").AsString()
-             .WithColumn("State").AsString()
-             .WithColumn("ZipCode").AsString()
-             .WithColumn("Country").AsString()
-             .WithColumn("Phone").AsString();
+             .WithColumn("Street").AsString().Nullable()
+             .WithColumn("City").AsString().Nullable()
+             .WithColumn("State").AsString().Nullable()
+             .WithColumn("ZipCode").AsString().Nullable()
+             .WithColumn("Country").AsString().Nullable()
+             .WithColumn("Phone").AsString().Nullable();
         }
 
         public override void Down()

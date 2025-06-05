@@ -21,15 +21,16 @@ namespace WebApplication1.Domain
         public AddressMap()
         {
             //Table("Address")/*;*/
-            Id(x => x.Id).GeneratedBy.Increment().Not.Nullable();
+            Id(x => x.Id).GeneratedBy.TriggerIdentity();
             Map(x => x.Street).Length(100).Nullable();
             Map(x => x.City).Length(50).Nullable();
             Map(x => x.State).Length(50).Nullable();
             Map(x => x.ZipCode).Length(20).Nullable();
             Map(x => x.Country).Length(50).Nullable();
+            Map(x => x.Phone).Length(50).Nullable();
             // Define the relationship with AddressCompany
             HasMany(x => x.Companies)
-                .Table(LowercaseTableNameConvention.TablePrefix + "AddressCompany")
+                .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress")
                 .KeyColumn("AddressId")
                 .Inverse()
                 .Cascade.All();

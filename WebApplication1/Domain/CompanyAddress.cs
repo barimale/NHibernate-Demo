@@ -2,7 +2,7 @@
 
 namespace WebApplication1.Domain
 {
-    public class AddressCompany
+    public class CompanyAddress
     {
         public virtual int Id { get; set; }
         // the relation to both sides
@@ -14,14 +14,15 @@ namespace WebApplication1.Domain
         public virtual DateTime CreationDate { get; set; }
     }
 
-    public class AddressCompanyMap : ClassMap<AddressCompany>
+    public class AddressCompanyMap : ClassMap<CompanyAddress>
     {
         public AddressCompanyMap()
         {
             //Table("AddressCompany")/*;*/
-            Id(x => x.Id).GeneratedBy.Increment().Not.Nullable();
-            Id(x => x.Address.Id).GeneratedBy.Increment().Not.Nullable();
-            Id(x => x.Company.Id).GeneratedBy.Increment().Not.Nullable();
+            Id(x => x.Id).GeneratedBy.TriggerIdentity();
+            // WIP maybe trigered...
+            Id(x => x.Address.Id).GeneratedBy.TriggerIdentity().Not.Nullable();
+            Id(x => x.Company.Id).GeneratedBy.TriggerIdentity().Not.Nullable();
             Map(x => x.Description).Length(200).Nullable();
             Map(x => x.CreationDate).Not.Nullable();
             
