@@ -129,9 +129,15 @@ namespace TestProject1
                 company.Addresses.Add(address);
 
                 // Save entities
-                session.Save(address);
-                session.Save(company);
-
+                var addresId = session.Save(address);
+                var companyId = session.Save(company);
+                var caid = session.Save(new CompanyAddress()
+                {
+                    Description = "aaa",
+                    Company = company,
+                    Address = address,
+                    CreationDate = DateTime.Now,
+                });
                 transaction.Commit();
                 result = session.Get<CompanyAddress>(1);
 
