@@ -118,7 +118,7 @@ namespace TestProject1
         }
 
         [TestMethod]
-        public async Task AddManyToMany()
+        public async Task AddOneToManyTwice()
         {
             // Arrange:
                 var address = new Address
@@ -152,6 +152,41 @@ namespace TestProject1
                 });
                 transaction.Commit();
                 result = session.Get<CompanyAddress>(caid);
+
+            }
+            // Assert: 
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task AddManyToMany()
+        {
+            // Arrange:
+            var address = new Address2
+            {
+                City = "Sample Product",
+                Country = "Sample Category",
+                Street = "dsa",
+                State = "state",
+                ZipCode = "zipcode",
+                Phone = "phone"
+            };
+            var company = new Company2 { Foo = "city" };
+
+            // Act:
+            CompanyAddress2 result;
+            using (ISession session = _nHibernateHelper.OpenSession())
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                address.Companies.Add(company);
+                company.Addresses.Add(address);
+
+                // Save entities
+                var addresId = session.Save(address);
+                var companyId = session.Save(company);
+               
+                transaction.Commit();
+                result = session.Get<CompanyAddress2>(1);
 
             }
             // Assert: 
