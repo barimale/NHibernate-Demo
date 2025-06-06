@@ -69,6 +69,7 @@ namespace NHibernateTestBlog
                 // Corrected to use QueryOver for LINQ-like querying
                 Address product = await session.QueryOver<Address>()
                     .Where(p => p.Country == name)
+                    .Fetch(SelectMode.Fetch, x => x.Companies) // Eagerly fetch related Companies
                     .SingleOrDefaultAsync();
 
                 return product;

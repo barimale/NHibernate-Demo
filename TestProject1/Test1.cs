@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentNHibernate.Testing;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using NHibernate;
 using WebApplication1.Domain;
 using WebApplication1.Repositories.DbContext;
@@ -103,6 +105,16 @@ namespace TestProject1
             Assert.IsNotNull(result);
             Assert.IsNotNull(retrievedProduct);
 
+        }
+
+        [TestMethod]
+        public void Product_persistence_test()
+        {
+            using (ISession session = _nHibernateHelper.OpenSession())
+            new PersistenceSpecification<Product>(session)
+              .CheckProperty(p => p.Name, "Product Name")
+              .CheckProperty(p => p.Category, "Category Name")
+              .VerifyTheMappings();
         }
 
         [TestMethod]

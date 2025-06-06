@@ -1,4 +1,5 @@
-﻿using NHibernate.Connection;
+﻿using FirebirdSql.Data.FirebirdClient;
+using NHibernate.Connection;
 using System.Data;
 using System.Data.Common;
 
@@ -6,6 +7,9 @@ namespace WebApplication1.Repositories.DbContext.Drivers
 {
     public class SQLiteConnectionProviderWithForeignKeys : NHibernate.Connection.DriverConnectionProvider
     {
+        [ThreadStatic]
+        private static IDbConnection _connection;
+
         public override DbConnection GetConnection()
         {
             var connection = base.GetConnection();
@@ -21,6 +25,13 @@ namespace WebApplication1.Repositories.DbContext.Drivers
 
         {
             base.CloseConnection(connection);
+        }
+
+        public static void CloseDatabase()
+        {
+            if (_connection != null)
+                _connection.Dispose();
+            _connection = null;
         }
     }
 }
