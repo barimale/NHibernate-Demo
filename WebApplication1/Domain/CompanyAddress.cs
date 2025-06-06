@@ -20,7 +20,6 @@ namespace WebApplication1.Domain
         {
             //Table("AddressCompany")/*;*/
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
-            // WIP maybe trigered...
             Id(x => x.Address.Id).GeneratedBy.TriggerIdentity().Not.Nullable();
             Id(x => x.Company.Id).GeneratedBy.TriggerIdentity().Not.Nullable();
             Map(x => x.Description).Length(200).Nullable();
