@@ -139,7 +139,7 @@ namespace TestProject1
                     CreationDate = DateTime.Now,
                 });
                 transaction.Commit();
-                result = session.Get<CompanyAddress>(1);
+                result = session.Get<CompanyAddress>(caid);
 
             }
             // Assert: 
