@@ -14,7 +14,7 @@ namespace TestProject1
         {
             var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.Development.json", optional: false);
             var _config = builder.Build();
-            _nHibernateHelper = new InMemoryNHibernateHelper();
+            _nHibernateHelper = new NHibernateHelper(_config);
         }
 
         [ClassInitialize]
