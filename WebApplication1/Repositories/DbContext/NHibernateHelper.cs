@@ -57,6 +57,9 @@ namespace WebApplication1.Repositories.DbContext
                     m.FluentMappings.Add<AddressMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
                     m.FluentMappings.Add<CompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
                     m.FluentMappings.Add<AddressCompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<Address2Map>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<Company2Map>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<AddressCompany2Map>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
                 });
 
 #if DEBUG

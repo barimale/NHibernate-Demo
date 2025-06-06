@@ -118,6 +118,48 @@ namespace TestProject1
         }
 
         [TestMethod]
+        public void Address_persistence_test()
+        {
+            using (ISession session = _nHibernateHelper.OpenSession())
+                new PersistenceSpecification<Address>(session)
+                  .CheckProperty(p => p.Street, "Street Name")
+                  .VerifyTheMappings();
+        }
+
+
+        [TestMethod]
+        public void Address2_persistence_test()
+        {
+            using (ISession session = _nHibernateHelper.OpenSession())
+                new PersistenceSpecification<Address2>(session)
+                    .CheckProperty(p => p.Street, "Street Name")
+                    .CheckProperty(p => p.ZipCode, "Street Name")
+                    .CheckProperty(p => p.City, "Street Name")
+                    .CheckProperty(p => p.Country, "Street Name")
+                    .CheckProperty(p => p.Phone, "Street Name")
+                    .CheckProperty(p => p.State, "Street Name")
+                    .VerifyTheMappings();
+        }
+
+        [TestMethod]
+        public void Company_persistence_test()
+        {
+            using (ISession session = _nHibernateHelper.OpenSession())
+                new PersistenceSpecification<Company>(session)
+                    .CheckProperty(p => p.Foo, "Foo Name")
+                    .VerifyTheMappings();
+        }
+
+        [TestMethod]
+        public void Company2_persistence_test()
+        {
+            using (ISession session = _nHibernateHelper.OpenSession())
+                new PersistenceSpecification<Company2>(session)
+                    .CheckProperty(p => p.Foo, "Foo Name")
+                    .VerifyTheMappings();
+        }
+
+        [TestMethod]
         public async Task AddOneToManyTwice()
         {
             // Arrange:
