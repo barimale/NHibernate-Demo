@@ -9,7 +9,6 @@ using FluentNHibernate.Cfg.Db;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
 using NLog.Extensions.Logging;
 using ISession = NHibernate.ISession;
 
@@ -51,6 +50,7 @@ namespace Demo.Infrastructure
         private ISessionFactory BuildSessionFactory()
         {
             var fluentConfig = Fluently.Configure()
+                .Cache(c => c.UseQueryCache().UseSecondLevelCache())
                 .Database(OracleManagedDataClientConfiguration.Oracle10
                     .ConnectionString(_connectionString)
                     .Driver<NHibernate.Driver.OracleManagedDataClientDriver>())
@@ -77,10 +77,6 @@ namespace Demo.Infrastructure
                 {
                     UpdateDatabase(scope.ServiceProvider, null);
                 }
-                //new SchemaExport(cfg)
-                //    //.SetOutputFile("schema.sql")
-                //    //UpdateDatabase
-                //    .Execute(true, true, false);
             });
 #else
             fluentConfig.ExposeConfiguration(cfg =>
