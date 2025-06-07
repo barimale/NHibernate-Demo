@@ -11,10 +11,14 @@ namespace WebApplication1
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
-
             builder.Services.AddTransient<IProductRepository, ProductRepository>();
             builder.Services.AddTransient<INHibernateHelper, NHibernateHelper>();
+            builder.Services.AddTransient<IAddressRepository, AddressRepository>();
+            builder.Services.AddTransient<IAddress2Repository, Address2Repository>();
+            builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
+            builder.Services.AddTransient<ICompany2Repository, Company2Repository>();
+
+            builder.Services.AddControllers();
 
             var app = builder.Build();
 

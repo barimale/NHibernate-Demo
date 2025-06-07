@@ -5,19 +5,19 @@ using ISession = NHibernate.ISession;
 
 namespace NHibernateTestBlog
 {
-    public interface IAddressRepository
+    public interface IAddress2Repository
     {
-        Task<int> Add(Address product);
-        Task Update(Address product);
-        Task Remove(Address product);
-        Task<Address> GetById(int addressId);
-        Task<Address> GetByName(string name);
+        Task<int> Add(Address2 product);
+        Task Update(Address2 product);
+        Task Remove(Address2 product);
+        Task<Address2> GetById(int addressId);
+        Task<Address2> GetByName(string name);
     }
 
-    public class AddressRepository : IAddressRepository
+    public class Address2Repository : IAddress2Repository
     {
         private readonly INHibernateHelper _nHibernateHelper;
-        public AddressRepository(INHibernateHelper nHibernateHelper)
+        public Address2Repository(INHibernateHelper nHibernateHelper)
         {
             _nHibernateHelper = nHibernateHelper;
         }
@@ -27,8 +27,8 @@ namespace NHibernateTestBlog
             using (var session = _nHibernateHelper.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var address = session.Get<Address>(addressId);
-                var company = session.Get<Company>(companyId);
+                var address = session.Get<Address2>(addressId);
+                var company = session.Get<Company2>(companyId);
 
                 if (address != null && company != null)
                 {
@@ -37,21 +37,12 @@ namespace NHibernateTestBlog
 
                     session.Update(address);
                     session.Update(company);
-
-                    var caid = session.Save(new CompanyAddress()
-                    {
-                        Description = "aaa",
-                        Company = company,
-                        Address = address,
-                        CreationDate = DateTime.Now,
-                    });
-
                     transaction.Commit();
                 }
             }
         }
 
-        public async Task<int> Add(Address product)
+        public async Task<int> Add(Address2 product)
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
@@ -63,7 +54,7 @@ namespace NHibernateTestBlog
             }
         }
         
-        public async Task Update(Address product) 
+        public async Task Update(Address2 product) 
         {
             using (ISession session = _nHibernateHelper.OpenSession()) 
             using (ITransaction transaction = session.BeginTransaction()) 
@@ -73,7 +64,7 @@ namespace NHibernateTestBlog
             }
         }
 
-        public async Task Remove(Address product) 
+        public async Task Remove(Address2 product) 
         {
             using (ISession session = _nHibernateHelper.OpenSession()) 
             using (ITransaction transaction = session.BeginTransaction()) 
@@ -83,20 +74,20 @@ namespace NHibernateTestBlog
             }
         } 
         
-        public async Task<Address> GetById(int productId) 
+        public async Task<Address2> GetById(int productId) 
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
-                return await session.GetAsync<Address>(productId);
+                return await session.GetAsync<Address2>(productId);
             }
         }
 
-        public async Task<Address> GetByName(string name)
+        public async Task<Address2> GetByName(string name)
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
                 // Corrected to use QueryOver for LINQ-like querying
-                Address product = await session.QueryOver<Address>()
+                Address2 product = await session.QueryOver<Address2>()
                     .Where(p => p.Country == name)
                     .Fetch(SelectMode.Fetch, x => x.Companies) // Eagerly fetch related Companies
                     .SingleOrDefaultAsync();
