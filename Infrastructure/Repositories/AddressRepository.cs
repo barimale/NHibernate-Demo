@@ -1,6 +1,7 @@
 ﻿using Demo.Domain.AggregatesModel.CompanyAggregate;
 using Demo.Infrastructure.Database;
 using NHibernate;
+using NHibernate.Linq;
 using ISession = NHibernate.ISession;
 
 namespace Demo.Infrastructure.Repositories
@@ -91,10 +92,10 @@ namespace Demo.Infrastructure.Repositories
             using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 // Corrected to use QueryOver for LINQ-like querying
-                Address product = await session.QueryOver<Address>()
+                Address product = await session.Query<Address>()
                     .Where(p => p.Country == country)
                     //.Fetch(SelectMode.JoinOnly, x => x.Companies) // Eagerly fetch related Companies
-                    .SingleOrDefaultAsync();
+                    .FirstOrDefaultAsync();
 
                 return product;
             }
