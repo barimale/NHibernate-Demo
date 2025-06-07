@@ -31,6 +31,7 @@ namespace Demo.API.Controllers
             var result = await productRepository.Add(product);
 
             _logger.LogInformation("Product added: {ProductName}", product.Name);
+            _logger.LogInformation("Product id: {ProductId}", result);
 
             return result;
         }
