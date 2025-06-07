@@ -10,11 +10,11 @@ using Demo.Domain.AggregatesModel.Company2Aggregate;
 namespace Demo.UnitTests
 {
     [TestClass]
-    public sealed class Test1
+    public sealed class PersistanceTests
     {
         private readonly INHibernateHelper _nHibernateHelper;
 
-        public Test1()
+        public PersistanceTests()
         {
             var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.Development.json", optional: false);
             var _config = builder.Build();
