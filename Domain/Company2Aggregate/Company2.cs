@@ -1,11 +1,11 @@
-﻿using Demo.Migrations.Conventions;
+﻿using Demo.Domain.Abstraction;
+using Demo.Migrations.Conventions;
 using FluentNHibernate.Mapping;
 
 namespace Demo.Domain.Company2Aggregate
 {
-    public class Company2
+    public class Company2: Entity
     {
-        public virtual int Id { get; set; }
         public virtual string Foo { get; set; }
 
         public virtual IList<Address2> Addresses { get; set; } = new List<Address2>();

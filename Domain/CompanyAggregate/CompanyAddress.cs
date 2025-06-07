@@ -1,10 +1,10 @@
-﻿using FluentNHibernate.Mapping;
+﻿using Demo.Domain.Abstraction;
+using FluentNHibernate.Mapping;
 
 namespace Demo.Domain.CompanyAggregate
 {
-    public class CompanyAddress
+    public class CompanyAddress: Entity
     {
-        public virtual int Id { get; set; }
         // the relation to both sides
         public virtual Address Address { get; set; }
         public virtual Company Company { get; set; }

@@ -1,10 +1,10 @@
-﻿using FluentNHibernate.Mapping;
+﻿using Demo.Domain.Abstraction;
+using FluentNHibernate.Mapping;
 
 namespace Demo.Domain.ProductAggregate
 {
-    public class Product
+    public class Product: Entity
     {
-        public virtual int Id { get; set; }
         public virtual string Name { get; set; }
         public virtual string Category { get; set; }
         public virtual bool Discontinued { get; set; }
