@@ -7,5 +7,6 @@
         Task<Address2> GetByName(string name);
         Task Remove(Address2 product);
         Task Update(Address2 product);
+        void AssingAddressToCompany(int addressId, int companyId);
     }
 }

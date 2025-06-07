@@ -13,7 +13,7 @@ namespace Demo.Infrastructure.Repositories
             _nHibernateHelper = nHibernateHelper;
         }
 
-        public void AssingAddressToCompany(int addressId, int companyId)
+        public object AssingAddressToCompany(int addressId, int companyId, string description)
         {
             using (var session = _nHibernateHelper.OpenSession())
             using (var transaction = session.BeginTransaction())
@@ -31,14 +31,18 @@ namespace Demo.Infrastructure.Repositories
 
                     var caid = session.Save(new CompanyAddress()
                     {
-                        Description = "aaa",
+                        Description = description,
                         Company = company,
                         Address = address,
                         CreationDate = DateTime.Now,
                     });
 
                     transaction.Commit();
+
+                    return caid;
                 }
+
+                return null;
             }
         }
 
