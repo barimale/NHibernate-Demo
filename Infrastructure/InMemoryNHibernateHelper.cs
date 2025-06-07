@@ -1,5 +1,6 @@
 ﻿using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Drivers;
+using Demo.Infrastructure.Database.Interceptors;
 using Demo.Infrastructure.EntityConfigurations;
 using Demo.Migrations.Conventions;
 using Demo.Migrations.Migrations;
@@ -65,6 +66,7 @@ namespace Demo.Infrastructure
                 });
             fluentConfig.ExposeConfiguration(cfg =>
             {
+                cfg.SetInterceptor(new NHibernateInterceptor());
                 var serviceProvider = CreateServices(_connectionString);
 
                 using (var scope = serviceProvider.CreateScope())
