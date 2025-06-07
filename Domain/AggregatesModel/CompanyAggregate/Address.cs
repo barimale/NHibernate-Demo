@@ -2,7 +2,7 @@
 using Demo.Migrations.Conventions;
 using FluentNHibernate.Mapping;
 
-namespace Demo.Domain.CompanyAggregate
+namespace Demo.Domain.AggregatesModel.CompanyAggregate
 {
     public class Address: Entity
     {

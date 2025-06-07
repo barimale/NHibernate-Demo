@@ -1,4 +1,4 @@
-﻿namespace Demo.Domain.CompanyAggregate
+﻿namespace Demo.Domain.AggregatesModel.CompanyAggregate
 {
     public interface ICompanyRepository
     {

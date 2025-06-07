@@ -1,4 +1,4 @@
-﻿namespace Demo.Domain.ProductAggregate
+﻿namespace Demo.Domain.AggregatesModel.ProductAggregate
 {
     public interface IProductRepository
     {

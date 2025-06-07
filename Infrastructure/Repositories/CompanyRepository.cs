@@ -1,4 +1,4 @@
-﻿using Demo.Domain.CompanyAggregate;
+﻿using Demo.Domain.AggregatesModel.CompanyAggregate;
 using Demo.Infrastructure.Database;
 using NHibernate;
 using NHibernate.Criterion;

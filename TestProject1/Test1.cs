@@ -1,11 +1,11 @@
-﻿using Demo.Domain.Company2Aggregate;
-using Demo.Domain.CompanyAggregate;
-using Demo.Domain.ProductAggregate;
-using Demo.Infrastructure.Database;
+﻿using Demo.Infrastructure.Database;
 using FluentNHibernate.Testing;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
 using Demo.Infrastructure;
+using Demo.Domain.AggregatesModel.ProductAggregate;
+using Demo.Domain.AggregatesModel.CompanyAggregate;
+using Demo.Domain.AggregatesModel.Company2Aggregate;
 
 namespace Demo.UnitTests
 {

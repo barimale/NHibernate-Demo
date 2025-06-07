@@ -2,7 +2,7 @@
 using Demo.Migrations.Conventions;
 using FluentNHibernate.Mapping;
 
-namespace Demo.Domain.Company2Aggregate
+namespace Demo.Domain.AggregatesModel.Company2Aggregate
 {
     public class Company2: Entity
     {

@@ -1,6 +1,6 @@
-﻿using Demo.Domain.Company2Aggregate;
-using Demo.Domain.CompanyAggregate;
-using Demo.Domain.ProductAggregate;
+﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
+using Demo.Domain.AggregatesModel.CompanyAggregate;
+using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Drivers;
 using Demo.Migrations.Conventions;

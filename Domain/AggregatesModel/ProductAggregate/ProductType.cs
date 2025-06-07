@@ -1,7 +1,7 @@
 ﻿using Demo.Domain.Abstraction;
 using FluentNHibernate.Mapping;
 
-namespace Demo.Domain.ProductAggregate
+namespace Demo.Domain.AggregatesModel.ProductAggregate
 {
     public class ProductType: Entity
     {

@@ -1,25 +1,29 @@
 ﻿using Demo.Domain.Abstraction;
-using Demo.Domain.CompanyAggregate;
 using FluentNHibernate.Mapping;
 
-namespace Demo.Domain.Company2Aggregate
+namespace Demo.Domain.AggregatesModel.CompanyAggregate
 {
-    public class CompanyAddress2: Entity
+    public class CompanyAddress: Entity
     {
         // the relation to both sides
         public virtual Address Address { get; set; }
         public virtual Company Company { get; set; }
 
+        // many other settings we need
+        public virtual string Description { get; set; }
+        public virtual DateTime CreationDate { get; set; }
     }
 
-    public class AddressCompany2Map : ClassMap<CompanyAddress2>
+    public class AddressCompanyMap : ClassMap<CompanyAddress>
     {
-        public AddressCompany2Map()
+        public AddressCompanyMap()
         {
             //Table("AddressCompany")/*;*/
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
             Id(x => x.Address.Id).GeneratedBy.TriggerIdentity().Not.Nullable();
             Id(x => x.Company.Id).GeneratedBy.TriggerIdentity().Not.Nullable();
+            Map(x => x.Description).Length(200).Nullable();
+            Map(x => x.CreationDate).Not.Nullable();
             
             References(x => x.Address)
                 .Column("AddressId")

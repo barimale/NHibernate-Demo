@@ -1,4 +1,4 @@
-﻿using Demo.Domain.ProductAggregate;
+﻿using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure.Database;
 using NHibernate;
 using ISession = NHibernate.ISession;
