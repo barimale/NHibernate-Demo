@@ -47,7 +47,7 @@ namespace Demo.Infrastructure.Repositories
         
         public async Task<Product> GetById(int productId) 
         {
-            using (ISession session = _nHibernateHelper.OpenSession())
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 return await session.GetAsync<Product>(productId);
             }
@@ -55,7 +55,7 @@ namespace Demo.Infrastructure.Repositories
 
         public async Task<Product> GetByName(string name)
         {
-            using (ISession session = _nHibernateHelper.OpenSession())
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 // Corrected to use QueryOver for LINQ-like querying
                 Product product = await session.QueryOver<Product>()
@@ -65,14 +65,5 @@ namespace Demo.Infrastructure.Repositories
                 return product;
             }
         }
-
-    //    var subquery = QueryOver.Of<AddressCompany>()
-    //.Where(c => c.CreationDate > new DateTime(2000, 1, 1))
-    //.Select(c => c.Company.ID);
-
-    //    var query = session.QueryOver<Company>()
-    //        .WithSubquery
-    //        .WhereProperty(c => c.ID)
-    //        .In(subquery)
     }
 }

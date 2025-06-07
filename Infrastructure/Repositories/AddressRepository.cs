@@ -76,7 +76,7 @@ namespace Demo.Infrastructure.Repositories
         
         public async Task<Address> GetById(int productId) 
         {
-            using (ISession session = _nHibernateHelper.OpenSession())
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 return await session.GetAsync<Address>(productId);
             }
@@ -84,7 +84,7 @@ namespace Demo.Infrastructure.Repositories
 
         public async Task<Address> GetByName(string name)
         {
-            using (ISession session = _nHibernateHelper.OpenSession())
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 // Corrected to use QueryOver for LINQ-like querying
                 Address product = await session.QueryOver<Address>()

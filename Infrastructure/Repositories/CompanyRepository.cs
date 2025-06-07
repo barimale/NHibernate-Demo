@@ -49,14 +49,14 @@ namespace Demo.Infrastructure.Repositories
         
         public async Task<Company> GetById(int productId) 
         {
-            using (ISession session = _nHibernateHelper.OpenSession())
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 return await session.GetAsync<Company>(productId);
             }
         }
         public async Task<Company> GetBySubquery()
         {
-            using (ISession session = _nHibernateHelper.OpenSession())
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 var subquery = QueryOver.Of<CompanyAddress>()
                     .Where(c => c.CreationDate > new DateTime(2000, 1, 1))

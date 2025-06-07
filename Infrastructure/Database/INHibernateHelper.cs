@@ -3,5 +3,6 @@
     public interface INHibernateHelper : IDisposable
     {
          NHibernate.ISession OpenSession();
+         NHibernate.IStatelessSession OpenStatelessSesion();
     }
 }

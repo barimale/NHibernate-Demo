@@ -115,5 +115,10 @@ namespace Demo.Infrastructure
                 runner.MigrateUp();
             }
         }
+
+        public IStatelessSession OpenStatelessSesion()
+        {
+            return SessionFactory.OpenStatelessSession();
+        }
     }
 }

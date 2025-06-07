@@ -129,5 +129,9 @@ namespace Demo.Infrastructure
             }
         }
 
+        public IStatelessSession OpenStatelessSesion()
+        {
+            return SessionFactory.OpenStatelessSession();
+        }
     }
 }

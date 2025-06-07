@@ -46,6 +46,9 @@ namespace Demo.UnitTests
             {
                 result = session.Save(product);
                 transaction.Commit();
+            }
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
+            {
                 retrievedProduct = session.Get<Product>(result);
             }
             // Assert: 
@@ -76,6 +79,9 @@ namespace Demo.UnitTests
             {
                 result = session.Save(product);
                 transaction.Commit();
+            }
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
+            {
                 retrievedProduct = session.Get<Address>(result);
             }
             // Assert: 
@@ -101,6 +107,9 @@ namespace Demo.UnitTests
             {
                 result = session.Save(product);
                 transaction.Commit();
+            }
+            using (var session = _nHibernateHelper.OpenStatelessSesion())
+            {
                 retrievedProduct = session.Get<Company>(result);
             }
             // Assert: 
