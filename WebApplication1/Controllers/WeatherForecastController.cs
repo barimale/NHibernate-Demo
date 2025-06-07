@@ -1,5 +1,4 @@
 using Demo.Domain.AggregatesModel.ProductAggregate;
-using Demo.Domain.ProductAggregate;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.API.Controllers

@@ -1,8 +1,6 @@
-﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
-using Demo.Domain.AggregatesModel.CompanyAggregate;
-using Demo.Domain.AggregatesModel.ProductAggregate;
-using Demo.Infrastructure.Database;
+﻿using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Drivers;
+using Demo.Infrastructure.EntityConfigurations;
 using Demo.Migrations.Conventions;
 using Demo.Migrations.Migrations;
 using FluentMigrator.Runner;

@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Domain\Demo.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntityConfigurations\" />
-  </ItemGroup>
-
 </Project>
