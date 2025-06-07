@@ -18,7 +18,7 @@ namespace Demo.Infrastructure.EntityConfigurations
                 .ParentKeyColumn("CompanyId")
                 .ChildKeyColumn("AddressId")
                 .Inverse()
-                .Cascade.All();
+                .Cascade.All().LazyLoad();
         }
     }
 }
