@@ -58,7 +58,6 @@ namespace Demo.Infrastructure.Repositories
         {
             using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
-                // Corrected to use QueryOver for LINQ-like querying
                 var product = session.Query<Product>()
                     .Where(p => p.Name == name)
                     .ToFuture();
