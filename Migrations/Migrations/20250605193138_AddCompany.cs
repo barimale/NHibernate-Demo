@@ -11,6 +11,7 @@ namespace Demo.Migrations.Migrations
         {
             Create.Table(LowercaseTableNameConvention.TablePrefix + NAME)
             .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
+             .WithColumn("Version").AsInt32().Nullable()
             .WithColumn("Foo").AsString().Nullable();
         }
 

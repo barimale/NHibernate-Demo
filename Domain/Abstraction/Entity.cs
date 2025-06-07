@@ -3,7 +3,7 @@
     public abstract class Entity<TId>
     {
         public virtual TId Id { get; protected set; }
-
+        public virtual int Version { get; protected set; }
         public override bool Equals(object obj)
         {
             return Equals(obj as Entity<TId>);

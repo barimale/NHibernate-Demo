@@ -15,6 +15,7 @@ namespace Demo.Migrations.Migrations
              .WithColumn("State").AsString().Nullable()
              .WithColumn("ZipCode").AsString().Nullable()
              .WithColumn("Country").AsString().Nullable()
+             .WithColumn("Version").AsInt32().Nullable()
              .WithColumn("Phone").AsString().Nullable();
         }
 
