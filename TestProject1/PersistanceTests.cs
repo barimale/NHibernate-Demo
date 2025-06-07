@@ -16,7 +16,7 @@ namespace Demo.UnitTests
 
         public PersistanceTests()
         {
-            var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.Development.json", optional: false);
+            var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.Test.json", optional: false);
             var _config = builder.Build();
             _nHibernateHelper = new NHibernateHelper(_config);
         }
