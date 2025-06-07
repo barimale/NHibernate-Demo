@@ -86,7 +86,7 @@ namespace Demo.UnitTests
             var address = new Address
             {
                 City = "Sample Product",
-                Country = "Sample Categoraaay",
+                Country = Guid.NewGuid().ToString(),
                 Street = "dsa",
                 State = "state",
                 ZipCode = "zipcode",
