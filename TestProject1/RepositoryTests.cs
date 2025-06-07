@@ -80,6 +80,29 @@ namespace Demo.UnitTests
         }
 
         [TestMethod]
+        public async Task GetAddressByCountry()
+        {
+            // Arrange:
+            var address = new Address
+            {
+                City = "Sample Product",
+                Country = "Sample Categoraaay",
+                Street = "dsa",
+                State = "state",
+                ZipCode = "zipcode",
+                Phone = "phone"
+            };
+
+            // Act:
+            var result = await _addressRepository.Add(address);
+            Address retrievedProduct = await _addressRepository.GetByCountry(address.Country);
+
+            // Assert: 
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(retrievedProduct);
+        }
+
+        [TestMethod]
         public async Task AddCompany()
         {
             // Arrange:

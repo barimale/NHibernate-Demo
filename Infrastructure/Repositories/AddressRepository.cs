@@ -86,14 +86,14 @@ namespace Demo.Infrastructure.Repositories
             }
         }
 
-        public async Task<Address> GetByName(string name)
+        public async Task<Address> GetByCountry(string country)
         {
             using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 // Corrected to use QueryOver for LINQ-like querying
                 Address product = await session.QueryOver<Address>()
-                    .Where(p => p.Country == name)
-                    .Fetch(SelectMode.Fetch, x => x.Companies) // Eagerly fetch related Companies
+                    .Where(p => p.Country == country)
+                    //.Fetch(SelectMode.JoinOnly, x => x.Companies) // Eagerly fetch related Companies
                     .SingleOrDefaultAsync();
 
                 return product;
