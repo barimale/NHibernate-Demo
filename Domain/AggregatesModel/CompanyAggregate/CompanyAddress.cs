@@ -2,7 +2,7 @@
 
 namespace Demo.Domain.AggregatesModel.CompanyAggregate
 {
-    public class CompanyAddress: Entity
+    public class CompanyAddress: Entity<int>
     {
         // the relation to both sides
         public virtual Address Address { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Demo.Domain.AggregatesModel.ProductAggregate
 {
-    public class ProductType: Entity
+    public class ProductType: Entity<int>
     {
         public virtual string Description { get; set; }
     }
