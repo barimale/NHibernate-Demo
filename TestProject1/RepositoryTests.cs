@@ -41,7 +41,7 @@ namespace Demo.UnitTests
             // Arrange:
             var product = new Product
             {
-                Name = "Sample Product",
+                Name = Guid.NewGuid().ToString(),
                 Category = "Sample Category",
                 Discontinued = false
             };
