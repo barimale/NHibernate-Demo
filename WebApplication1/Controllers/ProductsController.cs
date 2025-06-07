@@ -5,12 +5,12 @@ namespace Demo.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class ProductsController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<ProductsController> _logger;
         private readonly IProductRepository productRepository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger,
+        public ProductsController(ILogger<ProductsController> logger,
             IProductRepository productRepository)
         {
             _logger = logger;
