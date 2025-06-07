@@ -60,7 +60,6 @@ namespace Demo.Infrastructure.Repositories
             {
                 var product = session.Query<Product>()
                     .Where(p => p.Name == name)
-                    .Cacheable()
                     .ToFuture();
 
                 return product.FirstOrDefault();

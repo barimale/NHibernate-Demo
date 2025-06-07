@@ -1,4 +1,5 @@
-﻿using Demo.Infrastructure.Database;
+﻿using Demo.Domain.AggregatesModel.ProductAggregate;
+using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Interceptors;
 using Demo.Infrastructure.EntityConfigurations;
 using Demo.Migrations.Conventions;
@@ -9,6 +10,7 @@ using FluentNHibernate.Cfg.Db;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
+using NHibernate.Criterion;
 using NLog.Extensions.Logging;
 using ISession = NHibernate.ISession;
 
@@ -50,7 +52,6 @@ namespace Demo.Infrastructure
         private ISessionFactory BuildSessionFactory()
         {
             var fluentConfig = Fluently.Configure()
-                .Cache(c => c.UseQueryCache().UseSecondLevelCache())
                 .Database(OracleManagedDataClientConfiguration.Oracle10
                     .ConnectionString(_connectionString)
                     .Driver<NHibernate.Driver.OracleManagedDataClientDriver>())
