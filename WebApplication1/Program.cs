@@ -1,7 +1,11 @@
-using NHibernateTestBlog;
-using WebApplication1.Repositories.DbContext;
+using Demo.Domain.Company2Aggregate;
+using Demo.Domain.CompanyAggregate;
+using Demo.Domain.ProductAggregate;
+using Demo.Infrastructure;
+using Demo.Infrastructure.Database;
+using Demo.Infrastructure.Repositories;
 
-namespace WebApplication1
+namespace Demo.API
 {
     public class Program
     {
@@ -29,7 +33,6 @@ namespace WebApplication1
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -1,7 +1,7 @@
-﻿using FluentMigrator;
-using Migrations.Conventions;
+﻿using Demo.Migrations.Conventions;
+using FluentMigrator;
 
-namespace Migrations.Migrations
+namespace Demo.Migrations.Migrations
 {
     [Migration(20250603195651)]
     public class InitialMigration : Migration

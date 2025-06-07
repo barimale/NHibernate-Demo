@@ -1,8 +1,7 @@
+using Demo.Domain.ProductAggregate;
 using Microsoft.AspNetCore.Mvc;
-using NHibernateTestBlog;
-using WebApplication1.Domain;
 
-namespace WebApplication1.Controllers
+namespace Demo.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]

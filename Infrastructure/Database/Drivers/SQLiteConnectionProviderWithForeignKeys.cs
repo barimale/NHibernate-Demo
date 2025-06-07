@@ -1,9 +1,7 @@
-﻿using FirebirdSql.Data.FirebirdClient;
-using NHibernate.Connection;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
 
-namespace WebApplication1.Repositories.DbContext.Drivers
+namespace Demo.Infrastructure.Database.Drivers
 {
     public class SQLiteConnectionProviderWithForeignKeys : NHibernate.Connection.DriverConnectionProvider
     {

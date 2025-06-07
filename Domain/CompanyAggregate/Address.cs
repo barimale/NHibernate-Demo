@@ -1,9 +1,9 @@
-﻿using FluentNHibernate.Mapping;
-using Migrations.Conventions;
+﻿using Demo.Migrations.Conventions;
+using FluentNHibernate.Mapping;
 
-namespace WebApplication1.Domain
+namespace Demo.Domain.CompanyAggregate
 {
-    public class Address2
+    public class Address
     {
         public virtual int Id { get; set; }
         public virtual string Street { get; set; }
@@ -12,13 +12,13 @@ namespace WebApplication1.Domain
         public virtual string ZipCode { get; set; }
         public virtual string Country { get; set; }
         public virtual string Phone { get; set; }
-        public virtual IList<Company2> Companies { get; set; } = new List<Company2>();
+        public virtual IList<Company> Companies { get; set; } = new List<Company>();
 
     }
 
-    public class Address2Map: ClassMap<Address2>
+    public class AddressMap: ClassMap<Address>
     {
-        public Address2Map()
+        public AddressMap()
         {
             //Table("Address")/*;*/
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
@@ -29,10 +29,10 @@ namespace WebApplication1.Domain
             Map(x => x.Country).Length(50).Nullable();
             Map(x => x.Phone).Length(50).Nullable();
             // Define the relationship with AddressCompany
-            HasManyToMany(x => x.Companies)
-                .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress2")
-                .ParentKeyColumn("AddressId")
-                .ChildKeyColumn("CompanyId")
+            HasMany(x => x.Companies)
+                .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress")
+                .KeyColumn("AddressId")
+                .Inverse()
                 .Cascade.All();
         }
     }

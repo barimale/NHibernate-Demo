@@ -1,7 +1,7 @@
-﻿using FluentNHibernate.Mapping;
-using Migrations.Conventions;
+﻿using Demo.Migrations.Conventions;
+using FluentNHibernate.Mapping;
 
-namespace WebApplication1.Domain
+namespace Demo.Domain.CompanyAggregate
 {
     public class Company
     {

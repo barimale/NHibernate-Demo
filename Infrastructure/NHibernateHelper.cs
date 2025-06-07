@@ -1,17 +1,22 @@
-﻿using FluentMigrator.Runner;
+﻿using Demo.Domain.Company2Aggregate;
+using Demo.Domain.CompanyAggregate;
+using Demo.Domain.ProductAggregate;
+using Demo.Infrastructure.Database;
+using Demo.Migrations.Conventions;
+using Demo.Migrations.Migrations;
+using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using Migrations.Conventions;
-using Migrations.Migrations;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using NLog.Extensions.Logging;
-using WebApplication1.Domain;
 using ISession = NHibernate.ISession;
 
-namespace WebApplication1.Repositories.DbContext
+namespace Demo.Infrastructure
 {
-    public class NHibernateHelper : INHibernateHelper, IDisposable
+    public class NHibernateHelper : INHibernateHelper
     {
         private static readonly object _lock = new();
         private ISessionFactory? _sessionFactory;

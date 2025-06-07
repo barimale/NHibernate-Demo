@@ -1,7 +1,7 @@
-﻿using FluentMigrator;
-using Migrations.Conventions;
+﻿using Demo.Migrations.Conventions;
+using FluentMigrator;
 
-namespace Migrations.Migrations
+namespace Demo.Migrations.Migrations
 {
     [Migration(20250606194240)]
     public class AddCompanyAddress2 : Migration

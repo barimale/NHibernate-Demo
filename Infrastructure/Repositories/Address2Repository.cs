@@ -1,19 +1,10 @@
-﻿using NHibernate;
-using WebApplication1.Domain;
-using WebApplication1.Repositories.DbContext;
+﻿using Demo.Domain.Company2Aggregate;
+using Demo.Infrastructure.Database;
+using NHibernate;
 using ISession = NHibernate.ISession;
 
-namespace NHibernateTestBlog
+namespace Demo.Infrastructure.Repositories
 {
-    public interface IAddress2Repository
-    {
-        Task<int> Add(Address2 product);
-        Task Update(Address2 product);
-        Task Remove(Address2 product);
-        Task<Address2> GetById(int addressId);
-        Task<Address2> GetByName(string name);
-    }
-
     public class Address2Repository : IAddress2Repository
     {
         private readonly INHibernateHelper _nHibernateHelper;

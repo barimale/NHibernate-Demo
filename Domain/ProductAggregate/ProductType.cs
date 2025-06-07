@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Data;
 using FluentNHibernate.Mapping;
 
-namespace WebApplication1.Domain
+namespace Demo.Domain.ProductAggregate
 {
     public class ProductType
     {

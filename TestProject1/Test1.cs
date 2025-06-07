@@ -1,11 +1,13 @@
-﻿using FluentNHibernate.Testing;
-using Microsoft.AspNetCore.Routing;
+﻿using Demo.Domain.Company2Aggregate;
+using Demo.Domain.CompanyAggregate;
+using Demo.Domain.ProductAggregate;
+using Demo.Infrastructure.Database;
+using FluentNHibernate.Testing;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
-using WebApplication1.Domain;
-using WebApplication1.Repositories.DbContext;
+using Demo.Infrastructure;
 
-namespace TestProject1
+namespace Demo.UnitTests
 {
     [TestClass]
     public sealed class Test1

@@ -1,29 +1,19 @@
-﻿using NHibernate;
-using NHibernate.Criterion;
-using WebApplication1.Domain;
-using WebApplication1.Repositories.DbContext;
+﻿using Demo.Domain.ProductAggregate;
+using Demo.Infrastructure.Database;
+using NHibernate;
 using ISession = NHibernate.ISession;
 
-namespace NHibernateTestBlog
+namespace Demo.Infrastructure.Repositories
 {
-    public interface ICompanyRepository
-    {
-        Task<int> Add(Company product);
-        Task Update(Company product);
-        Task Remove(Company product);
-        Task<Company> GetById(int addressId);
-        Task<Company> GetBySubquery();
-    }
-
-    public class CompanyRepository : ICompanyRepository
+    public class ProductRepository : IProductRepository 
     {
         private readonly INHibernateHelper _nHibernateHelper;
-        public CompanyRepository(INHibernateHelper nHibernateHelper)
+        public ProductRepository(INHibernateHelper nHibernateHelper)
         {
             _nHibernateHelper = nHibernateHelper;
         }
 
-        public async Task<int> Add(Company product)
+        public async Task<int> Add(Product product)
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
@@ -35,7 +25,7 @@ namespace NHibernateTestBlog
             }
         }
         
-        public async Task Update(Company product) 
+        public async Task Update(Product product) 
         {
             using (ISession session = _nHibernateHelper.OpenSession()) 
             using (ITransaction transaction = session.BeginTransaction()) 
@@ -45,7 +35,7 @@ namespace NHibernateTestBlog
             }
         }
 
-        public async Task Remove(Company product) 
+        public async Task Remove(Product product) 
         {
             using (ISession session = _nHibernateHelper.OpenSession()) 
             using (ITransaction transaction = session.BeginTransaction()) 
@@ -55,32 +45,34 @@ namespace NHibernateTestBlog
             }
         } 
         
-        public async Task<Company> GetById(int productId) 
+        public async Task<Product> GetById(int productId) 
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
-                return await session.GetAsync<Company>(productId);
+                return await session.GetAsync<Product>(productId);
             }
         }
-        public async Task<Company> GetBySubquery()
+
+        public async Task<Product> GetByName(string name)
         {
             using (ISession session = _nHibernateHelper.OpenSession())
             {
-                var subquery = QueryOver.Of<CompanyAddress>()
-                    .Where(c => c.CreationDate > new DateTime(2000, 1, 1))
-                    .Select(c => c.Company.Id);
-
-                var query = await session.QueryOver<Company>()
-                    .WithSubquery
-                    .WhereProperty(c => c.Id)
-                    .In(subquery)
+                // Corrected to use QueryOver for LINQ-like querying
+                Product product = await session.QueryOver<Product>()
+                    .Where(p => p.Name == name)
                     .SingleOrDefaultAsync();
 
-                return query;
+                return product;
             }
         }
 
+    //    var subquery = QueryOver.Of<AddressCompany>()
+    //.Where(c => c.CreationDate > new DateTime(2000, 1, 1))
+    //.Select(c => c.Company.ID);
 
-        
+    //    var query = session.QueryOver<Company>()
+    //        .WithSubquery
+    //        .WhereProperty(c => c.ID)
+    //        .In(subquery)
     }
 }

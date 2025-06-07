@@ -1,10 +1,10 @@
 ﻿using CommandLine;
+using Demo.Migrations.Migrations;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
-using Migrations.Migrations;
 using NLog.Extensions.Logging;
 
-namespace FluentMigratorExample.Migrator
+namespace Demo.Migrator.CLI
 {
     class Program
     {

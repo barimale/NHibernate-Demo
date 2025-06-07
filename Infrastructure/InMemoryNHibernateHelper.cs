@@ -1,17 +1,21 @@
-﻿using FluentMigrator.Runner;
+﻿using Demo.Domain.Company2Aggregate;
+using Demo.Domain.CompanyAggregate;
+using Demo.Domain.ProductAggregate;
+using Demo.Infrastructure.Database;
+using Demo.Infrastructure.Database.Drivers;
+using Demo.Migrations.Conventions;
+using Demo.Migrations.Migrations;
+using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using Migrations.Conventions;
-using Migrations.Migrations;
+using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using NLog.Extensions.Logging;
-using WebApplication1.Domain;
-using WebApplication1.Repositories.DbContext.Drivers;
 using ISession = NHibernate.ISession;
 
-namespace WebApplication1.Repositories.DbContext
+namespace Demo.Infrastructure
 {
-    public class InMemoryNHibernateHelper : INHibernateHelper, IDisposable
+    public class InMemoryNHibernateHelper : INHibernateHelper
     {
         private string _connectionString = "Data Source=CustomDatabaseName;Mode=Memory;Cache=Shared;Foreign Keys=True;";
         private static readonly object _lock = new();
