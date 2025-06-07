@@ -1,5 +1,4 @@
-﻿using Demo.Domain.AggregatesModel.ProductAggregate;
-using Demo.Infrastructure.Database;
+﻿using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Interceptors;
 using Demo.Infrastructure.EntityConfigurations;
 using Demo.Migrations.Conventions;
@@ -10,7 +9,6 @@ using FluentNHibernate.Cfg.Db;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
-using NHibernate.Criterion;
 using NLog.Extensions.Logging;
 using ISession = NHibernate.ISession;
 
@@ -57,14 +55,14 @@ namespace Demo.Infrastructure
                     .Driver<NHibernate.Driver.OracleManagedDataClientDriver>())
                 .Mappings(m =>
                 {
-                    m.FluentMappings.Add<ProductTypeMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<ProductMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<AddressMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<CompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<AddressCompanyMap>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<Address2Map>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<Company2Map>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<AddressCompany2Map>().Conventions.AddFromAssemblyOf<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<ProductTypeMap>().Conventions.Add<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<ProductMap>().Conventions.Add<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<AddressMap>().Conventions.Add<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<CompanyMap>().Conventions.Add<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<AddressCompanyMap>().Conventions.Add<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<Address2Map>().Conventions.Add<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<Company2Map>().Conventions.Add<LowercaseTableNameConvention>();
+                    m.FluentMappings.Add<AddressCompany2Map>().Conventions.Add<LowercaseTableNameConvention>();
                 });
 
 #if DEBUG
