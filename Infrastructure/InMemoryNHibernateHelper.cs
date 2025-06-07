@@ -67,13 +67,14 @@ namespace Demo.Infrastructure
             fluentConfig.ExposeConfiguration(cfg =>
             {
                 cfg.SetInterceptor(new NHibernateInterceptor());
-                var serviceProvider = CreateServices(_connectionString);
-
-                using (var scope = serviceProvider.CreateScope())
-                {
-                    UpdateDatabase(scope.ServiceProvider, null);
-                }
             });
+
+            var serviceProvider = CreateServices(_connectionString);
+
+            using (var scope = serviceProvider.CreateScope())
+            {
+                UpdateDatabase(scope.ServiceProvider, null);
+            }
 
             return fluentConfig.BuildSessionFactory();
         }
