@@ -15,12 +15,7 @@ namespace Demo.API
 
             // Add services to the container.
 
-            builder.Services.AddTransient<IProductRepository, ProductRepository>();
-            builder.Services.AddTransient<INHibernateHelper, NHibernateHelper>();
-            builder.Services.AddTransient<IAddressRepository, AddressRepository>();
-            builder.Services.AddTransient<IAddress2Repository, Address2Repository>();
-            builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
-            builder.Services.AddTransient<ICompany2Repository, Company2Repository>();
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
             builder.Services.AddControllers();
 
