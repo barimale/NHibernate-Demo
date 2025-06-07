@@ -1,6 +1,7 @@
 ﻿using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure.Database;
 using NHibernate;
+using NHibernate.Linq;
 using ISession = NHibernate.ISession;
 
 namespace Demo.Infrastructure.Repositories
@@ -58,11 +59,11 @@ namespace Demo.Infrastructure.Repositories
             using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
                 // Corrected to use QueryOver for LINQ-like querying
-                Product product = await session.QueryOver<Product>()
+                var product = session.Query<Product>()
                     .Where(p => p.Name == name)
-                    .SingleOrDefaultAsync();
+                    .ToFuture();
 
-                return product;
+                return product.FirstOrDefault();
             }
         }
     }

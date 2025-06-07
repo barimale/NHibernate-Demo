@@ -49,8 +49,8 @@ namespace Demo.UnitTests
             // Act:
 
             object result = await _productRepository.Add(product);
-            Product retrievedProduct = await _productRepository.GetById((int)result);
-            
+            Product retrievedProduct = await _productRepository.GetByName(product.Name);
+              
             // Assert: 
             Assert.IsNotNull(result);
             Assert.IsNotNull(retrievedProduct);
