@@ -12,7 +12,7 @@ namespace Demo.Infrastructure.EntityConfigurations
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
             Map(x => x.Foo).Length(50).Nullable();
             Version(u => u.Version).Nullable();
-            //OptimisticLock.Version();
+
             HasMany(x => x.Addresses)
                 .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress")
                 .KeyColumn("CompanyId")

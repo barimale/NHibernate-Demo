@@ -17,8 +17,8 @@ namespace Demo.Infrastructure.EntityConfigurations
             Map(x => x.Country).Length(50).Nullable();
             Map(x => x.Phone).Length(50).Nullable();
             Version(u => u.Version).Nullable();
-            //OptimisticLock.Version();
-            // Define the relationship with AddressCompany
+
+            // Define the relationship with CompanyAddress
             HasMany(x => x.Companies)
                 .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress")
                 .KeyColumn("AddressId")
