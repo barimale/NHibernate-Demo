@@ -62,8 +62,8 @@ namespace Demo.UnitTests
             // Arrange:
             var address = new Address
             {
-                City = "Sample Product",
-                Country = "Sample Category",
+                City = "Sample City",
+                Country = "Sample Country",
                 Street = "dsa",
                 State = "state",
                 ZipCode = "zipcode",
