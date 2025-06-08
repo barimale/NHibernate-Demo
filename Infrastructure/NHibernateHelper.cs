@@ -78,11 +78,7 @@ namespace Demo.Infrastructure
                 }
             });
 #else
-            fluentConfig.ExposeConfiguration(cfg =>
-                new SchemaExport(cfg)
-                    .SetOutputFile("schema.sql")
-                    .SetDelimiter(";")
-                    .Execute(false, false, false));
+            fluentConfig.ExposeConfiguration(cfg => ());
 #endif
 
             return fluentConfig.BuildSessionFactory();
