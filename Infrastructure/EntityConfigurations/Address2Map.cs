@@ -24,7 +24,7 @@ namespace Demo.Infrastructure.EntityConfigurations
                 .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress2")
                 .ParentKeyColumn("AddressId")
                 .ChildKeyColumn("CompanyId")
-                .Cascade.All().LazyLoad();
+                .Cascade.All().Fetch.Join();
         }
     }
 }

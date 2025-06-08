@@ -83,7 +83,9 @@ namespace Demo.Infrastructure.Repositories
         {
             using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
-                return await session.GetAsync<Address>(productId);
+                return await session.Query<Address>()
+                    .Where(p => p.Id == productId)
+                    .FirstOrDefaultAsync();
             }
         }
 
