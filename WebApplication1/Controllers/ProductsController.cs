@@ -1,5 +1,6 @@
 using Demo.Domain.AggregatesModel.ProductAggregate;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Demo.API.Controllers
 {
@@ -31,6 +32,7 @@ namespace Demo.API.Controllers
         /// <param name="product">The product to add.</param>
         /// <returns>The ID of the added product, or null if the operation fails.</returns>
         [HttpPost]
+        [SwaggerOperation(Summary = "Endpoint for putting product data to the server.")]
         public async Task<int?> PostAsync([FromBody] Product product)
         {
             // Add the product to the repository.

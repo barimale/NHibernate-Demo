@@ -19,7 +19,9 @@ namespace Demo.API
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ProductValidator>());
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options => {
+                options.EnableAnnotations();
+            });
 
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
@@ -30,6 +32,7 @@ namespace Demo.API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
             }
             // Configure the HTTP request pipeline.
 
