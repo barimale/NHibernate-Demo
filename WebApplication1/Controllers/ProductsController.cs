@@ -18,31 +18,16 @@ namespace Demo.API.Controllers
             this.productRepository = productRepository;
         }
 
-        [HttpGet]
-        public async Task<int?> GetAsync()// Product product)
+        [HttpPost]
+        public async Task<int?> PostAsync([FromBody] Product product)// Product product)
         {
 
-            var product = new Product
-            {
-                Name = "Sample Product",
-                Category = "Sample Category",
-                Discontinued = true
-            };
+            var productAdded = await productRepository.Add(product);
 
-            var validator = new ProductValidator();
-            var result = validator.Validate(product);
+            _logger.LogInformation("Product added: {ProductName}", product.Name);
+            _logger.LogInformation("Product id: {ProductId}", productAdded);
 
-            if (result.IsValid)
-            {
-                var productAdded = await productRepository.Add(product);
-
-                _logger.LogInformation("Product added: {ProductName}", product.Name);
-                _logger.LogInformation("Product id: {ProductId}", productAdded);
-
-                return productAdded;
-            }
-
-            return null;
+            return productAdded;
         }
     }
 }
