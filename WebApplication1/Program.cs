@@ -21,6 +21,9 @@ namespace Demo.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())

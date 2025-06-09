@@ -8,6 +8,7 @@ using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NHibernate;
 using NLog.Extensions.Logging;
 using ISession = NHibernate.ISession;
@@ -66,7 +67,13 @@ namespace Demo.Infrastructure
                 });
             fluentConfig.ExposeConfiguration(cfg =>
             {
-                cfg.SetInterceptor(new NHibernateInterceptor());
+                var loggerFactory = LoggerFactory.Create(builder =>
+                {
+                    builder.SetMinimumLevel(LogLevel.Information);
+                    builder.AddConsole();
+                });
+
+                cfg.SetInterceptor(new NHibernateInterceptor(loggerFactory));
             });
 
             var serviceProvider = CreateServices(_connectionString);
