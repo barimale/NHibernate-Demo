@@ -16,7 +16,7 @@ namespace Demo.Infrastructure.EntityConfigurations
             Map(u => u.Name).Length(50).Nullable();
             Map(u => u.Category).Length(50).Nullable();
             Map(u => u.Discontinued).Nullable();
-            Version(u => u.Version).Nullable();
+            Version(u => u.Version);
         }
     }
 }

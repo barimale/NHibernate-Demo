@@ -17,7 +17,7 @@ namespace Demo.Infrastructure.EntityConfigurations
             Map(x => x.ZipCode).Length(20).Nullable();
             Map(x => x.Country).Length(50).Nullable();
             Map(x => x.Phone).Length(50).Nullable();
-            Version(u => u.Version).Nullable();
+            Version(u => u.Version);
 
             // Define the relationship with AddressCompany
             HasManyToMany(x => x.Companies)

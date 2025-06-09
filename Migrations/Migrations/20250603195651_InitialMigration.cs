@@ -12,7 +12,7 @@ namespace Demo.Migrations.Migrations
              .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
              .WithColumn("Name").AsString()
              .WithColumn("Category").AsString()
-             .WithColumn("Version").AsInt32().Nullable()
+             .WithColumn("Version").AsInt32()
              .WithColumn("Discontinued").AsBoolean().WithDefaultValue(false);
 
             Insert.IntoTable(LowercaseTableNameConvention.TablePrefix + "Product").Row(new { Name = "Product 1.1", Category = "Category 1" , Version = 1});
