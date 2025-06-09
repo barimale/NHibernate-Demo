@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.API.Controllers
 {
+    /// <summary>
+    /// API controller for managing products.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class ProductsController : ControllerBase
@@ -10,6 +13,11 @@ namespace Demo.API.Controllers
         private readonly ILogger<ProductsController> _logger;
         private readonly IProductRepository productRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductsController"/> class.
+        /// </summary>
+        /// <param name="logger">Logger instance for logging information.</param>
+        /// <param name="productRepository">Repository for product operations.</param>
         public ProductsController(ILogger<ProductsController> logger,
             IProductRepository productRepository)
         {
@@ -17,12 +25,18 @@ namespace Demo.API.Controllers
             this.productRepository = productRepository;
         }
 
+        /// <summary>
+        /// Adds a new product to the repository.
+        /// </summary>
+        /// <param name="product">The product to add.</param>
+        /// <returns>The ID of the added product, or null if the operation fails.</returns>
         [HttpPost]
         public async Task<int?> PostAsync([FromBody] Product product)
         {
-
+            // Add the product to the repository.
             var productAdded = await productRepository.Add(product);
 
+            // Log product addition details.
             _logger.LogInformation("Product added: {ProductName}", product.Name);
             _logger.LogInformation("Product id: {ProductId}", productAdded);
 
