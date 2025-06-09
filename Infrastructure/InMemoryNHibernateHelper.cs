@@ -56,14 +56,7 @@ namespace Demo.Infrastructure
                     .Dialect<NHibernate.Dialect.SQLiteDialect>())
                 .Mappings(m =>
                 {
-                    m.FluentMappings.Add<ProductTypeMap>().Conventions.Add<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<ProductMap>().Conventions.Add<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<AddressMap>().Conventions.Add<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<CompanyMap>().Conventions.Add<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<AddressCompanyMap>().Conventions.Add<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<Address2Map>().Conventions.Add<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<Company2Map>().Conventions.Add<LowercaseTableNameConvention>();
-                    m.FluentMappings.Add<AddressCompany2Map>().Conventions.Add<LowercaseTableNameConvention>();
+                    m.FluentMappings.AddFromAssemblyOf<ProductTypeMap>().Conventions.Add<LowercaseTableNameConvention>();
                 });
             fluentConfig.ExposeConfiguration(cfg =>
             {

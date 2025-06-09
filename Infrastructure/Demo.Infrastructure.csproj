@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="C:\Users\Dom\.nuget\packages\nlog.config\4.7.15\contentFiles\any\any\NLog.config" />
+    <None Remove="C:\Users\Dom\.nuget\packages\nlog.schema\5.5.0\contentFiles\any\any\NLog.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentMigrator.Runner" Version="7.1.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.2" />
 	  <PackageReference Include="FluentNHibernate" Version="3.4.1" />
