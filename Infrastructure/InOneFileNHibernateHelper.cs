@@ -1,5 +1,4 @@
 ﻿using Demo.Infrastructure.Database;
-using Demo.Infrastructure.Database.Drivers;
 using Demo.Infrastructure.Database.Interceptors;
 using Demo.Infrastructure.EntityConfigurations;
 using Demo.Migrations.Conventions;
@@ -17,7 +16,7 @@ namespace Demo.Infrastructure
 {
     public class InOneFileNHibernateHelper : INHibernateHelper
     {
-        private string _connectionString = "Data Source=dupa.db;Cache=Shared;Foreign Keys=True;";
+        private string _connectionString = "Data Source=databasename.db;Cache=Shared;Foreign Keys=True;"; //Mode=Memory
         private static readonly object _lock = new();
         private ISessionFactory? _sessionFactory;
         private bool _disposed;
@@ -52,7 +51,6 @@ namespace Demo.Infrastructure
                     //.InMemory()
                     .ConnectionString(_connectionString)
                     .Driver<NHibernate.Driver.SQLite20Driver>()
-                    .Provider<SQLiteConnectionProviderWithForeignKeys>()
                     .Dialect<NHibernate.Dialect.SQLiteDialect>())
                 .Mappings(m =>
                 {
