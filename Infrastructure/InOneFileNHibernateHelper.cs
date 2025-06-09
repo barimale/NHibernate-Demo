@@ -15,14 +15,14 @@ using ISession = NHibernate.ISession;
 
 namespace Demo.Infrastructure
 {
-    public class InMemoryNHibernateHelper : INHibernateHelper
+    public class InOneFileNHibernateHelper : INHibernateHelper
     {
-        private string _connectionString = "Data Source=CustomDatabaseName;Mode=Memory;Cache=Shared;Foreign Keys=True;";
+        private string _connectionString = "Data Source=dupa.db;Cache=Shared;Foreign Keys=True;";
         private static readonly object _lock = new();
         private ISessionFactory? _sessionFactory;
         private bool _disposed;
 
-        public InMemoryNHibernateHelper()
+        public InOneFileNHibernateHelper()
         {
             //intentionally left blank
         }
@@ -49,7 +49,7 @@ namespace Demo.Infrastructure
         {
             var fluentConfig = Fluently.Configure()
                 .Database(SQLiteConfiguration.Standard
-                    .InMemory()
+                    //.InMemory()
                     .ConnectionString(_connectionString)
                     .Driver<NHibernate.Driver.SQLite20Driver>()
                     .Provider<SQLiteConnectionProviderWithForeignKeys>()
