@@ -19,7 +19,7 @@ namespace Demo.API.Controllers
         }
 
         [HttpPost]
-        public async Task<int?> PostAsync([FromBody] Product product)// Product product)
+        public async Task<int?> PostAsync([FromBody] Product product)
         {
 
             var productAdded = await productRepository.Add(product);
