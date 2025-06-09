@@ -1,4 +1,6 @@
 ﻿using Demo.Domain.Abstraction;
+using Demo.Domain.AggregatesModel.ProductAggregate;
+using FluentValidation;
 
 namespace Demo.Domain.AggregatesModel.Company2Aggregate
 {

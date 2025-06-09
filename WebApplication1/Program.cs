@@ -1,4 +1,6 @@
+using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure;
+using FluentValidation.AspNetCore;
 
 namespace Demo.API
 {
@@ -12,7 +14,9 @@ namespace Demo.API
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
-            builder.Services.AddControllers();
+            builder.Services
+                .AddControllers()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ProductValidator>());
 
             var app = builder.Build();
 

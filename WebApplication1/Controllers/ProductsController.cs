@@ -1,4 +1,5 @@
 using Demo.Domain.AggregatesModel.ProductAggregate;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.API.Controllers
@@ -18,7 +19,7 @@ namespace Demo.API.Controllers
         }
 
         [HttpGet]
-        public async Task<int> GetAsync()
+        public async Task<int?> GetAsync()// Product product)
         {
 
             var product = new Product
@@ -28,12 +29,20 @@ namespace Demo.API.Controllers
                 Discontinued = true
             };
 
-            var result = await productRepository.Add(product);
+            var validator = new ProductValidator();
+            var result = validator.Validate(product);
 
-            _logger.LogInformation("Product added: {ProductName}", product.Name);
-            _logger.LogInformation("Product id: {ProductId}", result);
+            if (result.IsValid)
+            {
+                var productAdded = await productRepository.Add(product);
 
-            return result;
+                _logger.LogInformation("Product added: {ProductName}", product.Name);
+                _logger.LogInformation("Product id: {ProductId}", productAdded);
+
+                return productAdded;
+            }
+
+            return null;
         }
     }
 }
