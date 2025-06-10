@@ -59,12 +59,12 @@ namespace Demo.UnitTests
                     .CheckProperty(p => p.Country, "Street Name")
                     .CheckProperty(p => p.Phone, "Street Name")
                     .CheckProperty(p => p.State, "Street Name")
-                                      .CheckList(
-                     c => c.Companies,
-                     new List<Company2> {
-                         new Company2 { Foo = "A001"},
-                         new Company2 { Foo = "A002" }
-                     })
+                    .CheckList(
+                         c => c.Companies,
+                         new List<Company2> {
+                             new Company2 { Foo = "A001"},
+                             new Company2 { Foo = "A002" }
+                         })
                     .VerifyTheMappings();
         }
 
