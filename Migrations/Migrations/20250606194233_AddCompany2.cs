@@ -6,20 +6,19 @@ namespace Demo.Migrations.Migrations
     [Migration(20250606194233)]
     public class AddCompany2 : Migration
     {
-        private const string NAME = "Company2";
+        private readonly string TableName = LowercaseTableNameConvention.TablePrefix + "Company2";
 
         public override void Up()
         {
-            Create.Table(LowercaseTableNameConvention.TablePrefix + NAME)
-            .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-             .WithColumn("Version").AsInt32()
-            .WithColumn("Foo").AsString().Nullable();
+            Create.Table(TableName)
+                .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
+                .WithColumn("Version").AsInt32()
+                .WithColumn("Foo").AsString().Nullable();
         }
 
         public override void Down()
         {
-            Delete.Table(LowercaseTableNameConvention.TablePrefix + NAME);
-
+            Delete.Table(TableName);
         }
     }
 }
