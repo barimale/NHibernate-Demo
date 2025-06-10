@@ -1,3 +1,4 @@
+using BuildingBlocks.API.Middlewares.GlobalExceptions.Handler;
 using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure;
 using FluentValidation.AspNetCore;
@@ -11,6 +12,11 @@ namespace Demo.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+            builder.Services.AddProblemDetails(options =>
+                options.CustomizeProblemDetails = ctx =>
+                    ctx.ProblemDetails.Extensions.Add("nodeId", Environment.MachineName));
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
@@ -27,6 +33,8 @@ namespace Demo.API
             builder.Logging.AddConsole();
 
             var app = builder.Build();
+
+            app.UseExceptionHandler();
 
             if (app.Environment.IsDevelopment())
             {
