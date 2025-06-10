@@ -19,7 +19,7 @@ namespace Demo.Infrastructure.EntityConfigurations
             Map(x => x.Phone).Length(50).Nullable();
             Version(u => u.Version);
 
-            // Define the relationship with AddressCompany
+            // Define the relationship with AddressCompany2
             HasManyToMany(x => x.Companies)
                 .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress2")
                 .ParentKeyColumn("AddressId")
