@@ -1,5 +1,6 @@
 ﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
 using Demo.Migrations.Conventions;
+using FluentNHibernate.Conventions.Inspections;
 using FluentNHibernate.Mapping;
 
 namespace Demo.Infrastructure.EntityConfigurations
@@ -17,8 +18,7 @@ namespace Demo.Infrastructure.EntityConfigurations
                 .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress2")
                 .ParentKeyColumn("CompanyId")
                 .ChildKeyColumn("AddressId")
-                .Inverse()
-                .Cascade.All().LazyLoad();
+                .Cascade.All().Fetch.Join();
         }
     }
 }
