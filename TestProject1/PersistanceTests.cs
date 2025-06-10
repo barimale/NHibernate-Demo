@@ -1,11 +1,12 @@
-﻿using Demo.Infrastructure.Database;
+﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
+using Demo.Domain.AggregatesModel.CompanyAggregate;
+using Demo.Domain.AggregatesModel.ProductAggregate;
+using Demo.Infrastructure;
+using Demo.Infrastructure.Database;
 using FluentNHibernate.Testing;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
-using Demo.Infrastructure;
-using Demo.Domain.AggregatesModel.ProductAggregate;
-using Demo.Domain.AggregatesModel.CompanyAggregate;
-using Demo.Domain.AggregatesModel.Company2Aggregate;
+using NHibernate.Criterion;
 
 namespace Demo.UnitTests
 {
@@ -58,6 +59,12 @@ namespace Demo.UnitTests
                     .CheckProperty(p => p.Country, "Street Name")
                     .CheckProperty(p => p.Phone, "Street Name")
                     .CheckProperty(p => p.State, "Street Name")
+                                      .CheckList(
+                     c => c.Companies,
+                     new List<Company2> {
+                         new Company2 { Foo = "A001"},
+                         new Company2 { Foo = "A002" }
+                     })
                     .VerifyTheMappings();
         }
 
