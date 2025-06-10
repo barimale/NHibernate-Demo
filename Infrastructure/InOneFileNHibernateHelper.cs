@@ -99,7 +99,7 @@ namespace Demo.Infrastructure
                     .AddSQLite()
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(InitialMigration).Assembly).For.Migrations())
-                .AddLogging(lb => lb.AddFluentMigratorConsole().AddNLog())
+                .AddLogging(lb => lb.AddFluentMigratorConsole().AddConsole())
                 .BuildServiceProvider(true);
         }
 
