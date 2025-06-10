@@ -6,7 +6,6 @@ using Demo.Infrastructure.Database;
 using FluentNHibernate.Testing;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
-using NHibernate.Criterion;
 
 namespace Demo.UnitTests
 {
