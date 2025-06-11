@@ -2,7 +2,7 @@
 
 namespace Demo.Domain.AggregatesModel.CompanyAggregate
 {
-    public class Address: Entity<int>
+    public class Address: Entity<int>, IAggregateRoot
     {
         public virtual string Street { get; set; }
         public virtual string City { get; set; }

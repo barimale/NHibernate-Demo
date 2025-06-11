@@ -1,7 +1,7 @@
 ﻿namespace Demo.Domain.Abstraction
 {
     public interface IRepository<T>
-        where T: class
+        where T: IAggregateRoot
     {
         Task<int> Add(T product);
         Task Update(T product);

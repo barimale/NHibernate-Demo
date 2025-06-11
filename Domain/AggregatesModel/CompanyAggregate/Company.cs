@@ -2,7 +2,7 @@
 
 namespace Demo.Domain.AggregatesModel.CompanyAggregate
 {
-    public class Company: Entity<int>
+    public class Company: Entity<int>, IAggregateRoot
     {
         public virtual string Foo { get; set; }
 
