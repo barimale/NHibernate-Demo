@@ -85,7 +85,6 @@ namespace Demo.Infrastructure.Repositories
             {
                 return await session.Query<Address>()
                     .Where(p => p.Id == productId)
-                    .Fetch(x => x.Companies) // Eagerly fetch related Companies
                     .FirstOrDefaultAsync();
             }
         }
