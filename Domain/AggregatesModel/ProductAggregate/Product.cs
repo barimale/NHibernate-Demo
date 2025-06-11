@@ -1,6 +1,5 @@
 ﻿using Demo.Domain.Abstraction;
 using FluentValidation;
-using System.Text.Json.Serialization;
 
 namespace Demo.Domain.AggregatesModel.ProductAggregate
 {
