@@ -23,7 +23,7 @@ namespace Demo.Infrastructure.EntityConfigurations
                 .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress")
                 .KeyColumn("AddressId")
                 .Inverse()
-                .Cascade.All().LazyLoad();
+                .Cascade.All();
         }
     }
 }

@@ -67,13 +67,13 @@ namespace Demo.UnitTests
                 Street = "dsa",
                 State = "state",
                 ZipCode = "zipcode",
-                Phone = "phone"
+                Phone = "phone",
             };
 
             // Act:
             var result = await _addressRepository.Add(address);
             Address retrievedProduct = await _addressRepository.GetById((int)result);
-
+            var a = retrievedProduct.Companies.Count;
             // Assert: 
             Assert.IsNotNull(result);
             Assert.IsNotNull(retrievedProduct);

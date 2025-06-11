@@ -16,8 +16,8 @@ namespace Demo.Infrastructure.EntityConfigurations
             HasMany(x => x.Addresses)
                 .Table(LowercaseTableNameConvention.TablePrefix + "CompanyAddress")
                 .KeyColumn("CompanyId")
-                .Inverse()
-                .Cascade.All().LazyLoad();
+                //.Inverse()
+                .Cascade.All().Fetch.Join();
         }
     }
 }
