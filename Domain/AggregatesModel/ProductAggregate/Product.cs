@@ -1,5 +1,6 @@
 ﻿using Demo.Domain.Abstraction;
 using FluentValidation;
+using System.Text.Json.Serialization;
 
 namespace Demo.Domain.AggregatesModel.ProductAggregate
 {
@@ -8,6 +9,7 @@ namespace Demo.Domain.AggregatesModel.ProductAggregate
         public virtual string Name { get; set; }
         public virtual string Category { get; set; }
         public virtual bool Discontinued { get; set; }
+        public virtual ProductType Type { get; set; }   
     }
 
     public class ProductValidator : AbstractValidator<Product>

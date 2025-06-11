@@ -34,6 +34,8 @@ namespace Demo.UnitTests
             new PersistenceSpecification<Product>(session)
               .CheckProperty(p => p.Name, "Product Name")
               .CheckProperty(p => p.Category, "Category Name")
+              .CheckProperty(p => p.Discontinued, true)
+              //.CheckProperty(p => p.Type, new ProductType() { Description = " booo"})
               .VerifyTheMappings();
         }
 

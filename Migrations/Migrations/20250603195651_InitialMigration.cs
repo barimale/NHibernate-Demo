@@ -14,6 +14,7 @@ namespace Demo.Migrations.Migrations
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
                 .WithColumn("Name").AsString()
                 .WithColumn("Category").AsString()
+                .WithColumn("Type").AsString().Nullable()
                 .WithColumn("Version").AsInt32()
                 .WithColumn("Discontinued").AsBoolean().WithDefaultValue(false);
 

@@ -1,5 +1,6 @@
 ﻿using Demo.Domain.AggregatesModel.ProductAggregate;
 using FluentNHibernate.Mapping;
+using NHibernate.Json;
 
 namespace Demo.Infrastructure.EntityConfigurations
 {
@@ -16,6 +17,7 @@ namespace Demo.Infrastructure.EntityConfigurations
             Map(u => u.Name).Length(50).Nullable();
             Map(u => u.Category).Length(50).Nullable();
             Map(u => u.Discontinued).Nullable();
+            Map(u => u.Type).Nullable().CustomType<JsonColumnType<ProductType>>();
             Version(u => u.Version);
         }
     }

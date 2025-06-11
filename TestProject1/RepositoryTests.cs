@@ -43,7 +43,8 @@ namespace Demo.UnitTests
             {
                 Name = Guid.NewGuid().ToString(),
                 Category = "Sample Category",
-                Discontinued = false
+                Discontinued = false,
+                Type = new ProductType { Description = " booo" },
             };
 
             // Act:
