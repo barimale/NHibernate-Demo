@@ -1,11 +1,9 @@
-﻿namespace Demo.Domain.AggregatesModel.ProductAggregate
+﻿using Demo.Domain.Abstraction;
+
+namespace Demo.Domain.AggregatesModel.ProductAggregate
 {
-    public interface IProductRepository
+    public interface IProductRepository: IRepository<Product>
     {
-        Task<int> Add(Product product);
-        Task Update(Product product);
-        Task Remove(Product product);
-        Task<Product> GetById(int productId);
         Task<Product> GetByName(string name);
     }
 }

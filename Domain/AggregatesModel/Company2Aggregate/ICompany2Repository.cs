@@ -1,10 +1,9 @@
-﻿namespace Demo.Domain.AggregatesModel.Company2Aggregate
+﻿using Demo.Domain.Abstraction;
+
+namespace Demo.Domain.AggregatesModel.Company2Aggregate
 {
-    public interface ICompany2Repository
+    public interface ICompany2Repository : IRepository<Company2>
     {
-        Task<int> Add(Company2 product);
-        Task<Company2> GetById(int addressId);
-        Task Remove(Company2 product);
-        Task Update(Company2 product);
+      // intentionally left blank
     }
 }

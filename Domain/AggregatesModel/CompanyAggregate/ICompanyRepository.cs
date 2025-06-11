@@ -1,11 +1,9 @@
-﻿namespace Demo.Domain.AggregatesModel.CompanyAggregate
+﻿using Demo.Domain.Abstraction;
+
+namespace Demo.Domain.AggregatesModel.CompanyAggregate
 {
-    public interface ICompanyRepository
+    public interface ICompanyRepository: IRepository<Company>
     {
-        Task<int> Add(Company product);
-        Task<Company> GetById(int addressId);
         Task<Company> GetBySubquery();
-        Task Remove(Company product);
-        Task Update(Company product);
     }
 }
