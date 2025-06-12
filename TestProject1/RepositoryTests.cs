@@ -175,6 +175,8 @@ namespace Demo.UnitTests
             // Assert: 
             Assert.IsNotNull(retrievedProduct);
             Assert.IsNotNull(retrievedProduct.Addresses);
+            Assert.AreEqual(retrievedProduct.Addresses.Count , 1);
+            Assert.AreEqual(retrievedProduct.Addresses.First().City, address.City);
         }
     }
 }

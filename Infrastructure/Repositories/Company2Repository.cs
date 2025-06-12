@@ -1,6 +1,7 @@
 ﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
 using Demo.Infrastructure.Database;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace Demo.Infrastructure.Repositories
 {
@@ -49,7 +50,10 @@ namespace Demo.Infrastructure.Repositories
         {
             using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
-                return await session.GetAsync<Company2>(productId);
+                return await session.Query<Company2>()
+                    .Where( p=> p.Id == productId)
+                    .FetchMany(p => p.Addresses)
+                    .FirstOrDefaultAsync();
             }
         }
     }
