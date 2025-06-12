@@ -1,7 +1,6 @@
 using AutoMapper;
 using Demo.API.DTOs;
 using Demo.Domain.AggregatesModel.Company2Aggregate;
-using Demo.Domain.AggregatesModel.ProductAggregate;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -33,6 +32,29 @@ namespace Demo.API.Controllers
             this.companyRepository = productRepository;
             this.addressRepository = addressRepository;
             this._mapper = mapper;  
+        }
+
+        /// <summary>
+        /// Gets a product from the repository.
+        /// </summary>
+        /// <param name="id">The product to add.</param>
+        /// <returns>The ID of the added product, or null if the operation fails.</returns>
+        [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CompanyDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            // Add the product to the repository and get the new product's ID.
+            var productAdded = await companyRepository.GetById(id);
+
+            // Log the name and ID of the added product.
+            _logger.LogInformation("Company id: {Id}", productAdded);
+
+            // Return the ID of the added product.
+            var product = _mapper.Map<CompanyDto>(productAdded);
+
+            return Ok(product);
         }
 
         /// <summary>

@@ -32,6 +32,29 @@ namespace Demo.API.Controllers
         }
 
         /// <summary>
+        /// Gets a product from the repository.
+        /// </summary>
+        /// <param name="id">The product to add.</param>
+        /// <returns>The ID of the added product, or null if the operation fails.</returns>
+        [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            // Add the product to the repository and get the new product's ID.
+            var productAdded = await productRepository.GetById(id);
+
+            // Log the name and ID of the added product.
+            _logger.LogInformation("Product id: {Id}", productAdded);
+
+            // Return the ID of the added product.
+            var product = _mapper.Map<ProductDto>(productAdded);
+
+            return Ok(product);
+        }
+
+        /// <summary>
         /// Adds a new product to the repository.
         /// </summary>
         /// <param name="product">The product to add.</param>
