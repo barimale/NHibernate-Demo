@@ -48,7 +48,7 @@ namespace Demo.Infrastructure.Repositories
 
         public async Task<Company2> GetById(int productId)
         {
-            using (var session = _nHibernateHelper.OpenStatelessSesion())
+            using (var session = _nHibernateHelper.OpenSession())
             {
                 return await session.Query<Company2>()
                     .Where( p=> p.Id == productId)
