@@ -35,51 +35,68 @@ namespace Demo.API.Controllers
         [SwaggerOperation(Summary = "Endpoint for putting product data to the server.")]
         public async Task<IActionResult> AddAsync([FromBody] Product product)
         {
-            // Add the product to the repository.
+            // Add the product to the repository and get the new product's ID.
             var productAdded = await productRepository.Add(product);
 
-            // Log product addition details.
+            // Log the name and ID of the added product.
             _logger.LogInformation("Product added: {ProductName}", product.Name);
             _logger.LogInformation("Product id: {ProductId}", productAdded);
 
+            // Return the ID of the added product.
             return Ok(productAdded);
         }
 
+        /// <summary>
+        /// Updates an existing product in the repository.
+        /// </summary>
+        /// <param name="product">The product with updated information.</param>
+        /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
         [HttpPut]
         [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
         public async Task<IActionResult> UpdateAsync([FromBody] Product product)
         {
+            // Retrieve the existing product by ID.
             var existed = await productRepository.GetById(product.Id);
-            if(existed == null)
+            if (existed == null)
             {
+                // Return 404 if the product does not exist.
                 return NotFound();
             }
-            // Add the product to the repository.
+            // Update the product in the repository.
             await productRepository.Update(product);
 
-            // Log product addition details.
-            _logger.LogInformation("Product added: {ProductName}", product.Name);
+            // Log the name and ID of the updated product.
+            _logger.LogInformation("Product updated: {ProductName}", product.Name);
             _logger.LogInformation("Product id: {ProductId}", product);
 
+            // Return 204 No Content to indicate success.
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes an existing product from the repository.
+        /// </summary>
+        /// <param name="product">The product to delete.</param>
+        /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
         [HttpDelete]
         [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
         public async Task<IActionResult> DeleteAsync([FromBody] Product product)
         {
+            // Retrieve the existing product by ID.
             var existed = await productRepository.GetById(product.Id);
             if (existed == null)
             {
+                // Return 404 if the product does not exist.
                 return NotFound();
             }
-            // Add the product to the repository.
+            // Remove the product from the repository.
             await productRepository.Remove(product);
 
-            // Log product addition details.
-            _logger.LogInformation("Product added: {ProductName}", product.Name);
+            // Log the name and ID of the deleted product.
+            _logger.LogInformation("Product removed: {ProductName}", product.Name);
             _logger.LogInformation("Product id: {ProductId}", product);
 
+            // Return 204 No Content to indicate success.
             return NoContent();
         }
     }
