@@ -1,6 +1,5 @@
 using AutoMapper;
 using Demo.API.DTOs;
-using Demo.Domain.AggregatesModel.CompanyAggregate;
 using Demo.Domain.AggregatesModel.ProductAggregate;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
