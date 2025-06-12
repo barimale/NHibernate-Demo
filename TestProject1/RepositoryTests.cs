@@ -170,13 +170,18 @@ namespace Demo.UnitTests
             var resultCompany = await _company2Repository.Add(company);
 
             _address2Repository.AssingAddressToCompany(resultAddress, resultCompany);
-            Company2 retrievedProduct = await _company2Repository.GetById((int)resultCompany);
+            Company2 addedCompany = await _company2Repository.GetById((int)resultCompany);
+            Address2 addressAdded = await _address2Repository.GetById((int)resultAddress);
 
-            // Assert: 
-            Assert.IsNotNull(retrievedProduct);
-            Assert.IsNotNull(retrievedProduct.Addresses);
-            Assert.AreEqual(retrievedProduct.Addresses.Count , 1);
-            Assert.AreEqual(retrievedProduct.Addresses.First().City, address.City);
+            // Assert:
+            Assert.IsNotNull(addressAdded);
+            Assert.IsNotNull(addedCompany);
+            Assert.IsNotNull(addedCompany.Addresses);
+            Assert.IsNotNull(addressAdded.Companies);
+            Assert.AreEqual(addedCompany.Addresses.Count , 1);
+            Assert.AreEqual(addressAdded.Companies.Count, 1);
+            Assert.AreEqual(addedCompany.Addresses.First().City, address.City);
+            Assert.AreEqual(addressAdded.Companies.First().Foo, company.Foo);
         }
     }
 }
