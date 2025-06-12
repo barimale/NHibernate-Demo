@@ -10,6 +10,5 @@ namespace Demo.API.DTOs
         public virtual string ZipCode { get; set; }
         public virtual string Country { get; set; }
         public virtual string Phone { get; set; }
-        public virtual IList<CompanyDto> Companies { get; set; } = new List<CompanyDto>();
     }
 }
