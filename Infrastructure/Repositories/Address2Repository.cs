@@ -14,13 +14,13 @@ namespace Demo.Infrastructure.Repositories
             _nHibernateHelper = nHibernateHelper;
         }
 
-        public void AssignAddressToCompany(int addressId, int companyId)
+        public async Task AssignAddressToCompany(int addressId, int companyId)
         {
             using (var session = _nHibernateHelper.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var address = session.Get<Address2>(addressId);
-                var company = session.Get<Company2>(companyId);
+                var address = await session.Query<Address2>().Where(p => p.Id == addressId).FetchMany(p => p.Companies).FirstOrDefaultAsync();
+                var company = await session.Query<Company2>().Where(p => p.Id == companyId).FetchMany(p => p.Addresses).FirstOrDefaultAsync();
 
                 if (address != null && company != null)
                 {
