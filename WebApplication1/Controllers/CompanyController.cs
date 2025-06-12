@@ -1,4 +1,7 @@
+using AutoMapper;
+using Demo.API.DTOs;
 using Demo.Domain.AggregatesModel.Company2Aggregate;
+using Demo.Domain.AggregatesModel.ProductAggregate;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,6 +17,7 @@ namespace Demo.API.Controllers
         private readonly ILogger<CompanyController> _logger;
         private readonly ICompany2Repository companyRepository;
         private readonly IAddress2Repository addressRepository;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompanyController"/> class.
@@ -22,11 +26,13 @@ namespace Demo.API.Controllers
         /// <param name="productRepository">Repository for product operations.</param>
         public CompanyController(ILogger<CompanyController> logger,
             ICompany2Repository productRepository,
-            IAddress2Repository addressRepository)
+            IAddress2Repository addressRepository,
+            IMapper mapper)
         {
             _logger = logger;
             this.companyRepository = productRepository;
             this.addressRepository = addressRepository;
+            this._mapper = mapper;  
         }
 
         /// <summary>
@@ -38,8 +44,10 @@ namespace Demo.API.Controllers
         [SwaggerOperation(Summary = "Endpoint for posting product data to the server.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddAsync([FromBody] Company2 product)
+        public async Task<IActionResult> AddAsync([FromBody] CompanyDto dto)
         {
+            var product = _mapper.Map<Company2>(dto);
+
             // Add the product to the repository and get the new product's ID.
             var productAdded = await companyRepository.Add(product);
 
@@ -61,8 +69,10 @@ namespace Demo.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateAsync([FromBody] Company2 company)
+        public async Task<IActionResult> UpdateAsync([FromBody] CompanyDto dto)
         {
+            var company = _mapper.Map<Company2>(dto);
+
             // Retrieve the existing product by ID.
             var existed = await companyRepository.GetById(company.Id);
             if (existed == null)
@@ -91,8 +101,10 @@ namespace Demo.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteAsync([FromBody] Company2 product)
+        public async Task<IActionResult> DeleteAsync([FromBody] CompanyDto dto)
         {
+            var product = _mapper.Map<Company2>(dto);
+
             // Retrieve the existing product by ID.
             var existed = await companyRepository.GetById(product.Id);
             if (existed == null)
