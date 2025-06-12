@@ -32,7 +32,9 @@ namespace Demo.API.Controllers
         /// <param name="product">The product to add.</param>
         /// <returns>The ID of the added product, or null if the operation fails.</returns>
         [HttpPost]
-        [SwaggerOperation(Summary = "Endpoint for putting product data to the server.")]
+        [SwaggerOperation(Summary = "Endpoint for posting product data to the server.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddAsync([FromBody] Product product)
         {
             // Add the product to the repository and get the new product's ID.
@@ -53,6 +55,9 @@ namespace Demo.API.Controllers
         /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
         [HttpPut]
         [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromBody] Product product)
         {
             // Retrieve the existing product by ID.
@@ -67,7 +72,7 @@ namespace Demo.API.Controllers
 
             // Log the name and ID of the updated product.
             _logger.LogInformation("Product updated: {ProductName}", product.Name);
-            _logger.LogInformation("Product id: {ProductId}", product);
+            _logger.LogInformation("Product id: {ProductId}", product.Id);
 
             // Return 204 No Content to indicate success.
             return NoContent();
@@ -79,7 +84,10 @@ namespace Demo.API.Controllers
         /// <param name="product">The product to delete.</param>
         /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
         [HttpDelete]
-        [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
+        [SwaggerOperation(Summary = "Endpoint for deleting product data from the server.")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromBody] Product product)
         {
             // Retrieve the existing product by ID.
@@ -94,7 +102,7 @@ namespace Demo.API.Controllers
 
             // Log the name and ID of the deleted product.
             _logger.LogInformation("Product removed: {ProductName}", product.Name);
-            _logger.LogInformation("Product id: {ProductId}", product);
+            _logger.LogInformation("Product id: {ProductId}", product.Id);
 
             // Return 204 No Content to indicate success.
             return NoContent();

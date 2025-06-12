@@ -68,7 +68,7 @@ namespace Demo.UnitTests
         {
             using (ISession session = _nHibernateHelper.OpenSession())
                 new PersistenceSpecification<Company>(session)
-                    .CheckProperty(p => p.Foo, "Foo Name")
+                    .CheckProperty(p => p.Foo,  "Foo Name")
                     .VerifyTheMappings();
         }
 
