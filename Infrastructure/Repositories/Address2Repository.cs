@@ -14,7 +14,7 @@ namespace Demo.Infrastructure.Repositories
             _nHibernateHelper = nHibernateHelper;
         }
 
-        public void AssingAddressToCompany(int addressId, int companyId)
+        public void AssignAddressToCompany(int addressId, int companyId)
         {
             using (var session = _nHibernateHelper.OpenSession())
             using (var transaction = session.BeginTransaction())
