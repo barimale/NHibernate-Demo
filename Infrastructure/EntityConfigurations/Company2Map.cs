@@ -1,6 +1,5 @@
 ﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
 using Demo.Migrations.Conventions;
-using FluentNHibernate.Conventions.Inspections;
 using FluentNHibernate.Mapping;
 
 namespace Demo.Infrastructure.EntityConfigurations
