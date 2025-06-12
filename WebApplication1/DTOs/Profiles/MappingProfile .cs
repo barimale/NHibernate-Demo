@@ -12,7 +12,6 @@ namespace Demo.API.DTOs.Profiles
             CreateMap<ProductType, ProductTypeDto>().ReverseMap();
             CreateMap<Company2, CompanyDto>().ReverseMap();
             CreateMap<Address2, AddressDto>().ReverseMap();
-
         }
     }
 }
