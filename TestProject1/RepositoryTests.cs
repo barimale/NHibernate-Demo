@@ -166,15 +166,15 @@ namespace Demo.UnitTests
 
             var address2 = new Address2
             {
-                City = "Sample Product",
-                Country = "Sample Category",
-                Street = "dsa",
-                State = "state",
-                ZipCode = "zipcode",
-                Phone = "phone"
+                City = "Sample Product22",
+                Country = "Sample Category2",
+                Street = "dsa22",
+                State = "state2",
+                ZipCode = "zipcode2",
+                Phone = "phone2"
             };
 
-            var company = new Company2 { Foo = "city" };
+            var company = new Company2 { Foo = "city2" };
 
             // Act:
             var resultAddress = await _address2Repository.Add(address);
@@ -193,11 +193,11 @@ namespace Demo.UnitTests
             Assert.IsNotNull(addedCompany);
             Assert.IsNotNull(addedCompany.Addresses);
             Assert.IsNotNull(addressAdded.Companies);
-            //Assert.AreEqual(2, addedCompany.Addresses.Count); // WIP
             Assert.AreEqual(1, addressAdded.Companies.Count);
             Assert.AreEqual(1, address2Added.Companies.Count);
             Assert.AreEqual(address.City, addedCompany.Addresses.First().City);
             Assert.AreEqual(company.Foo, addressAdded.Companies.First().Foo);
+            Assert.AreEqual(2, addedCompany.Addresses.Count); // WIP
         }
     }
 }
