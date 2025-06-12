@@ -1,4 +1,5 @@
 using BuildingBlocks.API.Middlewares.GlobalExceptions.Handler;
+using Demo.API.DTOs.Profiles;
 using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure;
 using FluentValidation.AspNetCore;
@@ -20,12 +21,17 @@ namespace Demo.API
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
+            // Specify the assembly explicitly to resolve ambiguity
+            builder.Services.AddAutoMapper(cfg => { 
+                cfg.AddProfile<MappingProfile>(); });
+
             builder.Services
                 .AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ProductValidator>());
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(options => {
+            builder.Services.AddSwaggerGen(options =>
+            {
                 options.EnableAnnotations();
             });
 

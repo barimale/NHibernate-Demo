@@ -48,7 +48,6 @@ namespace Demo.UnitTests
                   .VerifyTheMappings();
         }
 
-
         [TestMethod]
         public void Address2_persistence_test()
         {

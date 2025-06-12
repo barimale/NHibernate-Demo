@@ -1,3 +1,6 @@
+using AutoMapper;
+using Demo.API.DTOs;
+using Demo.Domain.AggregatesModel.CompanyAggregate;
 using Demo.Domain.AggregatesModel.ProductAggregate;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,6 +16,7 @@ namespace Demo.API.Controllers
     {
         private readonly ILogger<ProductsController> _logger;
         private readonly IProductRepository productRepository;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductsController"/> class.
@@ -20,10 +24,12 @@ namespace Demo.API.Controllers
         /// <param name="logger">Logger instance for logging information.</param>
         /// <param name="productRepository">Repository for product operations.</param>
         public ProductsController(ILogger<ProductsController> logger,
-            IProductRepository productRepository)
+            IProductRepository productRepository,
+            IMapper mapper)
         {
             _logger = logger;
             this.productRepository = productRepository;
+            this._mapper = mapper;
         }
 
         /// <summary>
@@ -35,8 +41,9 @@ namespace Demo.API.Controllers
         [SwaggerOperation(Summary = "Endpoint for posting product data to the server.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddAsync([FromBody] Product product)
+        public async Task<IActionResult> AddAsync([FromBody] ProductDto dto)
         {
+            var product = _mapper.Map<Product>(dto);
             // Add the product to the repository and get the new product's ID.
             var productAdded = await productRepository.Add(product);
 
@@ -58,8 +65,10 @@ namespace Demo.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateAsync([FromBody] Product product)
+        public async Task<IActionResult> UpdateAsync([FromBody] ProductDto dto)
         {
+            var product = _mapper.Map<Product>(dto);
+
             // Retrieve the existing product by ID.
             var existed = await productRepository.GetById(product.Id);
             if (existed == null)
@@ -88,8 +97,10 @@ namespace Demo.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteAsync([FromBody] Product product)
+        public async Task<IActionResult> DeleteAsync([FromBody] ProductDto dto)
         {
+            var product = _mapper.Map<Product>(dto);
+
             // Retrieve the existing product by ID.
             var existed = await productRepository.GetById(product.Id);
             if (existed == null)

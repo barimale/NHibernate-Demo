@@ -52,40 +52,40 @@ namespace Demo.API.Controllers
         }
 
         /// <summary>
-        /// Updates an existing product in the repository.
+        /// Updates an existing company in the repository.
         /// </summary>
-        /// <param name="product">The product with updated information.</param>
+        /// <param name="company">The company with updated information.</param>
         /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
         [HttpPut]
         [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateAsync([FromBody] Company2 product)
+        public async Task<IActionResult> UpdateAsync([FromBody] Company2 company)
         {
             // Retrieve the existing product by ID.
-            var existed = await companyRepository.GetById(product.Id);
+            var existed = await companyRepository.GetById(company.Id);
             if (existed == null)
             {
                 // Return 404 if the product does not exist.
                 return NotFound();
             }
             // Update the product in the repository.
-            await companyRepository.Update(product);
+            await companyRepository.Update(company);
 
             // Log the name and ID of the updated product.
-            _logger.LogInformation("Company updated: {Name}", product.Foo);
-            _logger.LogInformation("Company id: {Id}", product.Id);
+            _logger.LogInformation("Company updated: {Name}", company.Foo);
+            _logger.LogInformation("Company id: {Id}", company.Id);
 
             // Return 204 No Content to indicate success.
             return NoContent();
         }
 
         /// <summary>
-        /// Deletes an existing product from the repository.
+        /// Deletes an existing company from the repository.
         /// </summary>
-        /// <param name="product">The product to delete.</param>
-        /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
+        /// <param name="product">The company to delete.</param>
+        /// <returns>No content if successful, or NotFound if the company does not exist.</returns>
         [HttpDelete]
         [SwaggerOperation(Summary = "Endpoint for deleting product data from the server.")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
