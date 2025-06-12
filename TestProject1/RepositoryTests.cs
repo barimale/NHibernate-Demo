@@ -163,23 +163,39 @@ namespace Demo.UnitTests
                 ZipCode = "zipcode",
                 Phone = "phone"
             };
+
+            var address2 = new Address2
+            {
+                City = "Sample Product",
+                Country = "Sample Category",
+                Street = "dsa",
+                State = "state",
+                ZipCode = "zipcode",
+                Phone = "phone"
+            };
+
             var company = new Company2 { Foo = "city" };
 
             // Act:
             var resultAddress = await _address2Repository.Add(address);
+            var resultAddress2 = await _address2Repository.Add(address2);
             var resultCompany = await _company2Repository.Add(company);
 
             _address2Repository.AssignAddressToCompany(resultAddress, resultCompany);
+            _address2Repository.AssignAddressToCompany(resultAddress2, resultCompany);
+
             Company2 addedCompany = await _company2Repository.GetById((int)resultCompany);
             Address2 addressAdded = await _address2Repository.GetById((int)resultAddress);
+            Address2 address2Added = await _address2Repository.GetById((int)resultAddress2);
 
             // Assert:
             Assert.IsNotNull(addressAdded);
             Assert.IsNotNull(addedCompany);
             Assert.IsNotNull(addedCompany.Addresses);
             Assert.IsNotNull(addressAdded.Companies);
-            Assert.AreEqual(addedCompany.Addresses.Count , 1);
+            Assert.AreEqual(addedCompany.Addresses.Count , 2);
             Assert.AreEqual(addressAdded.Companies.Count, 1);
+            Assert.AreEqual(address2Added.Companies.Count, 1);
             Assert.AreEqual(addedCompany.Addresses.First().City, address.City);
             Assert.AreEqual(addressAdded.Companies.First().Foo, company.Foo);
         }
