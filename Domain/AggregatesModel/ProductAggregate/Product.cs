@@ -3,6 +3,7 @@ using FluentValidation;
 
 namespace Demo.Domain.AggregatesModel.ProductAggregate
 {
+    [Serializable]
     public class Product: Entity<int>, IAggregateRoot
     {
         public virtual string Name { get; set; }

@@ -33,7 +33,7 @@ namespace Demo.API.Controllers
         /// <returns>The ID of the added product, or null if the operation fails.</returns>
         [HttpPost]
         [SwaggerOperation(Summary = "Endpoint for putting product data to the server.")]
-        public async Task<int?> PostAsync([FromBody] Product product)
+        public async Task<IActionResult> AddAsync([FromBody] Product product)
         {
             // Add the product to the repository.
             var productAdded = await productRepository.Add(product);
@@ -42,7 +42,45 @@ namespace Demo.API.Controllers
             _logger.LogInformation("Product added: {ProductName}", product.Name);
             _logger.LogInformation("Product id: {ProductId}", productAdded);
 
-            return productAdded;
+            return Ok(productAdded);
+        }
+
+        [HttpPut]
+        [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
+        public async Task<IActionResult> UpdateAsync([FromBody] Product product)
+        {
+            var existed = await productRepository.GetById(product.Id);
+            if(existed == null)
+            {
+                return NotFound();
+            }
+            // Add the product to the repository.
+            await productRepository.Update(product);
+
+            // Log product addition details.
+            _logger.LogInformation("Product added: {ProductName}", product.Name);
+            _logger.LogInformation("Product id: {ProductId}", product);
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
+        public async Task<IActionResult> DeleteAsync([FromBody] Product product)
+        {
+            var existed = await productRepository.GetById(product.Id);
+            if (existed == null)
+            {
+                return NotFound();
+            }
+            // Add the product to the repository.
+            await productRepository.Remove(product);
+
+            // Log product addition details.
+            _logger.LogInformation("Product added: {ProductName}", product.Name);
+            _logger.LogInformation("Product id: {ProductId}", product);
+
+            return NoContent();
         }
     }
 }

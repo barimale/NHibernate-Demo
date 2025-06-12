@@ -1,8 +1,13 @@
-﻿namespace Demo.Domain.Abstraction
+﻿using System.Text.Json.Serialization;
+
+namespace Demo.Domain.Abstraction
 {
+    [Serializable]
     public abstract class Entity<TId>
     {
+        [JsonInclude]
         public virtual TId Id { get; protected set; }
+        [JsonInclude]
         public virtual int Version { get; protected set; }
         public override bool Equals(object obj)
         {
