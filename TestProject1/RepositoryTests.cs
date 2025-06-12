@@ -73,11 +73,11 @@ namespace Demo.UnitTests
 
             // Act:
             var result = await _addressRepository.Add(address);
-            Address retrievedProduct = await _addressRepository.GetById((int)result);
+            Address retrievedAddress = await _addressRepository.GetById((int)result);
 
             // Assert: 
             Assert.IsNotNull(result);
-            Assert.IsNotNull(retrievedProduct);
+            Assert.IsNotNull(retrievedAddress);
         }
 
         [TestMethod]
@@ -96,11 +96,11 @@ namespace Demo.UnitTests
 
             // Act:
             var result = await _addressRepository.Add(address);
-            Address retrievedProduct = await _addressRepository.GetByCountry(address.Country);
+            Address retrievedAddress = await _addressRepository.GetByCountry(address.Country);
 
             // Assert: 
             Assert.IsNotNull(result);
-            Assert.IsNotNull(retrievedProduct);
+            Assert.IsNotNull(retrievedAddress);
         }
 
         [TestMethod]
@@ -114,11 +114,11 @@ namespace Demo.UnitTests
 
             // Act:
             var result = await _companyRepository.Add(company);
-            Company retrievedProduct = await _companyRepository.GetById((int)result);
+            Company retrievedCompany = await _companyRepository.GetById((int)result);
 
             // Assert: 
             Assert.IsNotNull(result);
-            Assert.IsNotNull(retrievedProduct);
+            Assert.IsNotNull(retrievedCompany);
 
         }
 
