@@ -193,11 +193,11 @@ namespace Demo.UnitTests
             Assert.IsNotNull(addedCompany);
             Assert.IsNotNull(addedCompany.Addresses);
             Assert.IsNotNull(addressAdded.Companies);
-            Assert.AreEqual(addedCompany.Addresses.Count , 2);
-            Assert.AreEqual(addressAdded.Companies.Count, 1);
-            Assert.AreEqual(address2Added.Companies.Count, 1);
-            Assert.AreEqual(addedCompany.Addresses.First().City, address.City);
-            Assert.AreEqual(addressAdded.Companies.First().Foo, company.Foo);
+            Assert.AreEqual(2, addedCompany.Addresses.Count);
+            Assert.AreEqual(1, addressAdded.Companies.Count);
+            Assert.AreEqual(1, address2Added.Companies.Count);
+            Assert.AreEqual(address.City, addedCompany.Addresses.First().City);
+            Assert.AreEqual(company.Foo, addressAdded.Companies.First().Foo);
         }
     }
 }

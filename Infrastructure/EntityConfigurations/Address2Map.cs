@@ -24,7 +24,7 @@ namespace Demo.Infrastructure.EntityConfigurations
                 .ParentKeyColumn("AddressId")
                 .ChildKeyColumn("CompanyId")
                 .Inverse()
-                .Cascade.All().Fetch.Join();
+                .Cascade.All().Fetch.Select();
         }
     }
 }
