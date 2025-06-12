@@ -1,7 +1,6 @@
 ﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
 using Demo.Migrations.Conventions;
 using FluentNHibernate.Mapping;
-using NHibernate.Type;
 
 namespace Demo.Infrastructure.EntityConfigurations
 {
