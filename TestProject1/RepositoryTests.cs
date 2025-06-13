@@ -196,7 +196,7 @@ namespace Demo.UnitTests
             Assert.AreEqual(1, address2Added.Companies.Count);
             Assert.AreEqual(address.City, addedCompany.Addresses.First().City);
             Assert.AreEqual(company.Foo, addressAdded.Companies.First().Foo);
-            Assert.AreEqual(2, addedCompany.Addresses.Count); // WIP
+            Assert.AreEqual(2, addedCompany.Addresses.Count);
         }
     }
 }
