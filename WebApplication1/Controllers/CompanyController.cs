@@ -155,7 +155,7 @@ namespace Demo.API.Controllers
         /// <returns>Returns the updated company if successful, or NotFound if either entity does not exist.</returns>
         [HttpPost("{companyId}/add-address/{addressId}")]
         [SwaggerOperation(Summary = "Endpoint for adding address to company.")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddAddressToCompany(int companyId, int addressId)
