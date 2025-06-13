@@ -51,7 +51,7 @@ namespace Demo.API.Controllers
             var productAdded = await companyRepository.GetById(id);
 
             // Log the name and ID of the added product.
-            _logger.LogInformation("Company id: {Id}", productAdded);
+            _logger.LogInformation("Company id: {Id}", productAdded.Id);
 
             // Return the ID of the added product.
             var product = _mapper.Map<CompanyDto>(productAdded);
