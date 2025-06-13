@@ -2,7 +2,7 @@
 
 namespace Demo.API.DTOs
 {
-    public class CompanyDto
+    public class CompanyDto: EntityDto
     {
         public virtual string Foo { get; set; }
         public virtual IList<AddressDto> Addresses { get; set; } = new List<AddressDto>();

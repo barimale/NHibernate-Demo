@@ -2,7 +2,7 @@
 
 namespace Demo.API.DTOs
 {
-    public class AddressDto
+    public class AddressDto: EntityDto
     {
         public virtual string Street { get; set; }
         public virtual string City { get; set; }
