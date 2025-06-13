@@ -27,9 +27,9 @@ namespace Demo.Infrastructure.Repositories
                     address.Companies.Add(company);
                     company.Addresses.Add(address);
 
-                    session.Update(address);
-                    session.Update(company);
-                    transaction.Commit();
+                    await session.UpdateAsync(address);
+                    await session.UpdateAsync(company);
+                    await transaction.CommitAsync();
 
                     return company;
                 }
