@@ -1,8 +1,9 @@
-﻿using FluentValidation;
+﻿using Demo.API.Middlewares.GlobalExceptions;
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuildingBlocks.API.Middlewares.GlobalExceptions.Handler;
+namespace Demo.API.Middlewares.GlobalExceptions.Handler;
 public class GlobalExceptionHandler
     (ILogger<GlobalExceptionHandler> logger)
     : IExceptionHandler

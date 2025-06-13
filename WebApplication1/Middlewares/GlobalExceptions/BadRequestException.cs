@@ -1,4 +1,4 @@
-﻿namespace BuildingBlocks.API.Middlewares.GlobalExceptions;
+﻿namespace Demo.API.Middlewares.GlobalExceptions;
 public class BadRequestException : Exception
 {
     public BadRequestException(string message) : base(message)

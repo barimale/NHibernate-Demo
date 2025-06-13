@@ -1,4 +1,4 @@
-﻿namespace BuildingBlocks.API.Middlewares.GlobalExceptions;
+﻿namespace Demo.API.Middlewares.GlobalExceptions;
 public class InternalServerException : Exception
 {
     public InternalServerException(string message) : base(message)
