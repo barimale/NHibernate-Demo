@@ -23,6 +23,8 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <param name="logger">Logger instance for logging information.</param>
         /// <param name="productRepository">Repository for product operations.</param>
+        /// <param name="addressRepository"></param>
+        /// <param name="mapper"></param>
         public CompanyController(ILogger<CompanyController> logger,
             ICompany2Repository productRepository,
             IAddress2Repository addressRepository,
