@@ -170,15 +170,14 @@ namespace Demo.API.Controllers
             }
 
             // Associate the address with the company.
-            addressRepository.AssignAddressToCompany(addressId, companyId);
+            var result = await addressRepository.AssignAddressToCompany(addressId, companyId);
 
             // Log the name and ID of the deleted product.
             _logger.LogInformation("Address Id asign to Company : {Id}", address.Id);
             _logger.LogInformation("Company id: {Id}", company.Id);
-            var updated = await companyRepository.GetById(companyId);
 
             // Return the updated company.
-            return Ok(updated.Id);
+            return Ok(result?.Id);
         }
     }
 }

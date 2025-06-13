@@ -14,7 +14,7 @@ namespace Demo.Infrastructure.Repositories
             _nHibernateHelper = nHibernateHelper;
         }
 
-        public async Task AssignAddressToCompany(int addressId, int companyId)
+        public async Task<Company2?> AssignAddressToCompany(int addressId, int companyId)
         {
             using (var session = _nHibernateHelper.OpenSession())
             using (var transaction = session.BeginTransaction())
@@ -30,7 +30,11 @@ namespace Demo.Infrastructure.Repositories
                     session.Update(address);
                     session.Update(company);
                     transaction.Commit();
+
+                    return company;
                 }
+
+                return null;
             }
         }
 

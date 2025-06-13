@@ -182,9 +182,8 @@ namespace Demo.UnitTests
             var resultCompany = await _company2Repository.Add(company);
 
             await _address2Repository.AssignAddressToCompany(resultAddress, resultCompany);
-            await _address2Repository.AssignAddressToCompany(resultAddress2, resultCompany);
+            var addedCompany = await _address2Repository.AssignAddressToCompany(resultAddress2, resultCompany);
 
-            Company2 addedCompany = await _company2Repository.GetById((int)resultCompany);
             Address2 addressAdded = await _address2Repository.GetById((int)resultAddress);
             Address2 address2Added = await _address2Repository.GetById((int)resultAddress2);
 
