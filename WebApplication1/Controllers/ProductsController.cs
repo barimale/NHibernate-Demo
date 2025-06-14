@@ -22,6 +22,7 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <param name="logger">Logger instance for logging information.</param>
         /// <param name="productRepository">Repository for product operations.</param>
+        /// <param name="mapper"></param>
         public ProductsController(ILogger<ProductsController> logger,
             IProductRepository productRepository,
             IMapper mapper)
@@ -61,7 +62,7 @@ namespace Demo.API.Controllers
         /// <summary>
         /// Adds a new product to the repository.
         /// </summary>
-        /// <param name="product">The product to add.</param>
+        /// <param name="dto">The product to add.</param>
         /// <returns>The ID of the added product, or null if the operation fails.</returns>
         [HttpPost]
         [SwaggerOperation(Summary = "Endpoint for posting product data to the server.")]
@@ -84,7 +85,7 @@ namespace Demo.API.Controllers
         /// <summary>
         /// Updates an existing product in the repository.
         /// </summary>
-        /// <param name="product">The product with updated information.</param>
+        /// <param name="dto">The product with updated information.</param>
         /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
         [HttpPut]
         [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
@@ -116,7 +117,7 @@ namespace Demo.API.Controllers
         /// <summary>
         /// Deletes an existing product from the repository.
         /// </summary>
-        /// <param name="product">The product to delete.</param>
+        /// <param name="dto">The product to delete.</param>
         /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
         [HttpDelete]
         [SwaggerOperation(Summary = "Endpoint for deleting product data from the server.")]
