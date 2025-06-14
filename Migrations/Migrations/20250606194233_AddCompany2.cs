@@ -18,7 +18,7 @@ namespace Demo.Migrations.Migrations
 
             // Audit table
             Create.Table(TableName + "_AUD")
-                .WithColumn("Id").AsInt32().NotNullable().Identity()
+                .WithColumn("Id").AsInt32().NotNullable()
                 .WithColumn("REV").AsInt32().NotNullable()
                 .WithColumn("REVTYPE").AsInt32().NotNullable()
                 .WithColumn("Version").AsInt32().Nullable()
