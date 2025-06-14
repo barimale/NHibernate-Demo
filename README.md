@@ -18,3 +18,11 @@ Keycloak 26 + manager package
 https://www.keycloak.org/getting-started/getting-started-docker
 https://medium.com/@faulycoelho/net-web-api-with-keycloak-11e0286240b9
 ```
+```
+docker run --rm \
+  -e KEYCLOAK_ADMIN=admin \
+  -e KEYCLOAK_ADMIN_PASSWORD=admin \
+  -v $(pwd)/my-config:/opt/keycloak/data/import \
+  quay.io/keycloak/keycloak:latest \
+  start --import-realm
+```
