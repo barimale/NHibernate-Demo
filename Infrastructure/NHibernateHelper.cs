@@ -67,6 +67,7 @@ namespace Demo.Infrastructure
                 var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
                 enversConf.Audit<Company2>();
                 enversConf.Audit<Address2>();
+                enversConf.Audit<CompanyAddress2>();
                 enversConf.SetRevisionEntity<AuditRevisionEntity>(
                     x => x.Id,
                     x => x.RevisionDate);

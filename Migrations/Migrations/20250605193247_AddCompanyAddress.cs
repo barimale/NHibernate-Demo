@@ -30,6 +30,7 @@ namespace Demo.Migrations.Migrations
             Create.ForeignKey("FK_CompanyAddress_Company")
                 .FromTable(TableName).ForeignColumn("CompanyId")
                 .ToTable(CompanyTable).PrimaryColumn("Id");
+
         }
 
         public override void Down()

@@ -8,7 +8,7 @@ namespace Demo.Domain.AggregatesModel.Company2Aggregate
     {
         public virtual string Foo { get; set; }
 
-        [Audited(TargetAuditMode = RelationTargetAuditMode.NotAudited)]
+        [Audited]
         public virtual IList<Address2> Addresses { get; set; } = new List<Address2>();
     }
 }
