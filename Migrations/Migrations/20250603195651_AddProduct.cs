@@ -4,16 +4,12 @@ using FluentMigrator;
 namespace Demo.Migrations.Migrations
 {
     [Migration(20250603195651)]
-    public class InitialMigration : Migration
+    public class AddProductMigration : Migration
     {
         private readonly string TableName = LowercaseTableNameConvention.TablePrefix + "Product";
 
         public override void Up()
         {
-            Create.Table("REVINFO")
-              .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-              .WithColumn("RevisionDate").AsDateTime().Nullable();
-
             Create.Table(TableName)
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
                 .WithColumn("Name").AsString()

@@ -37,7 +37,6 @@ namespace Demo.Migrations.Migrations
         {
             Delete.Table(TableName + "_AUD");
             Delete.Table(TableName);
-            // Do not drop REVINFO here; it is shared by all audit tables
         }
     }
 }

@@ -44,6 +44,7 @@ namespace Demo.Migrations.Migrations
 
         public override void Down()
         {
+            Delete.Table(TableName + "_AUD");
             Delete.Table(TableName);
         }
     }
