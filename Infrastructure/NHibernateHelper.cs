@@ -1,4 +1,5 @@
-﻿using Demo.Infrastructure.Database;
+﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
+using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Interceptors;
 using Demo.Infrastructure.EntityConfigurations;
 using Demo.Migrations.Conventions;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NHibernate;
+using NHibernate.Cfg;
 using ISession = NHibernate.ISession;
 
 namespace Demo.Infrastructure
@@ -62,13 +64,13 @@ namespace Demo.Infrastructure
             fluentConfig.ExposeConfiguration(cfg =>
             {
                 //WIP
-                //var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
-                //enversConf.Audit<Company2>();
-                //enversConf.Audit<Address2>();
-                //enversConf.SetRevisionEntity<AuditRevisionEntity>(
-                //    x => x.Id,
-                //        x => x.RevisionDate);
-                //cfg.IntegrateWithEnvers(enversConf);
+                var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
+                enversConf.Audit<Company2>();
+                enversConf.Audit<Address2>();
+                enversConf.SetRevisionEntity<AuditRevisionEntity>(
+                    x => x.Id,
+                    x => x.RevisionDate);
+                cfg.IntegrateWithEnvers(enversConf);
 
                 //cfg.IntegrateWithEnvers(
                 //    new AttributeConfiguration());

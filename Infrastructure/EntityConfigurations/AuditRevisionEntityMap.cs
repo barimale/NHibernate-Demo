@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Demo.Infrastructure.EntityConfigurations
 {
-    public class RevisionEntityMap : ClassMap<AuditRevisionEntity>
+    public class AuditRevisionEntityMap : ClassMap<AuditRevisionEntity>
     {
-        public RevisionEntityMap()
+        public AuditRevisionEntityMap()
         {
             Table("REVINFO");
             Id(x => x.Id).GeneratedBy.TriggerIdentity();

@@ -12,7 +12,7 @@ namespace Demo.Migrations.Migrations
         {
             Create.Table("REVINFO")
               .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-              .WithColumn("RevisionDate").AsInt64().Nullable();
+              .WithColumn("RevisionDate").AsDateTime().Nullable();
 
             Create.Table(TableName)
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
