@@ -14,6 +14,3 @@ https://deepwiki.com/nhibernate/fluent-nhibernate/5.1-persistence-specification
 
 # Ideas
 Keycloak 26 + manager package
-```
-https://www.keycloak.org/getting-started/getting-started-docker
-```
