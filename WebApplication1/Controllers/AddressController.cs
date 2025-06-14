@@ -41,7 +41,7 @@ namespace Demo.API.Controllers
         [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CompanyDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpGet("{id}")]
+        [HttpGet("Name/{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
             // Add the product to the repository and get the new product's ID.
