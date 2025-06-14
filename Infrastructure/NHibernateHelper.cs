@@ -69,9 +69,10 @@ namespace Demo.Infrastructure
                 enversConf.Audit<Address2>();
                 enversConf.Audit<CompanyAddress2>();
                 enversConf.Audit<Product>();
+
                 enversConf.SetRevisionEntity<AuditRevisionEntity>(
                     x => x.Id,
-                    x => x.RevisionDate);
+                    x => x.RevisionDate, new AuditRevisionListener());
                 cfg.IntegrateWithEnvers(enversConf);
 
                 var loggerFactory = LoggerFactory.Create(builder =>
