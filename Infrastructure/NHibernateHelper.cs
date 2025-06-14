@@ -63,7 +63,6 @@ namespace Demo.Infrastructure
 #if DEBUG
             fluentConfig.ExposeConfiguration(cfg =>
             {
-                //WIP
                 var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
                 enversConf.Audit<Company2>();
                 enversConf.Audit<Address2>();
@@ -72,9 +71,6 @@ namespace Demo.Infrastructure
                     x => x.Id,
                     x => x.RevisionDate);
                 cfg.IntegrateWithEnvers(enversConf);
-
-                //cfg.IntegrateWithEnvers(
-                //    new AttributeConfiguration());
 
                 var loggerFactory = LoggerFactory.Create(builder =>
                 {
