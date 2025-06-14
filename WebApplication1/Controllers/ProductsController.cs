@@ -22,7 +22,7 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <param name="logger">Logger instance for logging information.</param>
         /// <param name="productRepository">Repository for product operations.</param>
-        /// <param name="mapper"></param>
+        /// <param name="mapper">Mapper for DTO</param>
         public ProductsController(ILogger<ProductsController> logger,
             IProductRepository productRepository,
             IMapper mapper)
