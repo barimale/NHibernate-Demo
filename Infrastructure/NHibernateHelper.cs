@@ -2,6 +2,7 @@
 using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Interceptors;
+using Demo.Infrastructure.Database.Listeners;
 using Demo.Infrastructure.EntityConfigurations;
 using Demo.Migrations.Conventions;
 using Demo.Migrations.Migrations;
