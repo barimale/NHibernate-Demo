@@ -22,7 +22,7 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <param name="logger">Logger instance for logging information.</param>
         /// <param name="productRepository">Repository for product operations.</param>
-        /// <param name="mapper">Mapper for DTO</param>
+        /// <param name="mapper">Mapper for converting between entities and DTOs.</param>
         public ProductsController(ILogger<ProductsController> logger,
             IProductRepository productRepository,
             IMapper mapper)
@@ -33,37 +33,35 @@ namespace Demo.API.Controllers
         }
 
         /// <summary>
-        /// Gets a product from the repository.
+        /// Gets a product by ID from the repository.
         /// </summary>
-        /// <param name="id">The product to add.</param>
-        /// <returns>The ID of the added product, or null if the operation fails.</returns>
-        [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
+        /// <param name="id">The ID of the product to retrieve.</param>
+        /// <returns>The DTO of the product, or NotFound if the product does not exist.</returns>
+        [SwaggerOperation(Summary = "Endpoint for getting product data by ID from the server.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            // Add the product to the repository and get the new product's ID.
-            var productAdded = await productRepository.GetById(id);
-            if (productAdded == null)
+            var product = await productRepository.GetById(id);
+            if (product == null)
             {
                 // Return 404 if the product does not exist.
                 return NotFound();
             }
-            // Log the name and ID of the added product.
-            _logger.LogInformation("Product id: {Id}", productAdded);
+            _logger.LogInformation("Product id: {Id}", product.Id);
 
-            // Return the ID of the added product.
-            var product = _mapper.Map<ProductDto>(productAdded);
+            var dto = _mapper.Map<ProductDto>(product);
 
-            return Ok(product);
+            return Ok(dto);
         }
 
         /// <summary>
         /// Adds a new product to the repository.
         /// </summary>
         /// <param name="dto">The product to add.</param>
-        /// <returns>The ID of the added product, or null if the operation fails.</returns>
+        /// <returns>The ID of the added product.</returns>
         [HttpPost]
         [SwaggerOperation(Summary = "Endpoint for posting product data to the server.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
@@ -74,11 +72,9 @@ namespace Demo.API.Controllers
             // Add the product to the repository and get the new product's ID.
             var productAdded = await productRepository.Add(product);
 
-            // Log the name and ID of the added product.
             _logger.LogInformation("Product added: {ProductName}", product.Name);
             _logger.LogInformation("Product id: {ProductId}", productAdded);
 
-            // Return the ID of the added product.
             return Ok(productAdded);
         }
 
@@ -88,7 +84,7 @@ namespace Demo.API.Controllers
         /// <param name="dto">The product with updated information.</param>
         /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
         [HttpPut]
-        [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
+        [SwaggerOperation(Summary = "Endpoint for updating product data on the server.")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -106,11 +102,9 @@ namespace Demo.API.Controllers
             // Update the product in the repository.
             await productRepository.Update(product);
 
-            // Log the name and ID of the updated product.
             _logger.LogInformation("Product updated: {ProductName}", product.Name);
             _logger.LogInformation("Product id: {ProductId}", product.Id);
 
-            // Return 204 No Content to indicate success.
             return NoContent();
         }
 
@@ -138,11 +132,9 @@ namespace Demo.API.Controllers
             // Remove the product from the repository.
             await productRepository.Remove(product);
 
-            // Log the name and ID of the deleted product.
             _logger.LogInformation("Product removed: {ProductName}", product.Name);
             _logger.LogInformation("Product id: {ProductId}", product.Id);
 
-            // Return 204 No Content to indicate success.
             return NoContent();
         }
     }

@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Demo.API.Controllers
 {
     /// <summary>
-    /// API controller for managing products.
+    /// API controller for managing companies.
     /// </summary>
     [ApiController]
     [Route("[controller]")]
@@ -22,9 +22,9 @@ namespace Demo.API.Controllers
         /// Initializes a new instance of the <see cref="CompanyController"/> class.
         /// </summary>
         /// <param name="logger">Logger instance for logging information.</param>
-        /// <param name="productRepository">Repository for product operations.</param>
-        /// <param name="addressRepository"></param>
-        /// <param name="mapper"></param>
+        /// <param name="productRepository">Repository for company operations.</param>
+        /// <param name="addressRepository">Repository for address operations.</param>
+        /// <param name="mapper">Mapper for converting between entities and DTOs.</param>
         public CompanyController(ILogger<CompanyController> logger,
             ICompany2Repository productRepository,
             IAddress2Repository addressRepository,
@@ -33,67 +33,63 @@ namespace Demo.API.Controllers
             _logger = logger;
             this.companyRepository = productRepository;
             this.addressRepository = addressRepository;
-            this._mapper = mapper;  
+            this._mapper = mapper;
         }
 
         /// <summary>
-        /// Gets a product from the repository.
+        /// Gets a company by ID from the repository.
         /// </summary>
-        /// <param name="id">The product to add.</param>
-        /// <returns>The ID of the added product, or null if the operation fails.</returns>
-        [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
+        /// <param name="id">The ID of the company to retrieve.</param>
+        /// <returns>The DTO of the company, or NotFound if the company does not exist.</returns>
+        [SwaggerOperation(Summary = "Endpoint for getting company data from the server.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CompanyDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            // Add the product to the repository and get the new product's ID.
-            var productAdded = await companyRepository.GetById(id);
-            if (productAdded == null)
+            var company = await companyRepository.GetById(id);
+            if (company == null)
             {
-                // Return 404 if the product does not exist.
+                // Return 404 if the company does not exist.
                 return NotFound();
             }
-            // Log the name and ID of the added product.
-            _logger.LogInformation("Company id: {Id}", productAdded.Id);
+            _logger.LogInformation("Company id: {Id}", company.Id);
 
-            // Return the ID of the added product.
-            var product = _mapper.Map<CompanyDto>(productAdded);
+            var dto = _mapper.Map<CompanyDto>(company);
 
-            return Ok(product);
+            return Ok(dto);
         }
 
         /// <summary>
-        /// Adds a new product to the repository.
+        /// Adds a new company to the repository.
         /// </summary>
-        /// <param name="dto">The product to add.</param>
-        /// <returns>The ID of the added product, or null if the operation fails.</returns>
+        /// <param name="dto">The company to add.</param>
+        /// <returns>The ID of the added company.</returns>
         [HttpPost]
-        [SwaggerOperation(Summary = "Endpoint for posting product data to the server.")]
+        [SwaggerOperation(Summary = "Endpoint for posting company data to the server.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddAsync([FromBody] CompanyDto dto)
         {
-            var product = _mapper.Map<Company2>(dto);
+            var company = _mapper.Map<Company2>(dto);
 
-            // Add the product to the repository and get the new product's ID.
-            var productAdded = await companyRepository.Add(product);
+            // Add the company to the repository and get the new company's ID.
+            var companyAdded = await companyRepository.Add(company);
 
-            // Log the name and ID of the added product.
-            _logger.LogInformation("Company added: {Name}", product.Foo);
-            _logger.LogInformation("Company id: {Id}", productAdded);
+            _logger.LogInformation("Company added: {Name}", company.Foo);
+            _logger.LogInformation("Company id: {Id}", companyAdded);
 
-            // Return the ID of the added product.
-            return Ok(productAdded);
+            return Ok(companyAdded);
         }
 
         /// <summary>
         /// Updates an existing company in the repository.
         /// </summary>
         /// <param name="dto">The company with updated information.</param>
-        /// <returns>No content if successful, or NotFound if the product does not exist.</returns>
+        /// <returns>No content if successful, or NotFound if the company does not exist.</returns>
         [HttpPut]
-        [SwaggerOperation(Summary = "Endpoint for updating product data to the server.")]
+        [SwaggerOperation(Summary = "Endpoint for updating company data on the server.")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -101,21 +97,19 @@ namespace Demo.API.Controllers
         {
             var company = _mapper.Map<Company2>(dto);
 
-            // Retrieve the existing product by ID.
+            // Retrieve the existing company by ID.
             var existed = await companyRepository.GetById(company.Id);
             if (existed == null)
             {
-                // Return 404 if the product does not exist.
+                // Return 404 if the company does not exist.
                 return NotFound();
             }
-            // Update the product in the repository.
+            // Update the company in the repository.
             await companyRepository.Update(company);
 
-            // Log the name and ID of the updated product.
             _logger.LogInformation("Company updated: {Name}", company.Foo);
             _logger.LogInformation("Company id: {Id}", company.Id);
 
-            // Return 204 No Content to indicate success.
             return NoContent();
         }
 
@@ -125,29 +119,27 @@ namespace Demo.API.Controllers
         /// <param name="dto">The company to delete.</param>
         /// <returns>No content if successful, or NotFound if the company does not exist.</returns>
         [HttpDelete]
-        [SwaggerOperation(Summary = "Endpoint for deleting product data from the server.")]
+        [SwaggerOperation(Summary = "Endpoint for deleting company data from the server.")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromBody] CompanyDto dto)
         {
-            var product = _mapper.Map<Company2>(dto);
+            var company = _mapper.Map<Company2>(dto);
 
-            // Retrieve the existing product by ID.
-            var existed = await companyRepository.GetById(product.Id);
+            // Retrieve the existing company by ID.
+            var existed = await companyRepository.GetById(company.Id);
             if (existed == null)
             {
-                // Return 404 if the product does not exist.
+                // Return 404 if the company does not exist.
                 return NotFound();
             }
-            // Remove the product from the repository.
-            await companyRepository.Remove(product);
+            // Remove the company from the repository.
+            await companyRepository.Remove(company);
 
-            // Log the name and ID of the deleted product.
-            _logger.LogInformation("Company removed: {Name}", product.Foo);
-            _logger.LogInformation("Company id: {Id}", product.Id);
+            _logger.LogInformation("Company removed: {Name}", company.Foo);
+            _logger.LogInformation("Company id: {Id}", company.Id);
 
-            // Return 204 No Content to indicate success.
             return NoContent();
         }
 
@@ -156,9 +148,9 @@ namespace Demo.API.Controllers
         /// </summary>
         /// <param name="companyId">The ID of the company to associate the address with.</param>
         /// <param name="addressId">The ID of the address to associate.</param>
-        /// <returns>Returns the updated company if successful, or NotFound if either entity does not exist.</returns>
-        [HttpPost("{companyId}/add-address/{addressId}")]
-        [SwaggerOperation(Summary = "Endpoint for adding address to company.")]
+        /// <returns>The ID of the updated company if successful, or NotFound if either entity does not exist.</returns>
+        [HttpPost("{companyId}/Address/{addressId}")]
+        [SwaggerOperation(Summary = "Endpoint for adding an address to a company.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -178,11 +170,10 @@ namespace Demo.API.Controllers
             // Associate the address with the company.
             var result = await addressRepository.AssignAddressToCompany(addressId, companyId);
 
-            // Log the name and ID of the deleted product.
-            _logger.LogInformation("Address Id asign to Company : {Id}", address.Id);
+            _logger.LogInformation("Address Id assigned to Company: {Id}", address.Id);
             _logger.LogInformation("Company id: {Id}", company.Id);
 
-            // Return the updated company.
+            // Return the updated company's ID.
             return Ok(result?.Id);
         }
     }
