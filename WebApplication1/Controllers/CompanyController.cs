@@ -49,7 +49,11 @@ namespace Demo.API.Controllers
         {
             // Add the product to the repository and get the new product's ID.
             var productAdded = await companyRepository.GetById(id);
-
+            if (productAdded == null)
+            {
+                // Return 404 if the product does not exist.
+                return NotFound();
+            }
             // Log the name and ID of the added product.
             _logger.LogInformation("Company id: {Id}", productAdded.Id);
 

@@ -1,6 +1,7 @@
 using AutoMapper;
 using Demo.API.DTOs;
 using Demo.Domain.AggregatesModel.Company2Aggregate;
+using Demo.Domain.AggregatesModel.CompanyAggregate;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -45,7 +46,11 @@ namespace Demo.API.Controllers
         {
             // Add the product to the repository and get the new product's ID.
             var productAdded = await addressRepository.GetById(id);
-
+            if (productAdded == null)
+            {
+                // Return 404 if the product does not exist.
+                return NotFound();
+            }
             // Log the name and ID of the added product.
             _logger.LogInformation("Company id: {Id}", productAdded.Id);
 
