@@ -1,7 +1,9 @@
 ﻿using Demo.Domain.Abstraction;
+using NHibernate.Envers.Configuration.Attributes;
 
 namespace Demo.Domain.AggregatesModel.Company2Aggregate
 {
+    [Audited]
     public class Address2: Entity<int>, IAggregateRoot
     {
         public virtual string Street { get; set; }

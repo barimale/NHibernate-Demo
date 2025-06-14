@@ -10,6 +10,10 @@ namespace Demo.Migrations.Migrations
 
         public override void Up()
         {
+            Create.Table("REVINFO")
+              .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
+              .WithColumn("RevisionDate").AsInt64().Nullable();
+
             Create.Table(TableName)
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
                 .WithColumn("Name").AsString()
