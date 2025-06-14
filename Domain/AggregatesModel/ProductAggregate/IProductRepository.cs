@@ -4,6 +4,6 @@ namespace Demo.Domain.AggregatesModel.ProductAggregate
 {
     public interface IProductRepository: IRepository<Product>
     {
-        Task<Product> GetByName(string name);
+        Task<Product?> GetByName(string name);
     }
 }

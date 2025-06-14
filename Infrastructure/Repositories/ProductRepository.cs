@@ -54,7 +54,7 @@ namespace Demo.Infrastructure.Repositories
             }
         }
 
-        public async Task<Product> GetByName(string name)
+        public async Task<Product?> GetByName(string name)
         {
             using (var session = _nHibernateHelper.OpenStatelessSesion())
             {
