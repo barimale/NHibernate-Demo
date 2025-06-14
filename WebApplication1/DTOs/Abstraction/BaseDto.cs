@@ -1,6 +1,6 @@
-﻿namespace Demo.API.DTOs
+﻿namespace Demo.API.DTOs.Abstraction
 {
-    public abstract class EntityDto
+    public abstract class BaseDto
     {
         public int Id { get; set; }
         public int Version { get; set; }

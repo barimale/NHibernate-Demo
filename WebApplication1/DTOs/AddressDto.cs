@@ -1,8 +1,9 @@
-﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
+﻿using Demo.API.DTOs.Abstraction;
+using Demo.Domain.AggregatesModel.Company2Aggregate;
 
 namespace Demo.API.DTOs
 {
-    public class AddressDto: EntityDto
+    public class AddressDto: BaseDto
     {
         public virtual string Street { get; set; }
         public virtual string City { get; set; }

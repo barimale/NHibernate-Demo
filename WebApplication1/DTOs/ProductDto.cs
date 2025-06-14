@@ -1,9 +1,10 @@
-﻿using Demo.Domain.AggregatesModel.ProductAggregate;
+﻿using Demo.API.DTOs.Abstraction;
+using Demo.Domain.AggregatesModel.ProductAggregate;
 using FluentValidation;
 
 namespace Demo.API.DTOs
 {
-    public class ProductDto : EntityDto
+    public class ProductDto : BaseDto
     {
         public string Name { get; set; }
         public string Category { get; set; }
