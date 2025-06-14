@@ -33,10 +33,10 @@ namespace Demo.API.Controllers
         }
 
         /// <summary>
-        /// Gets a product from the repository.
+        /// Gets an address from the repository.
         /// </summary>
         /// <param name="name"></param>
-        /// <returns>The ID of the added product, or null if the operation fails.</returns>
+        /// <returns>The dto of the address, or null if the operation fails.</returns>
         [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddressDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
