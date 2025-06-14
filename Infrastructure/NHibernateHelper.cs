@@ -1,4 +1,5 @@
 ﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
+using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Interceptors;
 using Demo.Infrastructure.EntityConfigurations;
@@ -67,6 +68,7 @@ namespace Demo.Infrastructure
                 enversConf.Audit<Company2>();
                 enversConf.Audit<Address2>();
                 enversConf.Audit<CompanyAddress2>();
+                enversConf.Audit<Product>();
                 enversConf.SetRevisionEntity<AuditRevisionEntity>(
                     x => x.Id,
                     x => x.RevisionDate);
