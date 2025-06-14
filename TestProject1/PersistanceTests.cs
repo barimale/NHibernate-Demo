@@ -85,5 +85,14 @@ namespace Demo.UnitTests
                          })
                     .VerifyTheMappings();
         }
+
+        [TestMethod]
+        public void Company2_without_addresses_persistence_test()
+        {
+            using (ISession session = _nHibernateHelper.OpenSession())
+                new PersistenceSpecification<Company2>(session)
+                    .CheckProperty(p => p.Foo, "Foo Name")
+                    .VerifyTheMappings();
+        }
     }
 }
