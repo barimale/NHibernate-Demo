@@ -26,3 +26,7 @@ docker run --rm \
   quay.io/keycloak/keycloak:latest \
   start --import-realm
 ```
+copilot prompt:
+```
+c# swagger authorization keycloak
+```
