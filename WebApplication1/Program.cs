@@ -1,7 +1,6 @@
 using Demo.API.DTOs;
 using Demo.API.DTOs.Profiles;
 using Demo.API.Middlewares.GlobalExceptions.Handler;
-using Demo.Domain.AggregatesModel.ProductAggregate;
 using Demo.Infrastructure;
 using FluentValidation.AspNetCore;
 
