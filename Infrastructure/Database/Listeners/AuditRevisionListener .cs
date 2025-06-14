@@ -3,7 +3,7 @@ using NHibernate.Envers;
 
 namespace Demo.Infrastructure.Database.Listeners
 {
-    public class AuditRevisionListener : IRevisionListener //WIP
+    public class AuditRevisionListener : IRevisionListener
     {
         public void NewRevision(object revisionEntity)
         {
