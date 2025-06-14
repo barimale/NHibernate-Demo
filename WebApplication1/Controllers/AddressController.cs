@@ -36,12 +36,12 @@ namespace Demo.API.Controllers
         /// <summary>
         /// Gets a product from the repository.
         /// </summary>
-        /// <param name="id">The product to add.</param>
+        /// <param name="name"></param>
         /// <returns>The ID of the added product, or null if the operation fails.</returns>
         [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CompanyDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddressDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpGet("Name/{name}")]
+        [HttpGet("Names/{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
             // Add the product to the repository and get the new product's ID.
@@ -66,7 +66,7 @@ namespace Demo.API.Controllers
         /// <param name="id">The product to add.</param>
         /// <returns>The ID of the added product, or null if the operation fails.</returns>
         [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CompanyDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddressDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
