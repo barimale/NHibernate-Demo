@@ -22,7 +22,7 @@ namespace Demo.Migrations.Migrations
 
             // Audit table
             Create.Table(TableName + "_AUD")
-                .WithColumn("Id").AsInt32().NotNullable()
+                .WithColumn("Id").AsInt32().NotNullable().Identity()
                 .WithColumn("REV").AsInt32().NotNullable()
                 .WithColumn("REVTYPE").AsInt32().NotNullable()
                 .WithColumn("Street").AsString().Nullable()
