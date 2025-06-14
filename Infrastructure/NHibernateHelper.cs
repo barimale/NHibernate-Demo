@@ -64,14 +64,14 @@ namespace Demo.Infrastructure
             fluentConfig.ExposeConfiguration(cfg =>
             {
                 //WIP
-                var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
-                enversConf.Audit<Company2>();
-                enversConf.Audit<Address2>();
-                enversConf.Audit<CompanyAddress2>();
-                enversConf.SetRevisionEntity<AuditRevisionEntity>(
-                    x => x.Id,
-                    x => x.RevisionDate);
-                cfg.IntegrateWithEnvers(enversConf);
+                //var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
+                //enversConf.Audit<Company2>();
+                //enversConf.Audit<Address2>();
+                //enversConf.Audit<CompanyAddress2>();
+                //enversConf.SetRevisionEntity<AuditRevisionEntity>(
+                //    x => x.Id,
+                //    x => x.RevisionDate);
+                //cfg.IntegrateWithEnvers(enversConf);
 
                 //cfg.IntegrateWithEnvers(
                 //    new AttributeConfiguration());
