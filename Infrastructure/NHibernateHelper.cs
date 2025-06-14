@@ -1,5 +1,4 @@
-﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
-using Demo.Infrastructure.Database;
+﻿using Demo.Infrastructure.Database;
 using Demo.Infrastructure.Database.Interceptors;
 using Demo.Infrastructure.EntityConfigurations;
 using Demo.Migrations.Conventions;
@@ -11,10 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Envers;
-using NHibernate.Envers.Configuration.Attributes;
-using System.Configuration;
 using ISession = NHibernate.ISession;
 
 namespace Demo.Infrastructure
