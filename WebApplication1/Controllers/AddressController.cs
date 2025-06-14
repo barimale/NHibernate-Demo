@@ -42,6 +42,33 @@ namespace Demo.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CompanyDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            // Add the product to the repository and get the new product's ID.
+            var productAdded = await addressRepository.GetByName(name);
+            if (productAdded == null)
+            {
+                // Return 404 if the product does not exist.
+                return NotFound();
+            }
+            // Log the name and ID of the added product.
+            _logger.LogInformation("Company id: {Id}", productAdded.Id);
+
+            // Return the ID of the added product.
+            var product = _mapper.Map<AddressDto>(productAdded);
+
+            return Ok(product);
+        }
+
+        /// <summary>
+        /// Gets a product from the repository.
+        /// </summary>
+        /// <param name="id">The product to add.</param>
+        /// <returns>The ID of the added product, or null if the operation fails.</returns>
+        [SwaggerOperation(Summary = "Endpoint for getting product data from the server.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CompanyDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             // Add the product to the repository and get the new product's ID.
