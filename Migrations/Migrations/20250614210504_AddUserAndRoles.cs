@@ -11,8 +11,8 @@ namespace Demo.Migrations.Migrations
             // Create the Users table
             Create.Table(LowercaseTableNameConvention.TablePrefix + "Users")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("UserName").AsString(256).NotNullable()
-                .WithColumn("Email").AsString(256).NotNullable()
+                .WithColumn("UserName").AsString(256).NotNullable().Unique()
+                .WithColumn("Email").AsString(256).NotNullable().Unique()
                 .WithColumn("PasswordHash").AsString(512).NotNullable();
 
             Create.UniqueConstraint("UQ_Users_UserName").OnTable(LowercaseTableNameConvention.TablePrefix + "Users").Column("UserName");
