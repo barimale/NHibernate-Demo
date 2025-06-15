@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Demo.API.DTOs
 {
-    public class CompanyDto: BaseDto
+    public class CompanyDto : BaseDto
     {
         public virtual string Foo { get; set; }
         public virtual IList<AddressDto> Addresses { get; set; } = new List<AddressDto>();
