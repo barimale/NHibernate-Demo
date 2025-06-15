@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Demo.API.Controllers
 {
@@ -31,6 +32,19 @@ namespace Demo.API.Controllers
                 return Unauthorized(ex.Message);
             }
         }
+
+        [HttpGet("roles")]
+        [Authorize]
+        public IActionResult GetUserRoles()
+        {
+            var roles = User.Claims
+                .Where(c => c.Type == ClaimsIdentity.DefaultRoleClaimType) // Match the RoleClaimType
+                .Select(c => c.Value)
+                .ToList();
+
+            return Ok(new { Roles = roles });
+        }
+
 
         public class LoginRequest
         {
