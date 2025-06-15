@@ -24,8 +24,9 @@ namespace Demo.API
                     ctx.ProblemDetails.Extensions.Add("nodeId", Environment.MachineName));
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddHttpClient();
+            builder.Services.AddScoped<IKeycloakAuthService, KeycloakAuthService>();
 
-            // Specify the assembly explicitly to resolve ambiguity
             builder.Services.AddAutoMapper(cfg => { 
                 cfg.AddProfile<MappingProfile>(); });
 
@@ -72,9 +73,6 @@ namespace Demo.API
             });
 
             builder.Services.AddKeycloakAuthentication(builder.Configuration);
-
-            builder.Services.AddHttpClient();
-            builder.Services.AddScoped<KeycloakAuthService>();
 
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();

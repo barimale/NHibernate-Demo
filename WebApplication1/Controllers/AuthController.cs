@@ -12,13 +12,13 @@ namespace Demo.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly KeycloakAuthService _keycloakAuthService;
+        private readonly IKeycloakAuthService _keycloakAuthService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthController"/> class.
         /// </summary>
         /// <param name="keycloakAuthService">Service for Keycloak authentication operations.</param>
-        public AuthController(KeycloakAuthService keycloakAuthService)
+        public AuthController(IKeycloakAuthService keycloakAuthService)
         {
             _keycloakAuthService = keycloakAuthService;
         }
@@ -48,11 +48,11 @@ namespace Demo.API.Controllers
         /// Logs out the currently authenticated user.
         /// </summary>
         /// <returns>Confirmation message upon successful logout.</returns>
-        [HttpGet("logout")]
+        [HttpPost("logout")]
         [Authorize]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(string refreshToken)
         {
-            await _keycloakAuthService.LogoutAsync();
+            await _keycloakAuthService.LogoutAsync(refreshToken);
             return Ok("Logged out successfully.");
         }
 

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Demo.API.Services
 {
-    public class KeycloakAuthService
+    public class KeycloakAuthService : IKeycloakAuthService
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
@@ -28,7 +28,7 @@ namespace Demo.API.Services
         };
 
             var content = new FormUrlEncodedContent(requestBody);
-            
+
             var response = await _httpClient.PostAsync(tokenEndpoint, content);
 
             if (response.IsSuccessStatusCode)
@@ -42,7 +42,7 @@ namespace Demo.API.Services
             throw new Exception("Login to keycloak instance failed");
         }
 
-        public async Task LogoutAsync()
+        public async Task LogoutAsync(string refreshToken)
         {
             var logoutEndpoint = $"{_configuration["Keycloak:BaseUrl"]}/realms/{_configuration["Keycloak:Realm"]}/protocol/openid-connect/logout";
 
