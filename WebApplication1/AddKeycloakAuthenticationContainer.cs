@@ -1,15 +1,8 @@
-﻿using Demo.Domain.AggregatesModel.Company2Aggregate;
-using Demo.Domain.AggregatesModel.CompanyAggregate;
-using Demo.Domain.AggregatesModel.ProductAggregate;
-using Demo.Infrastructure.Database;
-using Demo.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Demo.Infrastructure;
-public static class DependencyInjection
+public static class AddKeycloakAuthenticationContainer
 {
     public static IServiceCollection AddKeycloakAuthentication
         (this IServiceCollection services, IConfiguration configuration)

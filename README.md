@@ -17,15 +17,7 @@ https://deepwiki.com/nhibernate/fluent-nhibernate/5.1-persistence-specification
 # Ideas
 Keycloak 26 + manager package
 ```
-https://medium.com/@faulycoelho/net-web-api-with-keycloak-11e0286240b9
-```
-```
-docker run --rm \
-  -e KEYCLOAK_ADMIN=admin \
-  -e KEYCLOAK_ADMIN_PASSWORD=admin \
-  -v $(pwd)/my-config:/opt/keycloak/data/import \
-  quay.io/keycloak/keycloak:latest \
-  start --import-realm
+docker run --name importedKeyloack -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -v $(pwd)/my-config:/opt/keycloak/data/import   quay.io/keycloak/keycloak:latest start --import-realm
 ```
 copilot prompt:
 ```

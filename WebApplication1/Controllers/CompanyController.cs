@@ -1,6 +1,7 @@
 using AutoMapper;
 using Demo.API.DTOs;
 using Demo.Domain.AggregatesModel.Company2Aggregate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -9,6 +10,7 @@ namespace Demo.API.Controllers
     /// <summary>
     /// API controller for managing companies.
     /// </summary>
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CompanyController : ControllerBase

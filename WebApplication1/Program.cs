@@ -6,6 +6,7 @@ using Demo.Infrastructure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace Demo.API
 {
@@ -36,6 +37,40 @@ namespace Demo.API
             builder.Services.AddSwaggerGen(options =>
             {
                 options.EnableAnnotations();
+                // Define the OAuth2 security scheme using implicit flow
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Implicit = new OpenApiOAuthFlow
+                        {
+                            // WIP
+                            AuthorizationUrl = new Uri($"{builder.Configuration["Keycloak:BaseUrl"]}/realms/{builder.Configuration["Keycloak:Realm"]}/protocol/openid-connect/auth"),
+                            Scopes = new Dictionary<string, string>
+                {
+                    { "openid", "openid scope for authentication" }
+                    // Optionally add additional scopes such as profile, email, etc.
+                }
+                        }
+                    }
+                });
+
+                // Require OAuth2 security scheme globally
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "oauth2"
+                            }
+                        },
+                        new List<string> { "openid" }
+                    }
+                });
             });
 
             builder.Services.AddKeycloakAuthentication(builder.Configuration);
@@ -53,7 +88,15 @@ namespace Demo.API
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                    // Configure Swagger UI to use the OAuth2 settings
+                    options.OAuthClientId(builder.Configuration["Keycloak:ClientId"]);
+                    options.OAuthAppName("Swagger UI - Keycloak Integration");
+                    // Uncomment the following line if using Authorization Code with PKCE
+                    // options.OAuthUsePkce();
+                });
 
             }
             // Configure the HTTP request pipeline.

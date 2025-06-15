@@ -1,6 +1,7 @@
 using AutoMapper;
 using Demo.API.DTOs;
 using Demo.Domain.AggregatesModel.ProductAggregate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -9,6 +10,7 @@ namespace Demo.API.Controllers
     /// <summary>
     /// API controller for managing products.
     /// </summary>
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ProductsController : ControllerBase
