@@ -35,27 +35,19 @@ namespace Demo.API.DTOs
     /// </summary>
     public class ProductValidator : AbstractValidator<ProductDto>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProductValidator"/> class.
-        /// Defines validation rules for <see cref="ProductDto"/> properties.
-        /// </summary>
         public ProductValidator()
         {
-            // Name is required and must be between 2 and 50 characters.
             RuleFor(user => user.Name)
                 .NotEmpty().WithMessage("Name is required.")
                 .Length(2, 50).WithMessage("Name must be between 2 and 50 characters.");
 
-            // Category is required and must be between 2 and 50 characters.
             RuleFor(user => user.Category)
                 .NotEmpty().WithMessage("Category is required.")
                 .Length(2, 50).WithMessage("Category must be between 2 and 50 characters.");
 
-            // Type must not be null.
             RuleFor<ProductTypeDto>(user => user.Type)
                 .NotNull().WithMessage("Type is required.");
 
-            // Discontinued must be specified as a boolean value.
             RuleFor(user => user.Discontinued)
                 .NotNull().WithMessage("Discontinued status is required.")
                 .Must(x => x == true || x == false).WithMessage("Discontinued must be a boolean value.");

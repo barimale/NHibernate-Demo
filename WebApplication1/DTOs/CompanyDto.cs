@@ -1,5 +1,6 @@
 ﻿using Demo.API.DTOs.Abstraction;
 using Demo.Domain.AggregatesModel.Company2Aggregate;
+using FluentValidation;
 
 namespace Demo.API.DTOs
 {
@@ -7,5 +8,15 @@ namespace Demo.API.DTOs
     {
         public virtual string Foo { get; set; }
         public virtual IList<AddressDto> Addresses { get; set; } = new List<AddressDto>();
+    }
+
+    public class CompanyValidator : AbstractValidator<CompanyDto>
+    {
+        public CompanyValidator()
+        {
+            RuleFor(user => user.Foo)
+                .NotEmpty().WithMessage("Foo is required.")
+                .Length(2, 50).WithMessage("Foo must be between 2 and 50 characters.");
+        }
     }
 }
