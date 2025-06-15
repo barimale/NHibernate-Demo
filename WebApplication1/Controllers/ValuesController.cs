@@ -9,16 +9,16 @@ namespace Demo.API.Controllers
     public class ValuesController : ControllerBase
     {
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin2")]
         [Route("get-admin")]
 
-        public IActionResult teste()
+        public IActionResult test()
         {
             return Ok("You are admin.");
         }
 
         [HttpGet]
-        [Authorize(Roles = "general")]
+        [Authorize(Roles = "general2")]
         [Route("get-general")]
         public IActionResult GetGeneral()
         {

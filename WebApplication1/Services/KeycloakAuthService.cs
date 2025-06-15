@@ -39,7 +39,7 @@ namespace Demo.API.Services
                 return tokenResult!;
             }
 
-            throw new Exception("failed");
+            throw new Exception("Login to keycloak instance failed");
         }
     }
 

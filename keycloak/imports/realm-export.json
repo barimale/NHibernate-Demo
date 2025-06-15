@@ -68,6 +68,15 @@
         "attributes": {}
       },
       {
+        "id": "c2c69acd-1097-4e33-a762-3e5a4621dc8c",
+        "name": "general",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "82727f92-34c5-496a-b46d-96f5a7eb7ec1",
+        "attributes": {}
+      },
+      {
         "id": "9c8702ac-9a35-42f4-bed6-cfc808e5a09d",
         "name": "admin",
         "description": "${role_admin}",
@@ -135,7 +144,26 @@
       }
     ],
     "client": {
-      "my-client": [],
+      "my-client": [
+        {
+          "id": "18a6d418-5b57-4aa8-848d-5348239ba00c",
+          "name": "admin2",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "a04a0355-9cbc-4557-909e-271607b24e32",
+          "attributes": {}
+        },
+        {
+          "id": "813c58fd-eb0d-4dc4-bec9-a263b1840087",
+          "name": "general2",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "a04a0355-9cbc-4557-909e-271607b24e32",
+          "attributes": {}
+        }
+      ],
       "security-admin-console": [],
       "admin-cli": [],
       "account-console": [],
@@ -478,6 +506,13 @@
       "roles": [
         "offline_access"
       ]
+    },
+    {
+      "clientScope": "my-client-scope",
+      "roles": [
+        "general",
+        "admin"
+      ]
     }
   ],
   "clientScopeMappings": {
@@ -759,7 +794,7 @@
       "attributes": {
         "realm_client": "false",
         "oidc.ciba.grant.enabled": "false",
-        "client.secret.creation.time": "1749959211",
+        "client.secret.creation.time": "1749959425",
         "backchannel.logout.session.required": "true",
         "standard.token.exchange.enabled": "false",
         "frontchannel.logout.session.required": "true",
@@ -771,6 +806,43 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "fbf8392f-7f95-4669-926a-08435cf5e14f",
+          "name": "roles 2",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "roles",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "3638d8a6-55af-4c3e-828e-354b0fcfa825",
+          "name": "asdadsasd",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "roles",
+            "jsonType.label": "String",
+            "usermodel.clientRoleMapping.clientId": "my-client"
+          }
+        }
+      ],
       "defaultClientScopes": [
         "web-origins",
         "acr",
@@ -1372,6 +1444,53 @@
       ]
     },
     {
+      "id": "c34fee8a-8aa4-4389-bcb8-c62360444636",
+      "name": "my-client-scope",
+      "description": "",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      },
+      "protocolMappers": [
+        {
+          "id": "e87940f8-3182-44f8-adc1-70991273acfa",
+          "name": "mapper-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "b9a3d285-9e4a-419d-a04b-86b07b9d1427",
+          "name": "realm roles mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "roles",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
       "id": "0e8d6d36-fa88-4e38-bdd2-92a402a02955",
       "name": "phone",
       "description": "OpenID Connect built-in scope: phone",
@@ -1617,14 +1736,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "saml-user-attribute-mapper",
+            "saml-role-list-mapper",
+            "saml-user-property-mapper",
             "oidc-full-name-mapper",
             "oidc-address-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
-            "saml-role-list-mapper",
             "oidc-usermodel-property-mapper",
             "oidc-usermodel-attribute-mapper",
-            "saml-user-property-mapper"
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       },
@@ -1676,14 +1795,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-usermodel-attribute-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
-            "oidc-address-mapper",
             "saml-user-attribute-mapper",
             "saml-role-list-mapper",
-            "oidc-full-name-mapper",
             "oidc-usermodel-property-mapper",
-            "saml-user-property-mapper"
+            "oidc-address-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "saml-user-property-mapper",
+            "oidc-full-name-mapper",
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       }

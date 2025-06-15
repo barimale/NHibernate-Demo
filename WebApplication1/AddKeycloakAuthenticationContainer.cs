@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace Demo.Infrastructure;
 public static class AddKeycloakAuthenticationContainer
@@ -22,6 +23,7 @@ public static class AddKeycloakAuthenticationContainer
                     ValidAudience = "account",
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = false,
+                    RoleClaimType = ClaimsIdentity.DefaultRoleClaimType,
 
                     IssuerSigningKeyResolver = (token, securityToken, kid, parameters) =>
                     {
