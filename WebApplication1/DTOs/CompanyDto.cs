@@ -1,5 +1,4 @@
 ﻿using Demo.API.DTOs.Abstraction;
-using Demo.Domain.AggregatesModel.Company2Aggregate;
 using FluentValidation;
 
 namespace Demo.API.DTOs
