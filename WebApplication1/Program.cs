@@ -45,13 +45,11 @@ namespace Demo.API
                     {
                         Implicit = new OpenApiOAuthFlow
                         {
-                            // WIP
                             AuthorizationUrl = new Uri($"{builder.Configuration["Keycloak:BaseUrl"]}/realms/{builder.Configuration["Keycloak:Realm"]}/protocol/openid-connect/auth"),
                             Scopes = new Dictionary<string, string>
-                {
-                    { "openid", "openid scope for authentication" }
-                    // Optionally add additional scopes such as profile, email, etc.
-                }
+                            {
+                                { "openid", "openid scope for authentication" }
+                            }
                         }
                     }
                 });

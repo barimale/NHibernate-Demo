@@ -1,4 +1,6 @@
-﻿using Demo.API.Services;
+﻿using Azure.Core;
+using Demo.API.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
@@ -31,6 +33,15 @@ namespace Demo.API.Controllers
             {
                 return Unauthorized(ex.Message);
             }
+        }
+
+        [HttpGet("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await _keycloakAuthService.LogoutAsync();
+
+            return Ok("Logged out successfully.");
         }
 
         [HttpGet("roles")]

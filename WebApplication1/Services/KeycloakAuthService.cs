@@ -41,6 +41,27 @@ namespace Demo.API.Services
 
             throw new Exception("Login to keycloak instance failed");
         }
+
+        public async Task LogoutAsync()
+        {
+            var logoutEndpoint = $"{_configuration["Keycloak:BaseUrl"]}/realms/{_configuration["Keycloak:Realm"]}/protocol/openid-connect/logout";
+
+            var requestBody = new Dictionary<string, string>
+            {
+                { "client_id", _configuration["Keycloak:ClientId"] },
+                { "client_secret", _configuration["Keycloak:ClientSecret"] },
+                //{ "refresh_token", refreshToken }
+            };
+
+            var content = new FormUrlEncodedContent(requestBody);
+            var response = await _httpClient.PostAsync(logoutEndpoint, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Logout failed: {response.StatusCode} - {errorContent}");
+            }
+        }
     }
 
     public class TokenResponse

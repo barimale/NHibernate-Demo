@@ -36,7 +36,7 @@ public static class AddKeycloakAuthenticationContainer
                     }
                 };
 
-                options.RequireHttpsMetadata = true; //WIP Only in develop environment
+                options.RequireHttpsMetadata = true;
                 options.SaveToken = true;
             });
 
