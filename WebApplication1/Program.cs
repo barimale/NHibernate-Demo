@@ -38,38 +38,7 @@ namespace Demo.API
                 options.EnableAnnotations();
             });
 
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = $"{builder.Configuration["Keycloak:BaseUrl"]}/realms/{builder.Configuration["Keycloak:Realm"]}",
-
-                    ValidateAudience = true,
-                    ValidAudience = "account",// wip
-
-                    ValidateIssuerSigningKey = true,
-                    ValidateLifetime = false,
-
-                    IssuerSigningKeyResolver = (token, securityToken, kid, parameters) =>
-                    {
-                        var client = new HttpClient();
-                        var keyUri = $"{parameters.ValidIssuer}/protocol/openid-connect/certs";
-                        var response = client.GetAsync(keyUri).Result;
-                        var keys = new JsonWebKeySet(response.Content.ReadAsStringAsync().Result);
-
-                        return keys.GetSigningKeys();
-                    }
-                };
-
-                options.RequireHttpsMetadata = true; // Only in develop environment
-                options.SaveToken = true;
-            });
+            builder.Services.AddKeycloakAuthentication(builder.Configuration);
 
             builder.Services.AddHttpClient();
             builder.Services.AddScoped<KeycloakAuthService>();
