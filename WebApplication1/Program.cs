@@ -4,8 +4,6 @@ using Demo.API.Middlewares.GlobalExceptions.Handler;
 using Demo.API.Services;
 using Demo.Infrastructure;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Demo.API
