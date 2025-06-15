@@ -50,9 +50,9 @@ namespace Demo.API.Controllers
         /// <returns>Confirmation message upon successful logout.</returns>
         [HttpPost("logout")]
         [Authorize]
-        public async Task<IActionResult> Logout(string refreshToken)
+        public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
         {
-            await _keycloakAuthService.LogoutAsync(refreshToken);
+            await _keycloakAuthService.LogoutAsync(request.RefreshToken);
             return Ok("Logged out successfully.");
         }
 
@@ -70,6 +70,14 @@ namespace Demo.API.Controllers
                 .ToList();
 
             return Ok(new { Roles = roles });
+        }
+
+        public class LogoutRequest
+        {
+            /// <summary>
+            /// Gets or sets the refresh token for logout.
+            /// </summary>
+            public string RefreshToken { get; set; }
         }
 
         /// <summary>

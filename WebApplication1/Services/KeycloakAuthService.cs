@@ -50,7 +50,7 @@ namespace Demo.API.Services
             {
                 { "client_id", _configuration["Keycloak:ClientId"] },
                 { "client_secret", _configuration["Keycloak:ClientSecret"] },
-                //{ "refresh_token", refreshToken }
+                { "refresh_token", refreshToken }
             };
 
             var content = new FormUrlEncodedContent(requestBody);
