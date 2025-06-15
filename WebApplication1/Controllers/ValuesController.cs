@@ -18,7 +18,7 @@ namespace Demo.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "general2")]
+        [Authorize(Roles = "general2, admin2")]
         [Route("get-general")]
         public IActionResult GetGeneral()
         {
