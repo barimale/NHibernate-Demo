@@ -42,8 +42,10 @@ namespace Demo.UnitTests
                   .CheckProperty(p => p.Type, new ProductType() { Description = " booo" })
                   .VerifyTheMappings();
 
+                IEnumerable<long> example = session.Auditer().GetRevisions(typeof(Product), result.Id);
+
                 var reader = AuditReaderFactory.Get(session);
-                var auditedProduct = reader.Find<Product>(result.Id, 41);
+                var auditedProduct = reader.Find<Product>(result.Id, example.First());
                 Assert.AreEqual(auditedProduct.Name, "Product Name");
             }
         }
