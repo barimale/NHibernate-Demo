@@ -9,7 +9,6 @@ using FluentNHibernate.Cfg.Db;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NHibernate;
-using NLog.Extensions.Logging;
 using ISession = NHibernate.ISession;
 
 namespace Demo.Infrastructure
