@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace Demo.Infrastructure;
-public static class AddKeycloakAuthenticationContainer
+public static class AddKeycloakAuthenticationIServiceCollection
 {
     public static IServiceCollection AddKeycloakAuthentication
         (this IServiceCollection services, IConfiguration configuration)

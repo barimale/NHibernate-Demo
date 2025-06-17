@@ -49,7 +49,7 @@ namespace Demo.API
                             {
                                 { "openid", "openid scope for authentication" }
                             }
-                        }
+                        }   
                     }
                 });
 
