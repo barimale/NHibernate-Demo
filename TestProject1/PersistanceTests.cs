@@ -31,7 +31,7 @@ namespace Demo.UnitTests
         public void Product_persistence_test()
         {
             using (ISession session = _nHibernateHelper.OpenSession())
-            new PersistenceSpecification<Product>(session)
+            _ = new PersistenceSpecification<Product>(session)
               .CheckProperty(p => p.Name, "Product Name")
               .CheckProperty(p => p.Category, "Category Name")
               .CheckProperty(p => p.Discontinued, true)
@@ -43,7 +43,7 @@ namespace Demo.UnitTests
         public void Address_persistence_test()
         {
             using (ISession session = _nHibernateHelper.OpenSession())
-                new PersistenceSpecification<Address>(session)
+                _ = new PersistenceSpecification<Address>(session)
                   .CheckProperty(p => p.Street, "Street Name")
                   .VerifyTheMappings();
         }
@@ -52,7 +52,7 @@ namespace Demo.UnitTests
         public void Address2_persistence_test()
         {
             using (ISession session = _nHibernateHelper.OpenSession())
-                new PersistenceSpecification<Address2>(session)
+                _ = new PersistenceSpecification<Address2>(session)
                     .CheckProperty(p => p.Street, "Street Name")
                     .CheckProperty(p => p.ZipCode, "Street Name")
                     .CheckProperty(p => p.City, "Street Name")
@@ -66,7 +66,7 @@ namespace Demo.UnitTests
         public void Company_persistence_test()
         {
             using (ISession session = _nHibernateHelper.OpenSession())
-                new PersistenceSpecification<Company>(session)
+                _ = new PersistenceSpecification<Company>(session)
                     .CheckProperty(p => p.Foo,  "Foo Name")
                     .VerifyTheMappings();
         }
@@ -75,7 +75,7 @@ namespace Demo.UnitTests
         public void Company2_persistence_test()
         {
             using (ISession session = _nHibernateHelper.OpenSession())
-                new PersistenceSpecification<Company2>(session)
+                _ = new PersistenceSpecification<Company2>(session)
                     .CheckProperty(p => p.Foo, "Foo Name")
                     .CheckList(
                          c => c.Addresses,
@@ -90,7 +90,7 @@ namespace Demo.UnitTests
         public void Company2_without_addresses_persistence_test()
         {
             using (ISession session = _nHibernateHelper.OpenSession())
-                new PersistenceSpecification<Company2>(session)
+                _ = new PersistenceSpecification<Company2>(session)
                     .CheckProperty(p => p.Foo, "Foo Name")
                     .VerifyTheMappings();
         }
