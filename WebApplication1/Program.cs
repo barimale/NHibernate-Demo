@@ -30,6 +30,10 @@ namespace Demo.API
 
             builder.Services
                 .AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.IncludeFields = true;
+                })
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ProductValidator>());
 
             builder.Services.AddEndpointsApiExplorer();
