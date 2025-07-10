@@ -8,11 +8,11 @@
         /// <summary>  
         /// Gets or sets the unique identifier for the DTO.  
         /// </summary>  
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         /// <summary>  
         /// Gets or sets the version number of the DTO.  
         /// </summary>  
-        public int Version { get; set; }
+        public virtual int Version { get; set; }
     }
 }
