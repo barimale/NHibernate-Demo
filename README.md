@@ -12,6 +12,6 @@ podman run --name importedKeyloack -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCL
 ```
 
 # Step by step
-- run dockerized keycloak being in the main folder of the app
+- run dockerized keycloak being in the main folder of the project
 - run dockerized free oracle
 - run project as IIS Express
